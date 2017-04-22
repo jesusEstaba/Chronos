@@ -15,6 +15,14 @@ class CreateWorkforceCostsTable extends Migration
     {
         Schema::create('workforce_costs', function (Blueprint $table) {
             $table->increments('id');
+            
+            $table->double('cost');
+
+            $table->integer('workforceId')->unsigned();
+            $table->foreign('workforceId')
+                  ->references('id')
+                  ->on('workforces');
+
             $table->timestamps();
         });
     }

@@ -12,5 +12,14 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->to('login');
+});
+
+Route::get('login', 'LoginController@index');
+Route::post('login', 'LoginController@login');
+
+Route::group(['middleware' => 'isAuth'], function() {
+    Route::get('dashboard', 'DashboardController@index');
+
+	Route::resource('user', 'UserController');
 });

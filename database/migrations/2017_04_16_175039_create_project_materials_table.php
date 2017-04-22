@@ -15,6 +15,22 @@ class CreateProjectMaterialsTable extends Migration
     {
         Schema::create('project_materials', function (Blueprint $table) {
             $table->increments('id');
+            
+            $table->integer('partitieId')->unsigned();
+            $table->foreign('partitieId')
+                  ->references('id')
+                  ->on('partities');
+
+            $table->integer('materialId')->unsigned();
+            $table->foreign('materialId')
+                  ->references('id')
+                  ->on('materials');
+
+            $table->integer('costId')->unsigned();
+            $table->foreign('costId')
+                  ->references('id')
+                  ->on('material_costs');
+
             $table->timestamps();
         });
     }

@@ -15,6 +15,14 @@ class CreateEquipmentCostsTable extends Migration
     {
         Schema::create('equipment_costs', function (Blueprint $table) {
             $table->increments('id');
+
+            $table->double('cost');
+
+            $table->integer('equipmentId')->unsigned();
+            $table->foreign('equipmentId')
+                  ->references('id')
+                  ->on('equipments');
+
             $table->timestamps();
         });
     }
