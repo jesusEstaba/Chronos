@@ -15,6 +15,13 @@ class CreateMaterialCostsTable extends Migration
     {
         Schema::create('material_costs', function (Blueprint $table) {
             $table->increments('id');
+            $table->double('cost');
+
+            $table->integer('materialId')->unsigned();
+            $table->foreign('materialId')
+                  ->references('id')
+                  ->on('materials');
+
             $table->timestamps();
         });
     }

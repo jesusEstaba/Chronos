@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProjectPartitiesTable extends Migration
+class CreatePartitieMaterialsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,21 +13,20 @@ class CreateProjectPartitiesTable extends Migration
      */
     public function up()
     {
-        Schema::create('project_partities', function (Blueprint $table) {
+        Schema::create('partitie_materials', function (Blueprint $table) {
             $table->increments('id');
-
-            $table->float('yield');
-            $table->float('quantity');
-
-            $table->integer('projectId')->unsigned();
-            $table->foreign('projectId')
-                  ->references('id')
-                  ->on('projects');
 
             $table->integer('partitieId')->unsigned();
             $table->foreign('partitieId')
                   ->references('id')
                   ->on('partities');
+
+            $table->integer('materialId')->unsigned();
+            $table->foreign('materialId')
+                  ->references('id')
+                  ->on('materials');
+
+            $table->float('quantity');
 
             $table->timestamps();
         });
@@ -40,6 +39,6 @@ class CreateProjectPartitiesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('project_partities');
+        Schema::dropIfExists('partitie_materials');
     }
 }

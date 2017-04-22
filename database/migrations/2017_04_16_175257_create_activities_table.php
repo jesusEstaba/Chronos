@@ -15,6 +15,21 @@ class CreateActivitiesTable extends Migration
     {
         Schema::create('activities', function (Blueprint $table) {
             $table->increments('id');
+
+            $table->date('start');
+            $table->date('end');
+            $table->date('finish');
+
+            $table->integer('partitieId')->unsigned();
+            $table->foreign('partitieId')
+                  ->references('id')
+                  ->on('partities');
+
+            $table->integer('stateId')->unsigned();
+            $table->foreign('stateId')
+                  ->references('id')
+                  ->on('states');
+
             $table->timestamps();
         });
     }

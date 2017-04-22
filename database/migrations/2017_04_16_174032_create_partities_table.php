@@ -15,6 +15,19 @@ class CreatePartitiesTable extends Migration
     {
         Schema::create('partities', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name');
+            $table->float('yield');
+
+            $table->integer('companieId')->unsigned();
+            $table->foreign('companieId')
+                  ->references('id')
+                  ->on('companies');
+
+            $table->integer('unitId')->unsigned();
+            $table->foreign('unitId')
+                  ->references('id')
+                  ->on('units');
+
             $table->timestamps();
         });
     }
