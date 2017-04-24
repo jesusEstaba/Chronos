@@ -11,10 +11,16 @@
         -->
         
         <title>Dashboard @yield('subtitle')</title>
+    
+        <link href="{{asset('font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
+
+
+
         <!-- Bootstrap core CSS -->
         <link href="{{asset('bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
         <!-- Custom styles for this template -->
         <link href="{{asset('css/dashboard.css')}}" rel="stylesheet">
+        <link href="{{asset('css/main-dashboard.css')}}" rel="stylesheet">
         
     </head>
     <body>
@@ -33,6 +39,9 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Help</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">Logout</a>
                     </li>
                 </ul>
                 <form class="form-inline mt-2 mt-md-0">
@@ -72,7 +81,7 @@
                             <a id="partities" class="nav-link" href="#">Partidas</a>
                         </li>
                         <li class="nav-item">
-                            <a id="materials" class="nav-link" href="#">Materiales</a>
+                            <a id="materials" class="nav-link" href="/materials">Materiales</a>
                         </li>
                         <li class="nav-item">
                             <a id="workforce" class="nav-link" href="#">Mano de Obra</a>

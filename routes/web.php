@@ -16,10 +16,12 @@ Route::get('/', function () {
 });
 
 Route::get('login', 'LoginController@index');
+Route::get('logout', 'LoginController@logout');
 Route::post('login', 'LoginController@login');
 
 Route::group(['middleware' => 'isAuth'], function() {
     Route::get('dashboard', 'DashboardController@index');
 
 	Route::resource('user', 'UserController');
+	Route::resource('materials', 'MaterialController');
 });

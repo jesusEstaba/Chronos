@@ -84,7 +84,7 @@
             <input name="remember-me" type="checkbox" value="remember-me"> Recuérdame
           </label>
         </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
+        <button class="btn btn-lg btn-outline-primary btn-block" type="submit">Entrar</button>
       </form>
 
     </div>
