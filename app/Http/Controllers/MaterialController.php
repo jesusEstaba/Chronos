@@ -81,7 +81,11 @@ class MaterialController extends Controller
      */
     public function edit($id)
     {
-        //
+        $categories = Category::where('companieId', Auth::user()->companieId)->get();
+        $units = Unit::all();
+        $material = Material::where('companieId', Auth::user()->companieId)->find($id);
+        
+        return view('material.edit', compact('categories', 'units', 'material'));
     }
 
     /**

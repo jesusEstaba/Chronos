@@ -37,7 +37,7 @@
 					</td>
 					<td>{{ $material->lastCost()}}</td>
 					<td>
-						<a href="/materials/edit/{{$material->id}}" class="btn btn-outline-warning">
+						<a href="/materials/{{$material->id}}/edit" class="btn btn-outline-warning">
 							<i class="fa fa-pencil" aria-hidden="true"></i>
 						</a>
 					</td>
