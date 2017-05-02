@@ -13,7 +13,7 @@ class Material extends Model
         'categoryId'
     ];
 
-    private function costs() {
+    public function costs() {
     	return $this->hasMany('Cronos\MaterialCost', 'materialId');
     }
 

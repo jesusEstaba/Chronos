@@ -1,34 +1,43 @@
 @extends('material.material')
-@section('sub-title', '')
+@section('sub-title', 'Inicio')
 
 @section('sub-content')
 	<div class="notifications">
 		@if (session()->has('created'))
-			<div class="alert alert-success alert-dismissible fade show" role="alert">
-			  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-			    <span aria-hidden="true">&times;</span>
-			  </button>
-			  <strong>Correcto</strong> Material Creado.
-			</div>
+			@include('template.alert-success', ['state' => 'Correcto', 'message'=> 'Material Creado.'])
 		@endif
 	</div>
 	<br>
 	<div>
 		<a href="/materials/create" class="btn btn-outline-success">Crear</a>
 	</div>
-	<br>
-	<table class="table table-striped table-bordered">
-		<thead>
-			<td>Nombre</td>
-			<td>Categoria</td>
-			<td>Unidad</td>
-			<td>Costo</td>
-			<td>Editar</td>
-		</thead>
-		<tbody>
-			@foreach($materials as $material)
+
+<div class="box">
+	<div class="box-body">
+		<form action="/materials" method="get">
+			
+			<p>
+				<input type="text" name="search" placeholder="Buscar Material" class="form-control col-md-3 input-close-btn" />
+				<input type="submit" class="btn btn-outline-primary" value="Buscar" />
+			</p>
+			
+		</form>
+		<table class="table table-striped table-bordered">
+			<thead>
+				<td>Nombre</td>
+				<td>Categoria</td>
+				<td>Unidad</td>
+				<td>Costo</td>
+				<td>Editar</td>
+			</thead>
+			<tbody>
+				@foreach($materials as $material)
 				<tr>
-					<td>{{$material->name}}</td>
+					<td>
+						<a href="/materials/{{$material->id}}">
+							{{$material->name}}
+						</a>
+					</td>
 					<td>
 						{{$material->category->name}}
 					</td>
@@ -42,7 +51,10 @@
 						</a>
 					</td>
 				</tr>
-			@endforeach
-		</tbody>
-	</table>
+				@endforeach
+			</tbody>
+		</table>
+		{{ $materials->appends(['search' => $search])->links('vendor.pagination.bootstrap-4') }}
+	</div>
+</div>
 @stop

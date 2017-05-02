@@ -5,3 +5,42 @@
 input.btn, button.btn{
 	cursor: pointer;
 }
+
+.on-table{
+	border: 1px solid #eceeef;
+	border-bottom: none;
+	padding: 12px;
+}
+
+.input-close-btn{
+	display: inline-block;
+	/*margin-left: .2em;*/
+	margin-right: 0 !important;
+}
+
+body{
+	background: #ecf0f5;
+}
+
+nav.sidebar{
+	background: #404040;
+}
+nav.sidebar hr{
+	border-top: 1px solid rgba(216, 216, 216, 0.1);
+}
+
+.box {
+	/*border-radius: 3px;*/
+	background: white;
+	box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+	
+}
+
+.box, .box-clean{
+	padding: 1em .5em;
+	margin: 1em 0;
+}
+
+.box-body{
+	overflow: auto;
+}

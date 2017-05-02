@@ -17,11 +17,19 @@ class MaterialController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $materials = Material::where('companieId', Auth::user()->companieId)->get();
+        $search = $request->search;
 
-        return view('material.index', compact('materials'));
+        $materials = Material::where('companieId', Auth::user()->companieId)
+            ->where(function ($query) use ($search) {
+                if ($search) {
+                    $query->where('name', 'like', '%' . $search . '%');
+                }
+            })
+            ->paginate(10);
+
+        return view('material.index', compact('materials', 'search'));
     }
 
     /**
@@ -70,7 +78,14 @@ class MaterialController extends Controller
      */
     public function show($id)
     {
-        //
+        $material = Material::where('companieId', Auth::user()->companieId)
+            ->find($id);
+        
+        $materialCosts = $material->costs()
+            ->orderBy('id', 'desc')
+            ->paginate(5);
+        
+        return view('material.show', compact('material', 'materialCosts'));
     }
 
     /**
@@ -81,9 +96,11 @@ class MaterialController extends Controller
      */
     public function edit($id)
     {
-        $categories = Category::where('companieId', Auth::user()->companieId)->get();
+        $categories = Category::where('companieId', Auth::user()->companieId)
+            ->get();
+        $material = Material::where('companieId', Auth::user()->companieId)
+            ->find($id);
         $units = Unit::all();
-        $material = Material::where('companieId', Auth::user()->companieId)->find($id);
         
         return view('material.edit', compact('categories', 'units', 'material'));
     }
@@ -96,8 +113,18 @@ class MaterialController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
-        //
+    {   
+        Material::where('companieId', Auth::user()->companieId)
+            ->where('id', $id)
+            ->update([
+                'name' => $request->name,
+                'unitId' => $request->unit,
+                'categoryId' => $request->category
+            ]); 
+
+        session()->flash('updated', true);
+        
+        return redirect('/materials/' . $id . '/edit');
     }
 
     /**

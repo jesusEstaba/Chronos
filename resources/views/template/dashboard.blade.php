@@ -31,7 +31,7 @@
             <span class="navbar-toggler-icon"></span>
             </button>
             <a class="navbar-brand" href="/dashboard">
-                Dashboard
+                CRONOS
             </a>
             <div class="navbar-collapse collapse" id="navbarsExampleDefault" aria-expanded="false">
                 <ul class="navbar-nav mr-auto">

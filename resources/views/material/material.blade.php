@@ -3,6 +3,19 @@
 @section('activeId', 'materials')
 
 @section('content')
-	<h2 style="margin-top: 1em;">Materiales @yield('sub-title')</h2>
+	<div class="row">
+		<div class="col-md-6">
+			<h2 class="page-title">
+			@yield('titlePrincipal', 'Materiales')
+			</h2>
+		</div>
+		<div class="col-md-6">
+			<p class="text-right active">
+				/ @yield('sub-title')
+			</p>
+		</div>
+		
+	</div>
+
 	@yield('sub-content')
 @stop
