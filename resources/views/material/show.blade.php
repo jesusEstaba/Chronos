@@ -5,11 +5,9 @@
 
 @section('titlePrincipal', $material->name)
 
-<div class="notifications">
-		@if (session()->has('created'))
-			@include('template.alert-success', ['state' => 'Correcto', 'message'=> 'Costo Agregado.'])
-		@endif
-	</div>
+	<a href="/materials/{{$material->id}}/edit" class="btn btn-outline-warning">
+		<i class="fa fa-pencil" aria-hidden="true"></i> Editar
+	</a>
 
 <p>
 	<b>Category:</b> <a href="/categories/{{$material->category->id}}">{{$material->category->name}}</a> 

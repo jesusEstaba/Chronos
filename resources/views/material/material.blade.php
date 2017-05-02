@@ -3,18 +3,17 @@
 @section('activeId', 'materials')
 
 @section('content')
-	<div class="row">
-		<div class="col-md-6">
-			<h2 class="page-title">
-			@yield('titlePrincipal', 'Materiales')
-			</h2>
-		</div>
-		<div class="col-md-6">
-			<p class="text-right active">
-				/ @yield('sub-title')
-			</p>
-		</div>
-		
+	<h2 class="page-title">
+		@yield('titlePrincipal', 'Materiales')
+	</h2>
+
+	<div class="notifications">
+		@if (session()->has('success'))
+			@include(
+				'template.alert-success', 
+				['state' => 'Correcto', 'message'=> session()->get('success')]
+			)
+		@endif
 	</div>
 
 	@yield('sub-content')

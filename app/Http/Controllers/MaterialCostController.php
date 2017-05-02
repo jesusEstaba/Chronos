@@ -40,7 +40,7 @@ class MaterialCostController extends Controller
             'cost' => $request->cost
         ]);
 
-        session()->flash('created', true);
+        session()->flash('success', 'Costo Agregado.');
 
         return redirect('/materials/' . $request->materialId);
     }

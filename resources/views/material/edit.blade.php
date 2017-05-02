@@ -2,11 +2,6 @@
 @section('sub-title', 'Editar')
 
 @section('sub-content')
-	<div class="notifications">
-		@if (session()->has('updated'))
-			@include('template.alert-success', ['state' => 'Correcto', 'message'=> 'Material Actualizado.'])
-		@endif
-	</div>
 	<div class="box">
 		<div class="box-body">
 			<form class="space-childs" method="post" action="/materials/{{$material->id}}">
@@ -33,6 +28,7 @@
 					@endforeach
 				</select>
 				<input type="submit" class="btn btn-outline-warning float-right" value="Actualizar" />
+				<a class="btn btn-outline-secondary float-left" href="/materials/{{$material->id}}">Atrás</a>
 			</form>
 		</div>
 	</div>

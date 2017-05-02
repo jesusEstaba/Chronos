@@ -27,6 +27,7 @@ class MaterialController extends Controller
                     $query->where('name', 'like', '%' . $search . '%');
                 }
             })
+            ->orderBy('id', 'desc')
             ->paginate(10);
 
         return view('material.index', compact('materials', 'search'));
@@ -65,7 +66,7 @@ class MaterialController extends Controller
             'cost' => $request->cost
         ]);
 
-        session()->flash('created', true);
+        session()->flash('success', 'Material Creado.');
         
         return redirect('/materials');
     }
@@ -122,7 +123,7 @@ class MaterialController extends Controller
                 'categoryId' => $request->category
             ]); 
 
-        session()->flash('updated', true);
+        session()->flash('success', 'Material Actualizado.');
         
         return redirect('/materials/' . $id . '/edit');
     }
