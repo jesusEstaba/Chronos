@@ -16,7 +16,7 @@
 
 <div class="box">
 	<div class="box-head">
-		<h5>Añadir Nuevo Costo</h5>
+		<h5>Añadir Costo</h5>
 	</div>
 	<div class="box-body">
 		<form action="/materialcosts" method="post">

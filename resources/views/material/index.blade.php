@@ -43,7 +43,7 @@
 			</table>
 			{{ $materials->appends(['search' => $search])->links('vendor.pagination.bootstrap-4') }}
 		@else
-			<h4 class="text-center text-muted my-4">No se encontrarón Materiales</h4>
+			<h4 class="text-center text-muted my-4">No se encontrarón resultados</h4>
 		@endif
 	</div>
 </div>

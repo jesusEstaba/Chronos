@@ -13,10 +13,6 @@ class Material extends Model
         'categoryId'
     ];
 
-    public function costs() {
-    	return $this->hasMany('Cronos\MaterialCost', 'materialId');
-    }
-
     public function unit() {
     	return $this->belongsTo('Cronos\Unit', 'unitId');
     }
@@ -27,5 +23,9 @@ class Material extends Model
 
     public function lastCost() {
     	return $this->costs()->orderBy('id', 'desc')->first()->cost;
+    }
+
+    public function costs() {
+        return $this->hasMany('Cronos\MaterialCost', 'materialId');
     }
 }
