@@ -94,7 +94,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a id="equipment" class="nav-link" href="#">
+                            <a id="equipment" class="nav-link" href="/equipments">
                                 <i class="fa fa-wrench"></i>
                                 Equipos
                             </a>

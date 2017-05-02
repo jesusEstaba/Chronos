@@ -25,4 +25,7 @@ Route::group(['middleware' => 'isAuth'], function() {
 	Route::resource('user', 'UserController');
 	Route::resource('materials', 'MaterialController');
 	Route::resource('materialcosts', 'MaterialCostController');
+
+	Route::resource('equipments', 'EquipmentController');
+	Route::resource('equipmentcosts', 'EquipmentCostController');
 });
