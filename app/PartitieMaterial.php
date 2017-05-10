@@ -6,5 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class PartitieMaterial extends Model
 {
-    //
+    protected $fillable = [
+		'partitieId',
+		'materialId',
+		'quantity'
+    ];
 }

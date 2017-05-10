@@ -82,7 +82,7 @@
                     <hr>
                     <ul class="nav nav-pills flex-column">
                         <li class="nav-item">
-                            <a id="partities" class="nav-link" href="#">
+                            <a id="partities" class="nav-link" href="/partities">
                                 <i class="fa fa-folder-open"></i>
                                 Partidas
                             </a>

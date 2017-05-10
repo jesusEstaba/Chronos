@@ -28,4 +28,11 @@ Route::group(['middleware' => 'isAuth'], function() {
 
 	Route::resource('equipments', 'EquipmentController');
 	Route::resource('equipmentcosts', 'EquipmentCostController');
+
+	Route::resource('partities', 'PartitieController');
+	
+	Route::group(['prefix' => 'search'], function() {
+	    Route::post('materials', 'SearchController@materials');
+	    Route::post('equipments', 'SearchController@equipments');
+	});
 });
