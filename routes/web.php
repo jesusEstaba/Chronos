@@ -30,6 +30,10 @@ Route::group(['middleware' => 'isAuth'], function() {
 	Route::resource('equipmentcosts', 'EquipmentCostController');
 
 	Route::resource('partities', 'PartitieController');
+
+	Route::resource('categories', 'CategoryController');
+
+	Route::resource('units', 'UnitController');
 	
 	Route::group(['prefix' => 'search'], function() {
 	    Route::post('materials', 'SearchController@materials');

@@ -109,9 +109,15 @@
                     <hr>
                     <ul class="nav nav-pills flex-column">
                         <li class="nav-item">
-                            <a id="categories" class="nav-link" href="#">
-                                <i class="fa fa-tags"></i>
+                            <a id="categories" class="nav-link" href="/categories">
+                                <i class="fa fa-bookmark-o"></i>
                                 Categorias
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="units" class="nav-link" href="/units">
+                                <i class="fa fa-tag"></i>
+                                Unidades
                             </a>
                         </li>
                         <li class="nav-item">
