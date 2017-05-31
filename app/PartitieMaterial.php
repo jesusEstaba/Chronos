@@ -9,7 +9,8 @@ class PartitieMaterial extends Model
     protected $fillable = [
 		'partitieId',
 		'materialId',
-		'quantity'
+		'quantity',
+		'uniq'
     ];
 
     public function material() {

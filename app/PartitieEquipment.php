@@ -9,7 +9,8 @@ class PartitieEquipment extends Model
     protected $fillable = [
 		'partitieId',
 		'equipmentId',
-		'quantity'
+		'quantity',
+		'uniq'
     ];
 
     public function equipment() {

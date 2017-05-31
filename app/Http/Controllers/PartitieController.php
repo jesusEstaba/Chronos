@@ -66,6 +66,7 @@ class PartitieController extends Controller
                 'partitieId' => $partitieId,
                 'materialId' => $material['id'],
                 'quantity' => $material['qty'],
+                'uniq' => 0,
             ]);
         }
 
@@ -74,6 +75,7 @@ class PartitieController extends Controller
                 'partitieId' => $partitieId,
                 'equipmentId' => $equipment['id'],
                 'quantity' => $equipment['qty'],
+                'uniq' => 0,
             ]);
         }
 

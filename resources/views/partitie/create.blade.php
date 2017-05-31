@@ -109,7 +109,7 @@
 								totalInMaterials();
 							});
 
-							$('.materials').on('keyup', '[name="qty-material"]',function(e) {
+							$('.materials').on('keyup', '[name="qty"]',function(e) {
 								if (!isNaN($(this).val())) {
 									totalInMaterials();
 								}
@@ -223,7 +223,7 @@
 								totalInEquipments();
 							});
 
-							$('.equipments').on('keyup', '[name="qty-equipment"]',function(e) {
+							$('.equipments').on('keyup', '[name="qty"]',function(e) {
 								if (!isNaN($(this).val())) {
 									totalInEquipments();
 								}
