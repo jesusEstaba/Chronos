@@ -11,4 +11,8 @@ class PartitieMaterial extends Model
 		'materialId',
 		'quantity'
     ];
+
+    public function material() {
+        return $this->belongsTo('Cronos\Material', 'materialId');
+    }
 }

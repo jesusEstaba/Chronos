@@ -11,4 +11,8 @@ class PartitieEquipment extends Model
 		'equipmentId',
 		'quantity'
     ];
+
+    public function equipment() {
+        return $this->belongsTo('Cronos\Equipment', 'equipmentId');
+    }
 }

@@ -21,6 +21,7 @@
 					<script type="text/javascript">
 						$(function() {
 							//MATERIAl
+							var materialList = [];
 
 							$('#search-materials').on('click', function(e) {
 								e.preventDefault();
@@ -38,12 +39,20 @@
 									$('.list-materials').html("");
 
 									data.forEach((material) => {
-										$('.list-materials').append(`<div style="margin:.5em 0;">
-											<a href="javascript:;" class="add-material btn btn-outline-success" data-material="${material.id}">
-												<i class="fa fa-plus" aria-hidden="true"></i>
-											</a>
-											<span class="name">${material.name}</span>
-										<div>`);
+										if (!materialList.some(id => id == material.id)) {
+											$('.list-materials').append(`<div style="margin:.5em 0;">
+												<a href="javascript:;" 
+													class="add-material btn btn-outline-success"
+													data-material="${material.id}"
+													data-material-unit="${material.unitId}"
+													data-material-price="${material.price}"
+												>
+													<i class="fa fa-plus" aria-hidden="true"></i>
+												</a>
+												<span class="name">${material.name}</span>
+											<div>`);
+										}
+										
 									});
 
 									$('[name="search-materials"]').val("");
@@ -55,25 +64,78 @@
 
 							$('.list-materials').on('click', '.add-material',function(e) {
 								e.preventDefault();
-								$('.materials').append(`<div class="material-item" style="margin:.5em 0;">
-									<a class="remove-item" href="javascript:;">
-										<i class="fa fa-times" aria-hidden="true"></i>
-									</a>
-									<input type="text" name="qty-material" class="form-control col-md-1 input-close-btn" data-material-id="${$(this).attr('data-material')}"/>
-									${$(this).siblings('.name').html()}
-									
-									</div>`);
+								
+								materialList.push($(this).attr('data-material'));
+
+								$(this).parent().remove();
+								$('.materials tbody').append(`<tr>
+									<td>
+										<a class="remove-item" href="javascript:;">
+											<i class="fa fa-times" aria-hidden="true"></i>
+										</a>
+									</td>
+									<td>
+										${$(this).siblings('.name').html()}
+									</td>
+									<td class="price">
+										${$(this).attr('data-material-price')}
+									</td>
+									<td class="quantity">
+										<input type="text" 
+											name="qty" 
+											class="form-control  input-close-btn" 
+											data-item-id="${$(this).attr('data-material')}"
+											value="1"
+										/>
+									</td>
+									<td>
+										${$(this).attr('data-material-unit')}
+									</td>
+									<td>
+										<label class="custom-control custom-checkbox">
+										  <input type="checkbox" class="custom-control-input"
+										  	name="uniq">
+										  <span class="custom-control-indicator"></span>
+										</label>
+									</td>
+								</tr>`);
+								totalInMaterials();
 							});
 
 
 							$('.materials').on('click', '.remove-item',function(e) {
 								e.preventDefault();
-								$(this).parent().remove();
+								$(this).parent().parent().remove();
+								totalInMaterials();
 							});
+
+							$('.materials').on('keyup', '[name="qty-material"]',function(e) {
+								if (!isNaN($(this).val())) {
+									totalInMaterials();
+								}
+							});
+
+							function totalInMaterials() {
+								var total = 0;
+
+								$('.materials tbody tr').each(function(index, el) {
+									var price = Number($(el).children('.price').html()),
+										qty = Number($(el).children('.quantity').children('input').val());
+									
+									if (!isNaN(qty)) {
+										total += price * qty;	
+									}
+									
+								});
+
+								$('.total-materials').html(total.toFixed(2));
+							}
 
 							//EQUIPMENT
 
-							$('#search-equipment').on('click', function(e) {
+							var equipmentList = [];
+
+							$('#search-equipments').on('click', function(e) {
 								e.preventDefault();
 
 								$.ajax({	
@@ -89,12 +151,19 @@
 									$('.list-equipments').html("");
 
 									data.forEach((equipment) => {
-										$('.list-equipments').append(`<div style="margin:.5em 0;">
-											<a href="javascript:;" class="add-equipment btn btn-outline-success" data-equipment="${equipment.id}">
-												<i class="fa fa-plus" aria-hidden="true"></i>
-											</a>
-											<span class="name">${equipment.name}</span>
-										<div>`);
+										if (!equipmentList.some(id => id == equipment.id)) {
+											$('.list-equipments').append(`<div style="margin:.5em 0;">
+												<a href="javascript:;" 
+													class="add-equipment btn btn-outline-success"
+													data-equipment="${equipment.id}"
+													data-equipment-price="${equipment.price}"
+												>
+													<i class="fa fa-plus" aria-hidden="true"></i>
+												</a>
+												<span class="name">${equipment.name}</span>
+											<div>`);
+										}
+										
 									});
 
 									$('[name="search-equipments"]').val("");
@@ -106,21 +175,76 @@
 
 							$('.list-equipments').on('click', '.add-equipment',function(e) {
 								e.preventDefault();
-								$('.equipments').append(`<div class="equipment-item" style="margin:.5em 0;">
-									<a class="remove-item" href="javascript:;">
-										<i class="fa fa-times" aria-hidden="true"></i>
-									</a>
-									<input type="text" name="qty-equipment" class="form-control col-md-1 input-close-btn" data-equipment-id="${$(this).attr('data-equipment')}"/>
-									${$(this).siblings('.name').html()}
-									
-									</div>`);
+								
+								equipmentList.push($(this).attr('data-equipment'));
+
+								$(this).parent().remove();
+								$('.equipments tbody').append(`<tr>
+									<td>
+										<a class="remove-item" href="javascript:;">
+											<i class="fa fa-times" aria-hidden="true"></i>
+										</a>
+									</td>
+									<td>
+										${$(this).siblings('.name').html()}
+									</td>
+									<td class="price">
+										${$(this).attr('data-equipment-price')}
+									</td>
+									<td class="quantity">
+										<input type="text" 
+											name="qty" 
+											class="form-control  input-close-btn" 
+											data-item-id="${$(this).attr('data-equipment')}"
+											value="1"
+										/>
+									</td>
+									<td>
+										<label class="custom-control custom-checkbox">
+										  <input type="checkbox" class="custom-control-input" name="uniq">
+										  <span class="custom-control-indicator"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom-control custom-checkbox">
+										  <input type="checkbox" class="custom-control-input"
+										  	name="workers">
+										  <span class="custom-control-indicator"></span>
+										</label>
+									</td>
+								</tr>`);
+								totalInEquipments();
 							});
 
 
 							$('.equipments').on('click', '.remove-item',function(e) {
 								e.preventDefault();
-								$(this).parent().remove();
+								$(this).parent().parent().remove();
+								totalInEquipments();
 							});
+
+							$('.equipments').on('keyup', '[name="qty-equipment"]',function(e) {
+								if (!isNaN($(this).val())) {
+									totalInEquipments();
+								}
+								
+							});
+
+							function totalInEquipments() {
+								var total = 0;
+
+								$('.equipments tbody tr').each(function(index, el) {
+									var price = Number($(el).children('.price').html()),
+										qty = Number($(el).children('.quantity').children('input').val());
+									
+									if (!isNaN(qty)) {
+										total += price * qty;	
+									}
+									
+								});
+
+								$('.total-equipments').html(total.toFixed(2));
+							}
 
 							//GLOBAL
 
@@ -132,17 +256,21 @@
 									var materials = [],
 										equipments = [];
 
-									$('[name="qty-material"]').each(function() {
+									$('.materials tbody tr').each(function() {
 										materials.push({
-											"id": $(this).attr('data-material-id'),
-											"qty": $(this).val()
+											'id': $(this).find('[name="qty"]').attr('data-item-id'),
+											'qty': $(this).find('[name="qty"]').val(),
+											'uniq': $(this).find('[name="uniq"]').val(),
+											'workers': $(this).find('[name="workers"]').val()
 										});
 									});
 
-									$('[name="qty-equipment"]').each(function() {
+									$('.equipments tbody tr').each(function() {
 										equipments.push({
-											"id": $(this).attr('data-equipment-id'),
-											"qty": $(this).val()
+											'id': $(this).find('[name="qty"]').attr('data-item-id'),
+											'qty': $(this).find('[name="qty"]').val(),
+											'uniq': $(this).find('[name="uniq"]').val(),
+											'workers': $(this).find('[name="workers"]').val()
 										});
 									});
 
@@ -175,9 +303,8 @@
 							
 						})
 					</script>
-					<h5>Materiales</h5>
-					
-					<a href="#" data-toggle="modal" data-target="#myModal" class="btn btn-outline-success">Agregar</a>
+					<h3>Materiales <a href="#" data-toggle="modal" data-target="#myModal" class="btn btn-outline-success">Agregar</a>
+					</h3>
 					
 					<!-- Modal -->
 					<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -205,18 +332,30 @@
 					    </div>
 					  </div>
 					</div>
-					
-					<div class="materials">
-						
-					</div>
+
+					<table class="table table-striped materials">
+						<thead class="thead-inverse">
+							<tr>
+								<th></th>
+								<th>Nombre</th>
+								<th>Precio</th>
+								<th>Cantidad</th>
+								<th>Unidad</th>
+								<th>Unico</th>
+							</tr>
+						</thead>
+						<tbody>
+							
+						</tbody>
+					</table>
+					<h4>Total: <span class="total-materials">0</span></h4>
 				</div>
 					
 				<br>
 
 				<div id="equipment">
-					<h5>Equipos</h5>
-					
-					<a href="#" data-toggle="modal" data-target="#equipmentModal" class="btn btn-outline-success">Agregar</a>
+					<h3>Equipos <a href="#" data-toggle="modal" data-target="#equipmentModal" class="btn btn-outline-success">Agregar</a>
+					</h3>
 					
 					<!-- Modal -->
 					<div class="modal fade" id="equipmentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -230,7 +369,7 @@
 					      </div>
 					      <div class="modal-body">
 					        <input type="text" name="search-equipments" class="form-control col-md-7 input-close-btn" placeholder="Nombre del Equipo" />
-					        <a href="javascript:;" class="btn btn-outline-primary" id="search-equipment">
+					        <a href="javascript:;" class="btn btn-outline-primary" id="search-equipments">
 					        	Buscar
 					        </a>
 					        <br>
@@ -245,9 +384,22 @@
 					  </div>
 					</div>
 
-					<div class="equipments">
-						
-					</div>
+					<table class="table table-striped equipments">
+						<thead class="thead-inverse">
+							<tr>
+								<th></th>
+								<th>Nombre</th>
+								<th>Precio</th>
+								<th>Cantidad</th>
+								<th>Unico</th>
+								<th>Por Trabajador</th>
+							</tr>
+						</thead>
+						<tbody>
+							
+						</tbody>
+					</table>
+					<h4>Total: <span class="total-equipments">0</span></h4>
 				</div>
 
 			<input type="submit" class="btn btn-outline-success float-right" value="Crear" />

@@ -5,6 +5,9 @@ namespace Cronos\Http\Controllers;
 use Illuminate\Http\Request;
 use Cronos\Material;
 use Cronos\Equipment;
+use Cronos\MaterialCost;
+use Cronos\EquipmentCost;
+
 use Auth;
 
 class SearchController extends Controller
@@ -29,6 +32,13 @@ class SearchController extends Controller
             ->take(10)//limitar o paginar
             ->get();
 
+        foreach ($materials as $material) {
+            $material->price = MaterialCost::where('materialId', $material->id)
+                ->orderBy('id', 'desc')
+                ->first()
+                ->cost;
+        }
+
     	return response()->json($materials);
     }
 
@@ -36,7 +46,7 @@ class SearchController extends Controller
     {
     	$search = $request->search;
 
-    	$equipment = Equipment::where('companieId', Auth::user()->companieId)
+    	$equipments = Equipment::where('companieId', Auth::user()->companieId)
             ->where(function ($query) use ($search) {
                 if ($search) {
                     $query->where('name', 'like', '%' . $search . '%');
@@ -46,6 +56,13 @@ class SearchController extends Controller
             ->take(10)//limitar o paginar
             ->get();
 
-    	return response()->json($equipment);
+        foreach ($equipments as $equipment) {
+            $equipment->price = EquipmentCost::where('equipmentId', $equipment->id)
+                ->orderBy('id', 'desc')
+                ->first()
+                ->cost;
+        }
+
+    	return response()->json($equipments);
     }
 }

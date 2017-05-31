@@ -88,7 +88,17 @@ class PartitieController extends Controller
      */
     public function show($id)
     {
-        //
+        $partitie = Partitie::where('companieId', Auth::user()->companieId)
+            ->where('id', $id)
+            ->first();
+
+        $materials = PartitieMaterial::where('partitieId', $id)
+            ->get();
+
+        $equipments = PartitieEquipment::where('partitieId', $id)
+            ->get();
+
+        return view('partitie.show2', compact('partitie', 'materials', 'equipments'));
     }
 
     /**
