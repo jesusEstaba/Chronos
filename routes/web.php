@@ -29,6 +29,9 @@ Route::group(['middleware' => 'isAuth'], function() {
 	Route::resource('equipments', 'EquipmentController');
 	Route::resource('equipmentcosts', 'EquipmentCostController');
 
+	Route::resource('workforces', 'WorkforceController');
+	Route::resource('workforcecosts', 'WorkforceCostController');
+
 	Route::resource('partities', 'PartitieController');
 
 	Route::resource('categories', 'CategoryController');

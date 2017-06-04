@@ -100,7 +100,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a id="workforce" class="nav-link" href="#">
+                            <a id="workforce" class="nav-link" href="/workforces">
                                 <i class="fa fa-sign-language"></i>
                                 Mano de Obra
                             </a>
