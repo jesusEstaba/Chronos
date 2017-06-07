@@ -28,7 +28,7 @@
 								{{$workforce->name}}
 							</a>
 						</td>
-						<td>{{ $workforce->lastCost()}}</td>
+						<td>{{ $workforce->lastCost()}}%</td>
 					</tr>
 					@endforeach
 				</tbody>

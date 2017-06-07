@@ -3,6 +3,13 @@
 
 @section('sub-content')
 	<div class="box">
+		<script type="text/javascript">
+			$(() => {
+				$('.custom-checkbox').on('click', function(e) {
+					e.preventDefault();
+				});
+			})
+		</script>
 		<div class="box-body">
 			@section('titlePrincipal', $partitie->name)
 			<p>
@@ -36,7 +43,11 @@
 								<td>{{$material->material->unit->abbreviature}}</td>
 								<td>
 									<label class="custom-control custom-checkbox">
-										<input type="checkbox" class="custom-control-input" disabled>
+										<input type="checkbox" class="custom-control-input"
+										@if($material->uniq)
+										checked
+										@endif
+										>
 										<span class="custom-control-indicator"></span>
 									</label>
 								</td>
@@ -68,16 +79,45 @@
 								<td>{{$equipment->quantity}}</td>
 								<td>
 									<label class="custom-control custom-checkbox">
-										<input type="checkbox" class="custom-control-input" disabled>
+										<input type="checkbox" class="custom-control-input" 
+										@if($equipment->uniq)
+										checked
+										@endif
+										>
 										<span class="custom-control-indicator"></span>
 									</label>
 								</td>
 								<td>
 									<label class="custom-control custom-checkbox">
-										<input type="checkbox" class="custom-control-input" disabled>
+										<input type="checkbox" class="custom-control-input" 
+										@if($equipment->workers)
+										checked
+										@endif>
 										<span class="custom-control-indicator"></span>
 									</label>
 								</td>
+							</tr>
+						@endforeach
+					</tbody>
+				</table>
+			</div>
+
+			<div id="workforce">
+				<h3>Mano de Obra</h3>
+				<table class="table table-striped workforces">
+					<thead class="thead-inverse">
+						<tr>
+							<th>Cargo</th>
+							<th>Salario</th>
+							<th>Cantidad</th>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach($workforces as $workforce)
+							<tr>
+								<td>{{$workforce->workforce->name}}</td>
+								<td>{{$workforce->workforce->lastCost()}}</td>
+								<td>{{$workforce->quantity}}</td>
 							</tr>
 						@endforeach
 					</tbody>

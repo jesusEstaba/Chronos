@@ -8,6 +8,7 @@ use Cronos\Unit;
 use Cronos\Partitie;
 use Cronos\PartitieMaterial;
 use Cronos\PartitieEquipment;
+use Cronos\PartitieWorkforce;
 use Auth;
 
 class PartitieController extends Controller
@@ -80,6 +81,14 @@ class PartitieController extends Controller
             ]);
         }
 
+        foreach ($request->workforces as $workforce) {
+            PartitieWorkforce::create([
+                'partitieId' => $partitieId,
+                'workforceId' => $workforce['id'],
+                'quantity' => $workforce['qty'],
+            ]);
+        }
+
         return response()->json(["redirect" => true]);
     }
 
@@ -101,7 +110,18 @@ class PartitieController extends Controller
         $equipments = PartitieEquipment::where('partitieId', $id)
             ->get();
 
-        return view('partitie.show2', compact('partitie', 'materials', 'equipments'));
+        $workforces = PartitieWorkforce::where('partitieId', $id)
+            ->get();
+
+        return view(
+            'partitie.show2', 
+            compact(
+                'partitie', 
+                'materials', 
+                'equipments', 
+                'workforces'
+            )
+        );
     }
 
     /**

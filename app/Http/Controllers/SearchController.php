@@ -5,8 +5,10 @@ namespace Cronos\Http\Controllers;
 use Illuminate\Http\Request;
 use Cronos\Material;
 use Cronos\Equipment;
+use Cronos\Workforce;
 use Cronos\MaterialCost;
 use Cronos\EquipmentCost;
+use Cronos\WorkforceCost;
 
 use Auth;
 
@@ -64,5 +66,29 @@ class SearchController extends Controller
         }
 
     	return response()->json($equipments);
+    }
+
+    public function workforces(Request $request)
+    {
+        $search = $request->search;
+
+        $workforces = Workforce::where('companieId', Auth::user()->companieId)
+            ->where(function ($query) use ($search) {
+                if ($search) {
+                    $query->where('name', 'like', '%' . $search . '%');
+                }
+            })
+            ->orderBy('id', 'desc')
+            ->take(10)//limitar o paginar
+            ->get();
+
+        foreach ($workforces as $workforce) {
+            $workforce->price = WorkforceCost::where('workforceId', $workforce->id)
+                ->orderBy('id', 'desc')
+                ->first()
+                ->cost;
+        }
+
+        return response()->json($workforces);
     }
 }

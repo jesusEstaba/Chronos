@@ -41,5 +41,6 @@ Route::group(['middleware' => 'isAuth'], function() {
 	Route::group(['prefix' => 'search'], function() {
 	    Route::post('materials', 'SearchController@materials');
 	    Route::post('equipments', 'SearchController@equipments');
+	    Route::post('workforces', 'SearchController@workforces');
 	});
 });
