@@ -10,7 +10,8 @@ class PartitieEquipment extends Model
 		'partitieId',
 		'equipmentId',
 		'quantity',
-		'uniq'
+		'uniq',
+		'workers'
     ];
 
     public function equipment() {

@@ -94,7 +94,7 @@
 									<td>
 										<label class="custom-control custom-checkbox">
 										  <input type="checkbox" class="custom-control-input"
-										  	name="uniq">
+										  	name="uniq" value="off">
 										  <span class="custom-control-indicator"></span>
 										</label>
 									</td>
@@ -201,13 +201,13 @@
 									</td>
 									<td>
 										<label class="custom-control custom-checkbox">
-										  <input type="checkbox" class="custom-control-input" name="uniq">
+										  <input value="off" type="checkbox" class="custom-control-input" name="uniq">
 										  <span class="custom-control-indicator"></span>
 										</label>
 									</td>
 									<td>
 										<label class="custom-control custom-checkbox">
-										  <input type="checkbox" class="custom-control-input"
+										  <input value="off" type="checkbox" class="custom-control-input"
 										  	name="workers">
 										  <span class="custom-control-indicator"></span>
 										</label>
@@ -260,8 +260,7 @@
 										materials.push({
 											'id': $(this).find('[name="qty"]').attr('data-item-id'),
 											'qty': $(this).find('[name="qty"]').val(),
-											'uniq': $(this).find('[name="uniq"]').val(),
-											'workers': $(this).find('[name="workers"]').val()
+											'uniq': $(this).find('[name="uniq"]').val()
 										});
 									});
 
@@ -298,6 +297,15 @@
 									});
 									
 								}//end if
+							});
+
+
+							$('.box-body').on('click', '.custom-checkbox', function(e) {
+								e.preventDefault();
+
+								var $input = $(this).children("input");
+								$input.val(($input.val() == "on") ? "off" : "on");
+								$input.prop("checked", () => !$input.prop("checked"));
 							});
 
 							
