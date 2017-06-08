@@ -61,19 +61,19 @@
                 <nav class="col-sm-3 col-md-2 hidden-xs-down bg-faded sidebar">
                     <ul class="nav nav-pills flex-column">
                         <li class="nav-item">
-                            <a id="projects" class="nav-link" href="#">
+                            <a id="projects" class="nav-link disabled" href="#">
                                 <i class="fa fa-object-group"></i>
                                 Proyectos
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a id="schedule" class="nav-link" href="#">
+                            <a id="schedule" class="nav-link disabled" href="#">
                                 <i class="fa fa-calendar-o"></i>
                                 Actividades
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a id="clients" class="nav-link" href="#">
+                            <a id="clients" class="nav-link disabled" href="#">
                                 <i class="fa fa-address-card-o"></i>
                                 Clientes
                             </a>
@@ -121,8 +121,8 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a id="employees" class="nav-link" href="#">
-                                <i class="fa fa-users"></i>
+                            <a id="employees" class="nav-link disabled" href="#">
+                                <i class="fa fa-users disabled"></i>
                                 Trabajadores
                             </a>
                         </li>
