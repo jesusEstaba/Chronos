@@ -6,6 +6,7 @@
 			<form class="space-childs" method="POST" action="/equipments">
 				{{csrf_field()}}
 				<input name="name" type="text" class="form-control" placeholder="Nombre" autocomplete="off" />
+				<input name="depreciation" type="text" class="form-control" placeholder="Depreciación" autocomplete="off" />
 				<select class="form-control" name="category">
 					@foreach($categories as $category)
 					<option value="{{$category->id}}">{{$category->name}}</option>

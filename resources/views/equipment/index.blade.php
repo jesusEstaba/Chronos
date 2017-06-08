@@ -16,9 +16,10 @@
 		@if(count($equipments))
 			<table class="table table-striped table-bordered">
 				<thead>
-					<td>Nombre</td>
-					<td>Categoria</td>
-					<td>Costo</td>
+					<th>Nombre</th>
+					<th>Categoria</th>
+					<th>Depreciación</th>
+					<th>Costo</th>
 				</thead>
 				<tbody>
 					@foreach($equipments as $equipment)
@@ -30,6 +31,9 @@
 						</td>
 						<td>
 							{{$equipment->category->name}}
+						</td>
+						<td>
+							{{$equipment->depreciation}}
 						</td>
 						<td>{{ $equipment->lastCost()}}</td>
 					</tr>

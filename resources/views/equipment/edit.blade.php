@@ -7,6 +7,7 @@
 				{{csrf_field()}}
 				<input name="_method" type="hidden" value="PUT">
 				<input name="name" type="text" class="form-control" placeholder="Nombre" autocomplete="off" value="{{$equipment->name}}" />
+				<input name="depreciation" type="text" class="form-control" placeholder="Depreciación" autocomplete="off" value="{{$equipment->depreciation}}" />
 				<select class="form-control" name="category">
 					@foreach($categories as $category)
 						@if($category->id == $equipment->category->id)

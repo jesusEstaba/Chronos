@@ -54,7 +54,8 @@ class EquipmentController extends Controller
         $equipmentId = Equipment::create([
             'name' => $request->name,
             'companieId' => Auth::user()->companieId,
-            'categoryId' => $request->category
+            'categoryId' => $request->category,
+            'depreciation' => (double) str_replace(',', '.', $request->depreciation)
         ])->id;
 
         EquipmentCost::create([
@@ -114,7 +115,8 @@ class EquipmentController extends Controller
             ->where('id', $id)
             ->update([
                 'name' => $request->name,
-                'categoryId' => $request->category
+                'categoryId' => $request->category,
+                'depreciation' => (double) str_replace(',', '.', $request->depreciation)
             ]); 
 
         session()->flash('success', 'Equipo Actualizado.');

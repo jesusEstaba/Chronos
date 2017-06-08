@@ -11,7 +11,8 @@ class Equipment extends Model
 	protected $fillable = [
     	'name',
         'companieId',
-        'categoryId'
+        'categoryId',
+        'depreciation'
     ];
 
     public function category() {
