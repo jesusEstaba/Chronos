@@ -17,7 +17,8 @@
 		@if(count($partities))
 			<table class="table table-striped table-bordered">
 				<thead>
-					<td>Nombre</td>
+					<th>Nombre</th>
+					<th>Costo</th>
 				</thead>
 				<tbody>
 					@foreach($partities as $partitie)
@@ -27,6 +28,7 @@
 								{{$partitie->name}}
 							</a>
 						</td>
+						<td>0</td>
 					</tr>
 					@endforeach
 				</tbody>

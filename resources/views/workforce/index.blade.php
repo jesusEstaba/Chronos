@@ -17,8 +17,8 @@
 		@if(count($workforces))
 			<table class="table table-striped table-bordered">
 				<thead>
-					<td>Cargo</td>
-					<td>% Salario Minimo</td>
+					<th>Cargo</th>
+					<th>% Salario Minimo</th>
 				</thead>
 				<tbody>
 					@foreach($workforces as $workforce)

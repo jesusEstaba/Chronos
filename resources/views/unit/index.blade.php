@@ -52,8 +52,8 @@
 		@if(count($units))
 			<table class="table table-striped table-bordered">
 				<thead>
-					<td>Nombre</td>
-					<td>Abreviatura</td>
+					<th>Nombre</th>
+					<th>Abreviatura</th>
 				</thead>
 				<tbody>
 					@foreach($units as $unit)

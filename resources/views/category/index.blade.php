@@ -45,7 +45,7 @@
 		@if(count($categories))
 			<table class="table table-striped table-bordered">
 				<thead>
-					<td>Nombre</td>
+					<th>Nombre</th>
 				</thead>
 				<tbody>
 					@foreach($categories as $category)

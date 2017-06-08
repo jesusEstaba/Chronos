@@ -101,6 +101,8 @@
 					</tbody>
 				</table>
 			</div>
+			
+			<br>
 
 			<div id="workforce">
 				<h3>Mano de Obra</h3>

@@ -17,10 +17,10 @@
 		@if(count($materials))
 			<table class="table table-striped table-bordered">
 				<thead>
-					<td>Nombre</td>
-					<td>Categoria</td>
-					<td>Unidad</td>
-					<td>Costo</td>
+					<th>Nombre</th>
+					<th>Categoria</th>
+					<th>Unidad</th>
+					<th>Costo</th>
 				</thead>
 				<tbody>
 					@foreach($materials as $material)

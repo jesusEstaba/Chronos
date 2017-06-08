@@ -30,8 +30,8 @@
 	<div class="box-body">
 		<table class="table table-striped table-bordered">
 			<thead>
-				<td>% Salario</td>
-				<td>Fecha</td>
+				<th>% Salario</th>
+				<th>Fecha</th>
 			</thead>
 			<tbody>
 				@foreach($workforceCosts as $cost)

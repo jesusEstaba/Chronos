@@ -32,8 +32,8 @@
 	<div class="box-body">
 		<table class="table table-striped table-bordered">
 			<thead>
-				<td>Costo</td>
-				<td>Fecha</td>
+				<th>Costo</th>
+				<th>Fecha</th>
 			</thead>
 			<tbody>
 				@foreach($equipmentCosts as $cost)
