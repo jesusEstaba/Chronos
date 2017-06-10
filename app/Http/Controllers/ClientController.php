@@ -26,7 +26,7 @@ class ClientController extends Controller
             ->orderBy('id', 'desc')
             ->paginate(10);
 
-        return view('client.index', compact('clients'));
+        return view('client.index', compact('clients', 'search'));
     }
 
     /**
@@ -49,9 +49,9 @@ class ClientController extends Controller
     {
         Client::create([
             'name' => $request->name,
-            'rif' => $request->rif,
-            'address' => $request->address,
-            'phone' => $request->phone,
+            'rif' => $request->rif ?? '',
+            'address' => $request->address ?? '',
+            'phone' => $request->phone ?? '',
             'companieId' => Auth::user()->companieId,
         ]);
 
