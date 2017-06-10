@@ -61,7 +61,7 @@
                 <nav class="col-sm-3 col-md-2 hidden-xs-down bg-faded sidebar">
                     <ul class="nav nav-pills flex-column">
                         <li class="nav-item">
-                            <a id="projects" class="nav-link disabled" href="#">
+                            <a id="projects" class="nav-link" href="/projects">
                                 <i class="fa fa-object-group"></i>
                                 Proyectos
                             </a>
@@ -73,7 +73,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a id="clients" class="nav-link disabled" href="#">
+                            <a id="clients" class="nav-link" href="/clients">
                                 <i class="fa fa-address-card-o"></i>
                                 Clientes
                             </a>

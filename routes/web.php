@@ -36,6 +36,11 @@ Route::group(['middleware' => 'isAuth'], function() {
 
 	Route::resource('categories', 'CategoryController');
 
+	Route::resource('projects', 'ProjectController');
+	Route::resource('clients', 'ClientController');
+
+
+
 	Route::resource('units', 'UnitController');
 	
 	Route::group(['prefix' => 'search'], function() {
