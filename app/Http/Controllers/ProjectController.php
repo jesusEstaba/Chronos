@@ -3,6 +3,9 @@
 namespace Cronos\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Cronos\Project;
+use Cronos\Client;
+use Auth;
 
 class ProjectController extends Controller
 {
@@ -11,9 +14,20 @@ class ProjectController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $search = $request->search;
+
+        $projects = Project::where('companieId', Auth::user()->companieId)
+            ->where(function ($query) use ($search) {
+                if ($search) {
+                    $query->where('name', 'like', '%' . $search . '%');
+                }
+            })
+            ->orderBy('id', 'desc')
+            ->paginate(10);
+
+        return view('project.index', compact('projects', 'search'));
     }
 
     /**
@@ -23,7 +37,9 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        //
+        $clients = Client::where('companieId', Auth::user()->companieId)->get();
+
+        return view('project.create', compact('clients'));
     }
 
     /**

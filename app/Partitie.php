@@ -12,4 +12,17 @@ class Partitie extends Model
 		'companieId',
 		'unitId'
     ];
+
+
+    public function materials() {
+        return $this->hasMany('Cronos\PartitieMaterial', 'partitieId');
+    }
+
+    public function equipments() {
+        return $this->hasMany('Cronos\PartitieEquipment', 'partitieId');
+    }
+
+    public function workforces() {
+        return $this->hasMany('Cronos\PartitieWorkforce', 'partitieId');
+    }
 }

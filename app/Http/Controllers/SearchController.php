@@ -9,6 +9,7 @@ use Cronos\Workforce;
 use Cronos\MaterialCost;
 use Cronos\EquipmentCost;
 use Cronos\WorkforceCost;
+use Cronos\Partitie;
 
 use Auth;
 
@@ -90,5 +91,50 @@ class SearchController extends Controller
         }
 
         return response()->json($workforces);
+    }
+
+    public function partitie(Request $request)
+    {
+        $partitie = Partitie::where('companieId', Auth::user()->companieId)
+            ->find($request->id);
+
+        $partitie->materials = $partitie->materials()->get();
+        
+        foreach ($partitie->materials as $material) {
+            $material->cost = $material->material()->first()->lastCost(); 
+        }
+
+        $partitie->equipments = $partitie->equipments()->get();
+        
+        foreach ($partitie->equipments as $equipment) {
+            $equipment->cost = $equipment->equipment()->first()->lastCost(); 
+            $equipment->depreciation = $equipment->equipment()->first()->depreciation; 
+        }
+
+        $partitie->workforces = $partitie->workforces()->get();
+        
+        foreach ($partitie->workforces as $workforce) {
+            $workforce->cost = $workforce->workforce()->first()->lastCost(); 
+        }
+
+        return response()->json($partitie);
+    }
+
+    public function partities(Request $request)
+    {
+        
+        $search = $request->search;
+
+        $partities = Partitie::where('companieId', Auth::user()->companieId)
+            ->where(function ($query) use ($search) {
+                if ($search) {
+                    $query->where('name', 'like', '%' . $search . '%');
+                }
+            })
+            ->orderBy('id', 'desc')
+            ->take(10)//limitar o paginar
+            ->get();
+
+        return response()->json($partities);
     }
 }
