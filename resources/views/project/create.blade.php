@@ -33,20 +33,20 @@
 							<small>Configuración Mano de Obra</small>
 						</p>
 						
-						<input name="salario" type="text" class="form-control" placeholder="Salario Minimo" autocomplete="off" />
+						<input name="salary" type="text" class="form-control" placeholder="Salario Minimo" autocomplete="off" />
 
-						<input name="bono" type="text" class="form-control" placeholder="Bono de Alimentación" autocomplete="off" />
+						<input name="salaryBonus" type="text" class="form-control" placeholder="Bono de Alimentación" autocomplete="off" />
 					</div>
 
 					<div class="col-md-6">
 						<p>
 							<small>Modificadores</small>
 						</p>
-						<input name="" type="text" class="form-control" placeholder="% ADMINISTRACION Y GASTOS GENERALES5" autocomplete="off" />
-						<input name="" type="text" class="form-control" placeholder="% UTILIDAD + COMIISON VENTAS" autocomplete="off" />
-						<input name="" type="text" class="form-control" placeholder="% IMPREVISTO DE COMPRA" autocomplete="off" />
-						<input name="" type="text" class="form-control" placeholder="Bono Alimentacion/Hospedaje diario" autocomplete="off" />
-						<input name="" type="text" class="form-control" placeholder="Factor de Costos Asociados al Salario" autocomplete="off" />
+						<input name="expenses" type="text" class="form-control" placeholder="% ADMINISTRACION Y GASTOS GENERALES5" autocomplete="off" />
+						<input name="utility" type="text" class="form-control" placeholder="% UTILIDAD + COMIISON VENTAS" autocomplete="off" />
+						<input name="unexpected" type="text" class="form-control" placeholder="% IMPREVISTO DE COMPRA" autocomplete="off" />
+						<input name="bonus" type="text" class="form-control" placeholder="Bono Alimentacion/Hospedaje diario" autocomplete="off" />
+						<input name="fcas" type="text" class="form-control" placeholder="Factor de Costos Asociados al Salario" autocomplete="off" />
 					</div>
 				</div>
 
