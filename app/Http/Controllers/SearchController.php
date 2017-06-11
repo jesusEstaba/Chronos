@@ -102,12 +102,14 @@ class SearchController extends Controller
         
         foreach ($partitie->materials as $material) {
             $material->cost = $material->material()->first()->lastCost(); 
+            $material->costId = $material->material()->first()->lastCostId();
         }
 
         $partitie->equipments = $partitie->equipments()->get();
         
         foreach ($partitie->equipments as $equipment) {
-            $equipment->cost = $equipment->equipment()->first()->lastCost(); 
+            $equipment->cost = $equipment->equipment()->first()->lastCost();
+            $equipment->costId = $equipment->equipment()->first()->lastCostId();
             $equipment->depreciation = $equipment->equipment()->first()->depreciation; 
         }
 
@@ -115,6 +117,7 @@ class SearchController extends Controller
         
         foreach ($partitie->workforces as $workforce) {
             $workforce->cost = $workforce->workforce()->first()->lastCost(); 
+            $workforce->costId = $workforce->workforce()->first()->lastCostId();
         }
 
         return response()->json($partitie);
