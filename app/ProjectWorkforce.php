@@ -11,4 +11,12 @@ class ProjectWorkforce extends Model
 		'workforceId',
 		'costId',
     ];
+
+    public function workforce() {
+    	return $this->belongsTo('Cronos\Workforce', 'workforceId')->first();
+    }
+
+    public function cost() {
+    	return $this->belongsTo('Cronos\WorkforceCost', 'costId')->first();
+    }
 }

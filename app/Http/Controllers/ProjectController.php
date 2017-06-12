@@ -164,6 +164,13 @@ class ProjectController extends Controller
         return view('project.show', compact('project'));
     }
 
+    public function pdf($id) {
+        $project = Project::where('companieId', Auth::user()->companieId)->find($id);
+        $pdf = \PDF::loadView('pdf.partitie', compact('project'));
+        
+        return $pdf->stream();
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

@@ -13,6 +13,6 @@ class PartitieWorkforce extends Model
     ];
 
     public function workforce() {
-        return $this->belongsTo('Cronos\Workforce', 'workforceId');
+        return $this->belongsTo('Cronos\Workforce', 'workforceId')->first();
     }
 }

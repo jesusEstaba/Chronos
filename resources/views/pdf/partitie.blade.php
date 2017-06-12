@@ -1,35 +1,5 @@
-@extends('project.project')
-@section('sub-title', '')
 
-@section('sub-content')
-
-@section('titlePrincipal', $project->name)
-<!--
-	<a href="/projects/{{$project->id}}/edit" class="btn btn-outline-warning">
-		<i class="fa fa-pencil" aria-hidden="true"></i> Editar
-	</a>
--->
-
-<style type="text/css">
-	.box-body .row{
-		margin: 0 !important;
-	}
-	.partitie {
-		border: 1px solid #333;
-	}
-	.border-t{
-		border-top: 1px solid #333;	
-	}
-</style>
-<div class="box">
-	<div class="box-head">
-		<a target="_blank" style="margin-bottom: .5em;" class="btn btn-outline-primary" href="/projects/{{$project->id}}/pdf">
-			<i class="fa fa-file-pdf-o" aria-hidden="true"></i> ver PDF
-		</a>
-		
-	</div>
-	<div class="box-body">
-		@foreach($project->partities() as $partitie)
+@foreach($project->partities() as $partitie)
 			<div class="partitie">
 				<div class="row">
 					<div class="col-md-12">
@@ -246,6 +216,3 @@
 				</div>
 			</div>
 		@endforeach
-	</div>
-</div>
-@stop

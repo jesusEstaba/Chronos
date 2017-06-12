@@ -13,6 +13,9 @@ class Partitie extends Model
 		'unitId'
     ];
 
+    public function unit() {
+        return $this->belongsTo('Cronos\Unit', 'unitId')->first();
+    }
 
     public function materials() {
         return $this->hasMany('Cronos\PartitieMaterial', 'partitieId');

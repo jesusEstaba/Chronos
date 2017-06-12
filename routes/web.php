@@ -50,4 +50,8 @@ Route::group(['middleware' => 'isAuth'], function() {
 	    Route::post('partities', 'SearchController@partities');
 	    Route::post('partitie', 'SearchController@partitie');
 	});
+
+	
+	Route::get('projects/{id}/pdf', 'ProjectController@pdf');
+	
 });
