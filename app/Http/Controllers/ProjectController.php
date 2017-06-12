@@ -123,7 +123,7 @@ class ProjectController extends Controller
                 foreach ($partitie['materials'] as $material) {
                     ProjectMaterial::create([
                         'partitieId' => $partitieId,
-                        'materialId' => $material['id'],
+                        'materialId' => $material['materialId'],
                         'costId' => $material['costId'],
                     ]);
                 }
@@ -131,7 +131,7 @@ class ProjectController extends Controller
                 foreach ($partitie['equipments'] as $equipment) {
                     ProjectEquipment::create([
                         'partitieId' => $partitieId,
-                        'equipmentId' => $equipment['id'],
+                        'equipmentId' => $equipment['equipmentId'],
                         'costId' => $equipment['costId'],
                     ]);
                 }
@@ -139,7 +139,7 @@ class ProjectController extends Controller
                 foreach ($partitie['workforces'] as $workforce) {
                     ProjectWorkforce::create([
                         'partitieId' => $partitieId,
-                        'workforceId' => $workforce['id'],
+                        'workforceId' => $workforce['workforceId'],
                         'costId' => $workforce['costId'],
                     ]);
                 }
@@ -159,7 +159,9 @@ class ProjectController extends Controller
      */
     public function show($id)
     {
-        //
+        $project = Project::where('companieId', Auth::user()->companieId)->find($id);
+
+        return view('project.show', compact('project'));
     }
 
     /**
