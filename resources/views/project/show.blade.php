@@ -58,7 +58,7 @@
 					</div>
 					<div class="col-md-12">
 						<p>
-							<b>Descripción Partida:</b>: {{$partitie->partitie()->name}}
+							<b>Descripción Partida:</b> {{$partitie->partitie()->name}}
 						</p>
 						<table class="table table-bordered">
 							<thead>
