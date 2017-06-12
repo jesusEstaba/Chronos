@@ -15,10 +15,6 @@ class CreateProjectWorkforcesTable extends Migration
     {
         Schema::create('project_workforces', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('partitieId')->unsigned();
-            $table->foreign('partitieId')
-                  ->references('id')
-                  ->on('partities');
 
             $table->integer('workforceId')->unsigned();
             $table->foreign('workforceId')
