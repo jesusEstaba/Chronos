@@ -104,16 +104,21 @@
 											{{$material->material()->unit()->first()->name}}
 										</td>
 										<td>
-											{{$material->material()->quantity}}
+											{{$material->qty()}}
 										</td>
 										<td>
 											
 										</td>
 										<td>
-											{{$material->cost()->cost}}
+											{{$calculator->material($material->cost())}}
 										</td>
 										<td>
-											
+											{{
+												$calculator->totalInMaterial(
+													$material->cost(),
+													$material->qty()
+												)
+											}}
 										</td>
 									</tr>
 								@endforeach
@@ -122,7 +127,7 @@
 										<b>TOTAL MATERIALES</b>
 									</td>
 									<td>
-										
+										{{$calculator->getTotalInMaterials()}}
 									</td>
 								</tr>
 								<tr>
@@ -130,7 +135,7 @@
 										<b>UNITARIO DE MATERIALES</b>
 									</td>
 									<td>
-										
+										{{$calculator->getTotalInMaterials()}}
 									</td>
 								</tr>
 							</tbody>
@@ -157,16 +162,22 @@
 											{{$equipment->equipment()->name}}
 										</td>
 										<td>
-											{{$equipment->equipment()->quantity}}
+											{{$equipment->qty()}}
 										</td>
 										<td>
 											{{$equipment->equipment()->depreciation}}
 										</td>
 										<td>
-											{{$equipment->cost()->cost}}
+											{{$equipment->cost()}}
 										</td>
 										<td>
-											
+											{{
+												$calculator->totalInEquipment(
+													$equipment->cost(),
+													$equipment->equipment()->depreciation,
+													$equipment->qty()
+												)
+											}}
 										</td>
 									</tr>
 								@endforeach
@@ -175,7 +186,7 @@
 										<b>TOTAL EQUIPOS</b>
 									</td>
 									<td>
-										
+										{{$calculator->getTotalInEquipments()}}
 									</td>
 								</tr>
 								<tr>
@@ -183,7 +194,7 @@
 										<b>UNITARIO DE EQUIPOS</b>
 									</td>
 									<td>
-										
+										{{$calculator->getTotalInEquipments() / $partitie->yield}}
 									</td>
 								</tr>
 							</tbody>
@@ -211,10 +222,10 @@
 											{{$workforce->workforce()->name}}
 										</td>
 										<td>
-											{{$workforce->workforce()->quantity}}
+											{{$workforce->qty()}}
 										</td>
 										<td>
-											{{$workforce->cost()->cost}}%
+											{{$workforce->cost()}}%
 										</td>
 										<td>
 											

@@ -12,6 +12,8 @@ use Cronos\Modifier;
 use Cronos\Client;
 use Auth;
 
+use Cronos\model\Cost;
+
 class ProjectController extends Controller
 {
     /**
@@ -161,7 +163,17 @@ class ProjectController extends Controller
     {
         $project = Project::where('companieId', Auth::user()->companieId)->find($id);
 
-        return view('project.show', compact('project'));
+        $projectModifiers = Modifier::where('projectId', $id)->get();
+
+        $modifiers = [];
+
+        foreach ($projectModifiers as $modifier) {
+            $modifiers[$modifier->name] = $modifier->amount;
+        }
+
+        $calculator = new Cost($modifiers);
+
+        return view('project.show', compact('project', 'calculator'));
     }
 
     public function pdf($id) {
