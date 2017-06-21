@@ -2,22 +2,35 @@
 @section('sub-title', 'Crear')
 
 @section('sub-content')
+	@include('template.validation')
 	<div class="box">
 		<div class="box-body">
 			<form class="space-childs" method="POST" action="/materials">
 				{{csrf_field()}}
-				<input name="name" type="text" class="form-control" placeholder="Nombre" autocomplete="off" />
+				<input value="{{old('name')}}" name="name" type="text" class="form-control" placeholder="Nombre" autocomplete="off" />
 				<select class="form-control" name="unit">
 					@foreach($units as $unit)
-					<option value="{{$unit->id}}">{{$unit->name}}</option>
+						<option value="{{$unit->id}}"
+							@if($unit->id == old('unit'))
+								selected 
+							@endif
+						>
+							{{$unit->name}}
+						</option>
 					@endforeach
 				</select>
 				<select class="form-control" name="category">
 					@foreach($categories as $category)
-					<option value="{{$category->id}}">{{$category->name}}</option>
+						<option value="{{$category->id}}"
+							@if($category->id == old('category'))
+								selected 
+							@endif
+						>
+							{{$category->name}}
+						</option>
 					@endforeach
 				</select>
-				<input name="cost" type="text" class="form-control" placeholder="Precio" autocomplete="off" />
+				<input value="{{old('cost')}}" name="cost" type="text" class="form-control" placeholder="Precio" autocomplete="off" />
 				<input type="submit" class="btn btn-outline-success float-right" value="Crear" />
 			</form>
 		</div>
