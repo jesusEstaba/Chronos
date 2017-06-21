@@ -65,6 +65,10 @@ function validateFieldsIsNotEmpty() {
 		}
 	})
 
+	if ($(".box-body [name=client]").val()=="0") {
+		isEmpty = true;
+	}
+
 	return isEmpty;
 }
 
