@@ -10,72 +10,82 @@ use Cronos\User;
 class EquipmentTest extends DuskTestCase
 {
     public $equipmentName;
+    private $browser;
 
-    public function testBooting()
+    /**
+     * @test
+     */
+    public function booting()
     {
         $this->equipmentName = 'Equipo' . md5(date('H:i:s') . rand(0, 9999));
 
         $this->browse(function (Browser $browser) {
-            $browser->loginAs(User::find(1));
+            $this->browser = $browser->loginAs(User::find(1));
 
-            $this->seeIndexPage($browser);
-            $this->create($browser);
-            $this->addCost($browser);
-            $this->edit($browser);
-            $this->search($browser);
-            $this->badSearch($browser);
+            $this->seeIndexPage();
+            $this->create();
+            $this->addCost();
+            $this->edit();
+            $this->search();
+            $this->badSearch();
         });
     }
 
-    public function seeIndexPage(Browser $browser)
+    public function seeIndexPage()
     {
-        $browser->visit('/equipments')
-                ->assertSee('Equipos');
+        $this->browser
+            ->visit('/equipments')
+            ->assertSee('Equipos');
     }
 
-    public function create(Browser $browser)
+    public function create()
     {
-        $browser->clickLink('Crear')
-                ->type('name', $this->equipmentName)
-                ->type('cost', '9.99')
-                ->press('Crear')
-                ->assertSee($this->equipmentName);
+        $this->browser
+            ->clickLink('Crear')
+            ->type('name', $this->equipmentName)
+            ->type('cost', '9.99')
+            ->press('Crear')
+            ->assertSee($this->equipmentName);
     }
 
-    public function addCost(Browser $browser)
+    public function addCost()
     {
-        $browser->clickLink($this->equipmentName)
-                ->type('cost', '45.87')
-                ->press('Agregar')
-                ->assertSee('45.87');
+        $this->browser
+            ->clickLink($this->equipmentName)
+            ->type('cost', '45.87')
+            ->press('Agregar')
+            ->assertSee('45.87');
     }
 
-    public function edit(Browser $browser)
+    public function edit()
     {
         $this->equipmentName = 'Equipo' . md5($this->equipmentName);
         
-        $browser->clickLink('Editar')
-                ->type('name', $this->equipmentName)
-                ->press('Actualizar')
-                ->clickLink('Atrás')
-                ->assertSee($this->equipmentName);
+        $this->browser
+            ->clickLink('Editar')
+            ->type('name', $this->equipmentName)
+            ->press('Actualizar')
+            ->clickLink('Atrás')
+            ->assertSee($this->equipmentName);
     }
 
-    public function search(Browser $browser)
+    public function search()
     {
-        $browser->visit('/equipments')
-                ->type('search', $this->equipmentName)
-                ->press('Buscar')
-                ->assertSee($this->equipmentName);
+        $this->browser
+            ->visit('/equipments')
+            ->type('search', $this->equipmentName)
+            ->press('Buscar')
+            ->assertSee($this->equipmentName);
     }
 
-    public function badSearch(Browser $browser)
+    public function badSearch()
     {
         $randomText = 'Random' . md5(rand(0, 9999));
 
-        $browser->visit('/equipments')
-                ->type('search', $randomText)
-                ->press('Buscar')
-                ->assertSee('No se encontrarón resultados');
+        $this->browser
+            ->visit('/equipments')
+            ->type('search', $randomText)
+            ->press('Buscar')
+            ->assertSee('No se encontrarón resultados');
     }
 }
