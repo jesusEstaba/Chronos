@@ -39,9 +39,9 @@ class Cost {
 		return $this->equipments;
 	}
 
-	public function getTotalInWorkforce()
+	public function getTotalInWorkforces()
 	{
-		return $this->workforce;
+		return $this->workforces;
 	}
 
 	public function totalInMaterial($cost, $qty)
@@ -67,10 +67,15 @@ class Cost {
 
 	public function totalInWorkforce($cost, $qty)
 	{
-		$workforceCost = (($this->salaryBonus + $this->porcentage($this->salary, $cost)) / 30) * $qty;
+		$workforceCost = $this->workforce($cost) * $qty;
 		$this->workforces += $workforceCost;
 
 		return $workforceCost;
+	}
+
+	public function workforce($cost)
+	{
+		return ($this->salaryBonus + $this->porcentage($this->salary, $cost)) / 30;
 	}
 
 	private function porcentage($base, $porcentage) 

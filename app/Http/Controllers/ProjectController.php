@@ -178,7 +178,18 @@ class ProjectController extends Controller
 
     public function pdf($id) {
         $project = Project::where('companieId', Auth::user()->companieId)->find($id);
-        $pdf = \PDF::loadView('pdf.partitie', compact('project'));
+
+        $projectModifiers = Modifier::where('projectId', $id)->get();
+
+        $modifiers = [];
+
+        foreach ($projectModifiers as $modifier) {
+            $modifiers[$modifier->name] = $modifier->amount;
+        }
+
+        $calculator = new Cost($modifiers);
+        
+        $pdf = \PDF::loadView('pdf.partitie', compact('project', 'calculator'));
         
         return $pdf->stream();
     }

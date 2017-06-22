@@ -225,13 +225,16 @@
 											{{$workforce->qty()}}
 										</td>
 										<td>
-											{{$workforce->cost()}}%
+											{{$calculator->workforce($workforce->cost())}}
 										</td>
 										<td>
 											
 										</td>
 										<td>
-											
+											{{$calculator->totalInWorkforce(
+												$workforce->cost(),
+												$workforce->qty()
+											)}}
 										</td>
 									</tr>
 								@endforeach
@@ -240,7 +243,7 @@
 										<b>TOTAL EQUIPOS</b>
 									</td>
 									<td>
-										
+										{{$calculator->getTotalInWorkforces()}}
 									</td>
 								</tr>
 								<tr>
@@ -248,7 +251,7 @@
 										<b>UNITARIO DE EQUIPOS</b>
 									</td>
 									<td>
-										
+										{{$calculator->getTotalInWorkforces() / $partitie->yield}}
 									</td>
 								</tr>
 							</tbody>
