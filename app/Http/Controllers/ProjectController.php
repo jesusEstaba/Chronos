@@ -187,7 +187,7 @@ class ProjectController extends Controller
             $modifiers[$modifier->name] = $modifier->amount;
         }
 
-        $calculator = new Cost($modifiers);
+        $calculator = new CostPartitie($modifiers);
         
         $pdf = \PDF::loadView('pdf.partitie', compact('project', 'calculator'));
         
