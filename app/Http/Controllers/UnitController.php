@@ -3,7 +3,7 @@
 namespace Cronos\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Cronos\Unit;
+use Repo\Unit;
 use Auth;
 
 class UnitController extends Controller

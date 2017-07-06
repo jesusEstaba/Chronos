@@ -1,13 +1,13 @@
 <?php
 
-namespace Cronos;
+namespace Repo;
 
 use Illuminate\Database\Eloquent\Model;
 
-class EquipmentCost extends Model
+class WorkforceCost extends Model
 {
     protected $fillable = [
-    	'equipmentId',
+    	'workforceId',
 		'cost'
     ];
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Cronos;
+namespace Repo;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -15,6 +15,6 @@ class PartitieEquipment extends Model
     ];
 
     public function equipment() {
-        return $this->belongsTo('Cronos\Equipment', 'equipmentId');
+        return $this->belongsTo('Repo\Equipment', 'equipmentId');
     }
 }

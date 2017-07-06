@@ -2,23 +2,24 @@
 
 namespace Cronos\model;
 
-class Cost {
+class Cost
+{
 	
-	private $materials = 0;
-	private $equipments = 0;
-	private $workforces = 0;
+	protected $materials = 0;
+	protected $equipments = 0;
+	protected $workforces = 0;
 
-	private $salary;
-	private $salaryBonus;
+	protected $salary;
+	protected $salaryBonus;
 
-	private $fcas;
-	private $expenses;
-	private $utility;
-	private $unexpected;
-	private $bonus;
+	protected $fcas;
+	protected $expenses;
+	protected $utility;
+	protected $unexpected;
+	protected $bonus;
 
-
-	function __construct($modifiers) {
+	public function __construct($modifiers)
+	{
 		$this->salary = $modifiers['salary'];
 		$this->salaryBonus = $modifiers['salaryBonus'];
 
@@ -31,17 +32,23 @@ class Cost {
 
 	public function getTotalInMaterials()
 	{
-		return $this->materials;
+		$total = $this->materials;
+		$this->materials = 0;
+		return $total;
 	}
 
 	public function getTotalInEquipments()
 	{
-		return $this->equipments;
+		$total = $this->equipments;
+		$this->equipments = 0;
+		return $total;
 	}
 
 	public function getTotalInWorkforces()
 	{
-		return $this->workforces;
+		$total = $this->workforces;
+		$this->workforces = 0;
+		return $total;
 	}
 
 	public function totalInMaterial($cost, $qty)
@@ -78,7 +85,7 @@ class Cost {
 		return ($this->salaryBonus + $this->porcentage($this->salary, $cost)) / 30;
 	}
 
-	private function porcentage($base, $porcentage) 
+	protected function porcentage($base, $porcentage) 
 	{
 		return $base + $base * $porcentage / 100;
 	}

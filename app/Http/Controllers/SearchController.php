@@ -3,13 +3,13 @@
 namespace Cronos\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Cronos\Material;
-use Cronos\Equipment;
-use Cronos\Workforce;
-use Cronos\MaterialCost;
-use Cronos\EquipmentCost;
-use Cronos\WorkforceCost;
-use Cronos\Partitie;
+use Repo\Material;
+use Repo\Equipment;
+use Repo\Workforce;
+use Repo\MaterialCost;
+use Repo\EquipmentCost;
+use Repo\WorkforceCost;
+use Repo\Partitie;
 
 use Auth;
 

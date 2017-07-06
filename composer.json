@@ -21,7 +21,9 @@
             "database"
         ],
         "psr-4": {
-            "Cronos\\": "app/"
+            "Cronos\\": "app/",
+            "Repo\\": "app/repository",
+            "Request\\" : "app/Http/Requests"
         }
     },
     "autoload-dev": {

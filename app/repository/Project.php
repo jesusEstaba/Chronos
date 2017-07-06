@@ -1,6 +1,6 @@
 <?php
 
-namespace Cronos;
+namespace Repo;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -17,15 +17,15 @@ class Project extends Model
     ];
 
     public function client() {
-        return $this->belongsTo('Cronos\Client', 'clientId')->first();
+        return $this->belongsTo('Repo\Client', 'clientId')->first();
     }
 
 
     public function modifiers() {
-    	return $this->hasMany('Cronos\Modifier', 'projectId')->get();
+    	return $this->hasMany('Repo\Modifier', 'projectId')->get();
     }
 
     public function partities() {
-        return $this->hasMany('Cronos\ProjectPartitie', 'projectId')->get();
+        return $this->hasMany('Repo\ProjectPartitie', 'projectId')->get();
     }
 }

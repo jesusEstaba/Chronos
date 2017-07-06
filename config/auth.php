@@ -67,7 +67,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => Cronos\User::class,
+            'model' => Repo\User::class,
         ],
 
         // 'users' => [

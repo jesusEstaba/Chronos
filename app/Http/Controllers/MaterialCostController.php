@@ -3,7 +3,7 @@
 namespace Cronos\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Cronos\MaterialCost;
+use Repo\MaterialCost;
 
 class MaterialCostController extends Controller
 {

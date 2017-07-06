@@ -1,6 +1,6 @@
 <?php
 
-namespace Cronos;
+namespace Repo;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -16,7 +16,7 @@ class Equipment extends Model
     ];
 
     public function category() {
-    	return $this->belongsTo('Cronos\Category', 'categoryId');
+    	return $this->belongsTo('Repo\Category', 'categoryId');
     }
 
     public function lastCost() {
@@ -28,6 +28,6 @@ class Equipment extends Model
     }
 
     public function costs() {
-    	return $this->hasMany('Cronos\EquipmentCost', 'equipmentId');
+    	return $this->hasMany('Repo\EquipmentCost', 'equipmentId');
     }
 }

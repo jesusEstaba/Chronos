@@ -1,6 +1,6 @@
 <?php
 
-namespace Cronos;
+namespace Repo;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -13,6 +13,6 @@ class PartitieWorkforce extends Model
     ];
 
     public function workforce() {
-        return $this->belongsTo('Cronos\Workforce', 'workforceId');
+        return $this->belongsTo('Repo\Workforce', 'workforceId');
     }
 }

@@ -3,16 +3,17 @@
 namespace Cronos\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Cronos\Project;
-use Cronos\ProjectPartitie;
-use Cronos\ProjectMaterial;
-use Cronos\ProjectEquipment;
-use Cronos\ProjectWorkforce;
-use Cronos\Modifier;
-use Cronos\Client;
+use Repo\Project;
+use Repo\ProjectPartitie;
+use Repo\ProjectMaterial;
+use Repo\ProjectEquipment;
+use Repo\ProjectWorkforce;
+use Repo\Modifier;
+use Repo\Client;
 use Auth;
 
 use Cronos\model\Cost;
+use Cronos\model\CostPartitie;
 
 class ProjectController extends Controller
 {
@@ -56,9 +57,7 @@ class ProjectController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {    
-
-        
+    {
         $projectId = Project::create([
             'name' => $request->name,
             'start' => date("Y-m-d"),
@@ -171,12 +170,13 @@ class ProjectController extends Controller
             $modifiers[$modifier->name] = $modifier->amount;
         }
 
-        $calculator = new Cost($modifiers);
+        $calculator = new CostPartitie($modifiers);
 
-        return view('project.show', compact('project', 'calculator'));
+        return view('project.show', compact('project', 'projectModifiers', 'calculator'));
     }
 
-    public function pdf($id) {
+    public function pdf($id)
+    {
         $project = Project::where('companieId', Auth::user()->companieId)->find($id);
 
         $projectModifiers = Modifier::where('projectId', $id)->get();

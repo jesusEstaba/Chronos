@@ -1,6 +1,6 @@
 <?php
 
-namespace Cronos;
+namespace Repo;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -14,19 +14,19 @@ class ProjectPartitie extends Model
     ];
 
     public function partitie() {
-        return $this->belongsTo('Cronos\Partitie', 'partitieId')->first();
+        return $this->belongsTo('Repo\Partitie', 'partitieId')->first();
     }
 
     public function materials() {
-        return $this->hasMany('Cronos\ProjectMaterial', 'partitieId')->get();
+        return $this->hasMany('Repo\ProjectMaterial', 'partitieId')->get();
     }
     
 
     public function equipments() {
-        return $this->hasMany('Cronos\ProjectEquipment', 'partitieId')->get();
+        return $this->hasMany('Repo\ProjectEquipment', 'partitieId')->get();
     }
 
     public function workforces() {
-        return $this->hasMany('Cronos\ProjectWorkforce', 'partitieId')->get();
+        return $this->hasMany('Repo\ProjectWorkforce', 'partitieId')->get();
     }
 }

@@ -3,7 +3,7 @@
 namespace Cronos\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Cronos\WorkforceCost;
+use Repo\WorkforceCost;
 
 class WorkforceCostController extends Controller
 {

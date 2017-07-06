@@ -1,10 +1,10 @@
 <?php
 
-namespace Cronos;
+namespace Repo;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Activity extends Model
+class Profession extends Model
 {
     //
 }

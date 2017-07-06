@@ -5,12 +5,12 @@ namespace Cronos\Http\Controllers;
 use Illuminate\Http\Request;
 use Auth;
 
-use Cronos\Http\Requests\CreateMaterialRequest;
+use Request\CreateMaterialRequest;
 
-use Cronos\Category;
-use Cronos\Unit;
-use Cronos\Material;
-use Cronos\MaterialCost;
+use Repo\Category;
+use Repo\Unit;
+use Repo\Material;
+use Repo\MaterialCost;
 
 class MaterialController extends Controller
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Cronos;
+namespace Repo;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -14,18 +14,18 @@ class Partitie extends Model
     ];
 
     public function unit() {
-        return $this->belongsTo('Cronos\Unit', 'unitId')->first();
+        return $this->belongsTo('Repo\Unit', 'unitId')->first();
     }
 
     public function materials() {
-        return $this->hasMany('Cronos\PartitieMaterial', 'partitieId');
+        return $this->hasMany('Repo\PartitieMaterial', 'partitieId');
     }
 
     public function equipments() {
-        return $this->hasMany('Cronos\PartitieEquipment', 'partitieId');
+        return $this->hasMany('Repo\PartitieEquipment', 'partitieId');
     }
 
     public function workforces() {
-        return $this->hasMany('Cronos\PartitieWorkforce', 'partitieId');
+        return $this->hasMany('Repo\PartitieWorkforce', 'partitieId');
     }
 }

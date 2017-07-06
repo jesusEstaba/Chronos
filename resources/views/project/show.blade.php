@@ -11,15 +11,6 @@
 -->
 
 <style type="text/css">
-	.box-body .row{
-		margin: 0 !important;
-	}
-	.partitie {
-		border: 1px solid #333;
-	}
-	.border-t{
-		border-top: 1px solid #333;	
-	}
 </style>
 <div class="box">
 	<div class="box-head">
@@ -29,237 +20,82 @@
 		
 	</div>
 	<div class="box-body">
-		@foreach($project->partities() as $partitie)
-			<div class="partitie">
-				<div class="row">
-					<div class="col-md-12">
-						<img src="{{asset('images/logos/j1atjjNo.png')}}" alt="">
-					</div>
-					<div class="col-md-12">
-						<p class="text-right">
-							<b>Fecha</b>: {{date('d-m-Y')}}
-						</p>
-						<p class="text-right">
-							<b>Partida N°</b>: {{$partitie->id}}
-						</p>
-					</div>
-					<div class="col-md-12">
-						<p>
-							<b>
-								Descripción de la Obra: 
-							</b>
-						</p>
-						<p>
-							{{$project->name}}
-						</p>
-						<p>
-							<b>Propietario:</b> {{$project->client()->name}}
-						</p>
-					</div>
-					<div class="col-md-12">
-						<p>
-							<b>Descripción Partida:</b> {{$partitie->partitie()->name}}
-						</p>
-						<table class="table table-bordered">
-							<thead>
-								<th>Código</th>
-								<th>Código Covenin</th>
-								<th>Unidad</th>
-								<th>Cantidad</th>
-								<th>Rendimiento</th>
-							</thead>
-							<tbody>
-								<tr>
-									<td>{{$partitie->partitie()->id}}</td>
-									<td></td>
-									<td>{{$partitie->partitie()->unit()->name}}</td>
-									<td>{{$partitie->quantity}}</td>
-									<td>{{$partitie->partitie()->yield}}</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-					<div class="col-md-12">
-						<h3>1. MATERIALES</h3>
-						<table class="table table-bordered">
-							<thead>
-								<th>CÓDIGO</th>
-								<th>DESCRIPCIÓN</th>
-								<th>UNIDAD</th>
-								<th>CANTIDAD</th>
-								<th>%DESP</th>
-								<th>COSTO</th>
-								<th>TOTAL</th>
-							</thead>
-							<tbody>
-								@foreach($partitie->materials() as $material)
-									<tr>
-										<td>
-											{{$material->materialId}}
-										</td>
-										<td>
-											{{$material->material()->name}}
-										</td>
-										<td>
-											{{$material->material()->unit()->first()->name}}
-										</td>
-										<td>
-											{{$material->qty()}}
-										</td>
-										<td>
-											
-										</td>
-										<td>
-											{{$calculator->material($material->cost())}}
-										</td>
-										<td>
-											{{
-												$calculator->totalInMaterial(
-													$material->cost(),
-													$material->qty()
-												)
-											}}
-										</td>
-									</tr>
-								@endforeach
-								<tr>
-									<td colspan="6" class="text-right">
-										<b>TOTAL MATERIALES</b>
-									</td>
-									<td>
-										{{$calculator->getTotalInMaterials()}}
-									</td>
-								</tr>
-								<tr>
-									<td colspan="6" class="text-right">
-										<b>UNITARIO DE MATERIALES</b>
-									</td>
-									<td>
-										{{$calculator->getTotalInMaterials()}}
-									</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-					<div class="col-md-12">
-						<h3>2. EQUIPO</h3>
-						<table class="table table-bordered">
-							<thead>
-								<th>CÓDIGO</th>
-								<th>DESCRIPCIÓN</th>
-								<th>CANTIDAD</th>
-								<th>DEP. O ALQ.</th>
-								<th>COSTO</th>
-								<th>TOTAL</th>
-							</thead>
-							<tbody>
-								@foreach($partitie->equipments() as $equipment)
-									<tr>
-										<td>
-											{{$equipment->equipmentId}}
-										</td>
-										<td>
-											{{$equipment->equipment()->name}}
-										</td>
-										<td>
-											{{$equipment->qty()}}
-										</td>
-										<td>
-											{{$equipment->equipment()->depreciation}}
-										</td>
-										<td>
-											{{$equipment->cost()}}
-										</td>
-										<td>
-											{{
-												$calculator->totalInEquipment(
-													$equipment->cost(),
-													$equipment->equipment()->depreciation,
-													$equipment->qty()
-												)
-											}}
-										</td>
-									</tr>
-								@endforeach
-								<tr>
-									<td colspan="5" class="text-right">
-										<b>TOTAL EQUIPOS</b>
-									</td>
-									<td>
-										{{$calculator->getTotalInEquipments()}}
-									</td>
-								</tr>
-								<tr>
-									<td colspan="5" class="text-right">
-										<b>UNITARIO DE EQUIPOS</b>
-									</td>
-									<td>
-										{{$calculator->getTotalInEquipments() / $partitie->yield}}
-									</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-
-					<div class="col-md-12">
-						<h3>3. MANO DE OBRA</h3>
-						<table class="table table-bordered">
-							<thead>
-								<th>CÓDIGO</th>
-								<th>DESCRIPCIÓN</th>
-								<th>CANTIDAD</th>
-								<th>SALARIO</th>
-								<th>BONO</th>
-								<th>TOTAL</th>
-							</thead>
-							<tbody>
-								@foreach($partitie->workforces() as $workforce)
-									<tr>
-										<td>
-											{{$workforce->workforceId}}
-										</td>
-										<td>
-											{{$workforce->workforce()->name}}
-										</td>
-										<td>
-											{{$workforce->qty()}}
-										</td>
-										<td>
-											{{$calculator->workforce($workforce->cost())}}
-										</td>
-										<td>
-											
-										</td>
-										<td>
-											{{$calculator->totalInWorkforce(
-												$workforce->cost(),
-												$workforce->qty()
-											)}}
-										</td>
-									</tr>
-								@endforeach
-								<tr>
-									<td colspan="5" class="text-right">
-										<b>TOTAL EQUIPOS</b>
-									</td>
-									<td>
-										{{$calculator->getTotalInWorkforces()}}
-									</td>
-								</tr>
-								<tr>
-									<td colspan="5" class="text-right">
-										<b>UNITARIO DE EQUIPOS</b>
-									</td>
-									<td>
-										{{$calculator->getTotalInWorkforces() / $partitie->yield}}
-									</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-			</div>
-		@endforeach
+		<div class="headers">
+			<p>
+				<b>Creado:</b> {{$project->created_at}}
+			</p>
+		</div>
+		<div class="modifiers">
+			@foreach ($projectModifiers as $modifier)
+            	<p>
+            		<b>@lang('app.'.$modifier->name):</b> 
+            		{{$modifier->amount}}@if($modifier->type==1)%@endif
+            	</p>
+        	@endforeach
+		</div>
+		<br>
+		<h4>Partidas</h4>
+		<div class="partities">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>N°</th>
+						<th>COD</th>
+						<th>DESCRIPCION</th>
+						<th>CANT</th>
+						<th>MATERIALES</th>
+						<th title="FLETES-TRANSPORTE-COMUNICACIONES-CONSUMIBLES-OPERATIVIDAD">
+							GASTOS ADMINISTRATIVOS
+						</th>
+						<th>MANO DE OBRA</th>
+						<th>DEPRECIACION DE EQUIPOS</th>
+						<th>UTILIDAD</th>
+						<th>TOTAL PRECIO UNITARIO</th>
+						<th>TOTAL PARTIDA</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php
+						$totalInPartities = 0;
+					?>
+					@foreach ($project->partities() as $projectPartitie)
+						<?php
+								$calculator->calcPartitie(
+									$projectPartitie->id, 
+									$projectPartitie->partitie()->yield
+								);
+						?>
+						<tr>
+							<td></td>
+							<td>{{$projectPartitie->partitie()->id}}</td>
+							<td>
+								<small>
+									{{$projectPartitie->partitie()->name}}
+								</small>	
+							</td>
+							<td>{{$projectPartitie->quantity}}</td>
+							<td>{{number_format($calculator->materialsTotal, 2)}}</td>
+							<td>{{number_format($calculator->totalexpenses, 2)}}</td>	
+							<td>{{number_format($calculator->equipmentsTotal, 2)}}</td>
+							<td>{{number_format($calculator->workforcesTotal, 2)}}</td>
+							
+							
+							<td>{{number_format($calculator->totalUtility, 2)}}</td>
+							<td>{{number_format($calculator->totalPartitie, 2)}}</td>
+							<td>
+								{{
+									number_format(
+										$totalInPartities += $projectPartitie->quantity*$calculator->totalPartitie,
+										2
+									)
+								}}
+							</td>
+						</tr>
+					@endforeach
+				</tbody>
+			</table>
+			<h3>Total: {{number_format($totalInPartities, 2)}}</h3>
+		</div>
 	</div>
 </div>
 @stop

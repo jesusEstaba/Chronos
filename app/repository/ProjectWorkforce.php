@@ -1,6 +1,6 @@
 <?php
 
-namespace Cronos;
+namespace Repo;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -13,7 +13,7 @@ class ProjectWorkforce extends Model
     ];
 
     public function workforce() {
-    	return $this->belongsTo('Cronos\Workforce', 'workforceId')->first();
+    	return $this->belongsTo('Repo\Workforce', 'workforceId')->first();
     }
 
     public function qty() {
@@ -26,7 +26,7 @@ class ProjectWorkforce extends Model
     }
 
     public function cost() {
-    	return $this->belongsTo('Cronos\WorkforceCost', 'costId')
+    	return $this->belongsTo('Repo\WorkforceCost', 'costId')
             ->first()
             ->cost;
     }

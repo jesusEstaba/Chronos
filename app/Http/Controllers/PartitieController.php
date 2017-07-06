@@ -3,12 +3,12 @@
 namespace Cronos\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Cronos\Category;
-use Cronos\Unit;
-use Cronos\Partitie;
-use Cronos\PartitieMaterial;
-use Cronos\PartitieEquipment;
-use Cronos\PartitieWorkforce;
+use Repo\Category;
+use Repo\Unit;
+use Repo\Partitie;
+use Repo\PartitieMaterial;
+use Repo\PartitieEquipment;
+use Repo\PartitieWorkforce;
 use Auth;
 
 class PartitieController extends Controller

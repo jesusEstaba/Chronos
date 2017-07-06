@@ -3,9 +3,9 @@
 namespace Cronos\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Cronos\Equipment;
-use Cronos\EquipmentCost;
-use Cronos\Category;
+use Repo\Equipment;
+use Repo\EquipmentCost;
+use Repo\Category;
 use Auth;
 
 class EquipmentController extends Controller

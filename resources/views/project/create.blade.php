@@ -42,7 +42,7 @@
 						<p>
 							<small>Modificadores</small>
 						</p>
-						<input name="expenses" type="text" class="form-control" placeholder="% ADMINISTRACION Y GASTOS GENERALES5" autocomplete="off" />
+						<input name="expenses" type="text" class="form-control" placeholder="% ADMINISTRACION Y GASTOS GENERALES" autocomplete="off" />
 						<input name="utility" type="text" class="form-control" placeholder="% UTILIDAD + COMIISON VENTAS" autocomplete="off" />
 						<input name="unexpected" type="text" class="form-control" placeholder="% IMPREVISTO DE COMPRA" autocomplete="off" />
 						<input name="bonus" type="text" class="form-control" placeholder="Bono Alimentacion/Hospedaje diario" autocomplete="off" />

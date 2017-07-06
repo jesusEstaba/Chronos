@@ -1,6 +1,6 @@
 <?php
 
-namespace Cronos;
+namespace Repo;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -20,6 +20,6 @@ class Workforce extends Model
     }
 
     public function costs() {
-        return $this->hasMany('Cronos\WorkforceCost', 'workforceId');
+        return $this->hasMany('Repo\WorkforceCost', 'workforceId');
     }
 }

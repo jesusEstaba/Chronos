@@ -3,11 +3,11 @@
 namespace Cronos\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Cronos\Partitie;
-use Cronos\Material;
-use Cronos\Equipment;
-use Cronos\Workforce;
-use Cronos\Project;
+use Repo\Partitie;
+use Repo\Material;
+use Repo\Equipment;
+use Repo\Workforce;
+use Repo\Project;
 use Auth;
 
 class DashboardController extends Controller
