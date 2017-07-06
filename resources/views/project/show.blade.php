@@ -84,13 +84,13 @@
 							<td>{{number_format($calculator->totalPartitie, 2)}}</td>
 							<td>
 								{{
-									number_format(
-										$totalInPartities += $projectPartitie->quantity*$calculator->totalPartitie,
-										2
-									)
+									number_format($projectPartitie->quantity*$calculator->totalPartitie, 2)
 								}}
 							</td>
 						</tr>
+						<?php
+							$totalInPartities += $projectPartitie->quantity*$calculator->totalPartitie;
+						?>
 					@endforeach
 				</tbody>
 			</table>
