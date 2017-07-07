@@ -192,7 +192,7 @@
 							<b>TOTAL MATERIALES</b>
 						</td>
 						<td>
-							{{$calculator->getTotalInMaterials()}}
+							{{$totalInMaterial = $calculator->getTotalInMaterials()}}
 						</td>
 					</tr>
 					<tr>
@@ -203,7 +203,7 @@
 							<b>UNITARIO DE MATERIALES</b>
 						</td>
 						<td>
-							{{$calculator->getTotalInMaterials()}}
+							{{number_format($totalInMaterial, 2)}}
 						</td>
 					</tr>
 				</tfoot>
@@ -260,7 +260,7 @@
 							<b>TOTAL EQUIPOS</b>
 						</td>
 						<td>
-							{{$calculator->getTotalInEquipments()}}
+							{{$totalInEquipment = $calculator->getTotalInEquipments()}}
 						</td>
 					</tr>
 					<tr>
@@ -269,7 +269,7 @@
 							<b>UNITARIO DE EQUIPOS</b>
 						</td>
 						<td>
-							{{$calculator->getTotalInEquipments() / $partitie->yield}}
+							{{$totalInEquipment / $partitie->yield}}
 						</td>
 					</tr>
 				</tfoot>
@@ -320,19 +320,10 @@
 					<tr>
 						<td class="non" colspan="2"></td>
 						<td colspan="3" class="text-right">
-							<b>TOTAL EQUIPOS</b>
+							<b>TOTAL MANO DE OBRA</b>
 						</td>
 						<td>
 							{{$calculator->getTotalInWorkforces()}}
-						</td>
-					</tr>
-					<tr>
-						<td class="non" colspan="2"></td>
-						<td colspan="3" class="text-right">
-							<b>UNITARIO DE EQUIPOS</b>
-						</td>
-						<td>
-							{{$calculator->getTotalInWorkforces() / $partitie->yield}}
 						</td>
 					</tr>
 				</tfoot>
