@@ -69,12 +69,16 @@
 	.col-3{
 		width: 37.5%;
 	}
+	.col-4{
+		width: 50%;
+	}
 	.col-7{
 		width: 87.5%;
 	}
 </style>
 <?php
 	$pageBreak = false;
+	$page = 1;
 ?>
 
 @foreach($project->partities() as $partitie)
@@ -93,7 +97,7 @@
 				<b>Fecha</b>: {{date('d-m-Y')}}
 			</p>
 			<p class="text-right">
-				<b>Partida N°</b>: {{$partitie->id}}
+				<b>Partida N°</b>: {{$page++}}
 			</p>
 		</div>
 		<div class="col-md-12">
@@ -435,8 +439,36 @@
 				</tr>
 			</tbody>
 		</table>
+		
+		<div>
+			<table style="width: 100%; border-collapse: collapse;">
+				<thead>
+					<tr>
+						<th class="col-4">
+							
+						</th>
+						<th class="col-3">
+							
+						</th>
+						<th class="col-1">
+							
+						</th>
+					</tr>
+				</thead>
+				<tbody style="text-align: right;">
+					<tr style="border-collapse: collapse;">
+						<td></td>
+						<td style="background: #ccc;padding: .5em; border:1px solid #000;border-right: none; font-weight: bold;">PRECIO UNITARIO BS.</td>
+						<td style="background: #ccc;padding: .5em; border:1px solid #000;border-left: none; font-weight: bold;">
+							{{number_format($calculator->totalPartitie, 2)}}
+						</td>
+					</tr>
+				</tbody>
+			</table>
 
-
+			 
+		</div>
+			
 		</div>
 	</div>
 </div>

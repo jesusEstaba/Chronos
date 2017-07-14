@@ -23,37 +23,77 @@
         <link href="{{asset('css/main-dashboard.css')}}" rel="stylesheet">
         <script src="{{asset('js/jquery.min.js')}}"></script>
         <script src="{{asset('bootstrap/js/bootstrap.min.js')}}"></script>
-        
+        <style type="text/css">
+            /*
+                .dark-primary-color    { background: #F57C00; }
+                .default-primary-color { background: #FF9800; }
+                .light-primary-color   { background: #FFE0B2; }
+                .text-primary-color    { color: #212121; }
+                
+                .accent-color          { background: #607D8B; }
+                
+                .primary-text-color    { color: #212121; }
+                .secondary-text-color  { color: #757575; }
+                .divider-color         { border-color: #BDBDBD; }
+
+            */
+            
+            
+            
+            .navbar{
+                background: #F57C00 !important;
+            }
+            .navbar .nav-link{
+                color: #FFE0B2 !important;
+            }
+            .navbar .nav-link:hover{
+                color: #fff !important;
+            }
+            /*SIDEBAR*/
+            .sidebar{
+                background: #374046 !important;
+            }
+            .sidebar .nav-link{
+                color: #FF9800;
+            }
+            .sidebar .nav-link:hover{
+                color: #FFE0B2;
+            }
+            .sidebar .nav-link.disabled{
+                color: #757575 !important;
+            }
+            .sidebar .nav-link.active{
+                background: #FF9800 !important;
+            }
+            .navbar-brand{
+                color: #fff !important;
+            }
+        </style>
     </head>
     <body>
-        <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
-            <button class="navbar-toggler navbar-toggler-right hidden-lg-up collapsed" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-            </button>
-            <a class="navbar-brand" href="/dashboard">
-                CRONOS
-            </a>
-            <div class="navbar-collapse collapse" id="navbarsExampleDefault" aria-expanded="false">
-                <ul class="navbar-nav mr-auto">
-                    <!--
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Profile</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Settings</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Help</a>
-                    </li>
-                    -->
-                    <li class="nav-item">
-                        <a class="nav-link" href="/logout">Logout</a>
-                    </li>
-                </ul>
-                <form action="/search" class="form-inline mt-2 mt-md-0">
-                    <input class="form-control mr-sm-2" type="text" placeholder="Buscar Recursos">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
-                </form>
+        <nav class="navbar navbar-toggleable-md fixed-top">
+            <div class="container-fluid" style="width: 100%;">
+                <div class="row" >
+                    <div class="col-md-2">
+                        <a class="navbar-brand" href="/dashboard">
+                            CHRONOS
+                        </a>
+                    </div>
+                    <div class="offset-md-1 col-md-6">
+                        <form action="/search" class="form-inline mt-2 mt-md-0">
+                            <input style="width: 80%" class="form-control mr-sm-2" type="text" placeholder="Buscar Recursos">
+                            <button style="width: 15%" class="btn btn-outline-primary my-2 my-sm-0" type="submit">Buscar</button>
+                        </form>
+                    </div>
+                    <div class="col-md-3">
+                        <a style="float: right;" class="nav-link" href="/logout">
+                            <i class="fa fa-sign-out" aria-hidden="true"></i> Salir
+                        </a>
+                        <a style="float: right;" class="nav-link">
+                            <i class="fa fa-user-circle-o" aria-hidden="true"></i> {{Auth::user()->name}}
+                        </a>
+                    </div>
+                </div>
             </div>
         </nav>
         <div class="container-fluid">
