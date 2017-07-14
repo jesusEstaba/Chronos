@@ -3,7 +3,7 @@
 </head>
 <style type="text/css">
 	body {
-		font-size:12px;
+		font-size:11px;
 		font-family: Helvetica;
 	}
 	table{
@@ -135,7 +135,7 @@
 						<td class="center">{{$partitie->partitie()->unit()->name}}</td>
 						<td class="center">{{$partitie->quantity}}</td>
 						<td class="center">UND</td>
-						<td class="center">{{$partitie->partitie()->yield}}</td>
+						<td class="center">{{number_format($partitie->partitie()->yield, 2)}}</td>
 					</tr>
 				</tbody>
 			</table>
@@ -168,20 +168,23 @@
 							{{$material->material()->unit()->first()->name}}
 						</td>
 						<td>
-							{{$material->qty()}}
+							{{number_format($material->qty(), 2)}}
 						</td>
 						<td>
 							
 						</td>
 						<td>
-							{{$calculator->material($material->cost())}}
+							{{number_format($calculator->material($material->cost()), 2)}}
 						</td>
 						<td>
 							{{
-							$calculator->totalInMaterial(
-							$material->cost(),
-							$material->qty()
-							)
+								number_format(
+									$calculator->totalInMaterial(
+										$material->cost(),
+										$material->qty()
+									),
+									2
+								)
 							}}
 						</td>
 					</tr>
@@ -196,7 +199,7 @@
 							<b>TOTAL MATERIALES</b>
 						</td>
 						<td>
-							{{$totalInMaterial = $calculator->getTotalInMaterials()}}
+							{{number_format($totalInMaterial = $calculator->getTotalInMaterials(), 2)}}
 						</td>
 					</tr>
 					<tr>
@@ -237,21 +240,24 @@
 							{{$equipment->equipment()->name}}
 						</td>
 						<td>
-							{{$equipment->qty()}}
+							{{number_format($equipment->qty(), 2)}}
 						</td>
 						<td>
 							{{$equipment->equipment()->depreciation}}
 						</td>
 						<td>
-							{{$equipment->cost()}}
+							{{number_format($equipment->cost(), 2)}}
 						</td>
 						<td>
 							{{
-							$calculator->totalInEquipment(
-							$equipment->cost(),
-							$equipment->equipment()->depreciation,
-							$equipment->qty()
-							)
+								number_format(
+									$calculator->totalInEquipment(
+										$equipment->cost(),
+										$equipment->equipment()->depreciation,
+										$equipment->qty()
+									),
+									2
+								)
 							}}
 						</td>
 					</tr>
@@ -264,7 +270,7 @@
 							<b>TOTAL EQUIPOS</b>
 						</td>
 						<td>
-							{{$totalInEquipment = $calculator->getTotalInEquipments()}}
+							{{number_format($totalInEquipment = $calculator->getTotalInEquipments(), 2)}}
 						</td>
 					</tr>
 					<tr>
@@ -273,7 +279,7 @@
 							<b>UNITARIO DE EQUIPOS</b>
 						</td>
 						<td>
-							{{$totalInEquipment / $partitie->yield}}
+							{{number_format($totalInEquipment / $partitie->yield, 2)}}
 						</td>
 					</tr>
 				</tfoot>
@@ -303,19 +309,24 @@
 								{{$workforce->workforce()->name}}
 							</td>
 							<td>
-								{{$workforce->qty()}}
+								{{number_format($workforce->qty(), 2)}}
 							</td>
 							<td>
-								{{$calculator->workforce($workforce->cost())}}
+								{{number_format($calculator->workforce($workforce->cost()), 2)}}
 							</td>
 							<td>
 								
 							</td>
 							<td>
-								{{$calculator->totalInWorkforce(
-								$workforce->cost(),
-								$workforce->qty()
-								)}}
+								{{
+									number_format(
+										$calculator->totalInWorkforce(
+											$workforce->cost(),
+											$workforce->qty()
+										),
+										2
+									)
+								}}
 							</td>
 						</tr>
 					@endforeach
@@ -327,7 +338,7 @@
 							<b>TOTAL MANO DE OBRA</b>
 						</td>
 						<td>
-							{{$calculator->getTotalInWorkforces()}}
+							{{number_format($calculator->getTotalInWorkforces(), 2)}}
 						</td>
 					</tr>
 				</tfoot>
