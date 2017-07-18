@@ -10,7 +10,8 @@ class Partitie extends Model
     	'name',
 		'yield',
 		'companieId',
-		'unitId'
+		'unitId',
+        'userId',
     ];
 
     public function unit() {

@@ -171,7 +171,7 @@
 							{{number_format($material->qty(), 2)}}
 						</td>
 						<td>
-							
+							{{number_format(0, 2)}}
 						</td>
 						<td>
 							{{number_format($calculator->material($material->cost()), 2)}}
@@ -210,7 +210,7 @@
 							<b>UNITARIO DE MATERIALES</b>
 						</td>
 						<td>
-							{{number_format($totalInMaterial, 2)}}
+							{{   number_format($totalInMaterial, 2)}}
 						</td>
 					</tr>
 				</tfoot>
@@ -220,6 +220,7 @@
 			<h3>2. EQUIPO</h3>
 			<table class="table">
 				<thead>
+
 					<tr>
 						<th class="border-left col-1">CÓDIGO</th>
 						<th class="col-3">DESCRIPCIÓN</th>
@@ -240,17 +241,17 @@
 							{{$equipment->equipment()->name}}
 						</td>
 						<td>
-							{{number_format($equipment->qty(), 2)}}
+							{{   number_format($equipment->qty(), 2)}}
 						</td>
 						<td>
-							{{$equipment->equipment()->depreciation}}
+							{{number_format($equipment->equipment()->depreciation, 2)}}
 						</td>
 						<td>
-							{{number_format($equipment->cost(), 2)}}
+							{{   number_format($equipment->cost(), 2)}}
 						</td>
 						<td>
 							{{
-								number_format(
+								   number_format(
 									$calculator->totalInEquipment(
 										$equipment->cost(),
 										$equipment->equipment()->depreciation,
@@ -315,7 +316,7 @@
 								{{number_format($calculator->workforce($workforce->cost()), 2)}}
 							</td>
 							<td>
-								
+								{{number_format(0, 2)}}
 							</td>
 							<td>
 								{{

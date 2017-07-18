@@ -14,6 +14,7 @@ class Project extends Model
 		'companieId',
 		'clientId',
 		'stateId',
+        'userId',
     ];
 
     public function client() {

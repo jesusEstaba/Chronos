@@ -60,6 +60,7 @@ class PartitieController extends Controller
             'yield' => $request->yield,
             'companieId' => Auth::user()->companieId,
             'unitId' => $request->unit,
+            'userId' => Auth::user()->id,
         ])->id;
 
         foreach ($request->materials as $material) {

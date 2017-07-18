@@ -389,164 +389,189 @@ function totalInworkforces() {
 			</form>
 			
 			<br>
+			
+			<ul class="nav nav-tabs">
+				<li class="nav-item">
+					<a class="nav-link active" data-toggle="tab" href="#mat" role="tab" href="#">
+						Materiales
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" data-toggle="tab" href="#equip" role="tab" href="#">
+						Equipos
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" data-toggle="tab" href="#work" role="tab" href="#">
+						Mano de Obra
+					</a>
+				</li>
+			</ul>
+			
+			<div class="tab-content">
+	  			<div class="tab-pane active" id="mat" role="tabpanel">
+					<br>
+					<div id="material">
+						<h3>Materiales <a href="#" data-toggle="modal" data-target="#myModal" class="btn btn-outline-success">Agregar</a>
+						</h3>
 
-			<div id="material">
-				<h3>Materiales <a href="#" data-toggle="modal" data-target="#myModal" class="btn btn-outline-success">Agregar</a>
-				</h3>
-
-				<!-- Modal -->
-				<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-					<div class="modal-dialog" role="document">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h5 class="modal-title" id="exampleModalLabel">Materiales</h5>
-								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body">
-								<input type="text" name="search-materials" class="form-control col-md-7 input-close-btn" placeholder="Nombre del Material" />
-								<button class="btn btn-outline-primary" id="search-materials">
-								Buscar
-								</button>
-								<br>
-								<div class="list-materials">
-									
+						<!-- Modal -->
+						<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalLabel">Materiales</h5>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body">
+										<input type="text" name="search-materials" class="form-control col-md-7 input-close-btn" placeholder="Nombre del Material" />
+										<button class="btn btn-outline-primary" id="search-materials">
+										Buscar
+										</button>
+										<br>
+										<div class="list-materials">
+											
+										</div>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+									</div>
 								</div>
 							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-							</div>
 						</div>
+						<table class="table table-striped materials">
+							<thead class="thead-inverse">
+								<tr>
+									<th></th>
+									<th>Nombre</th>
+									<th>Precio</th>
+									<th>Cantidad</th>
+									<th>Unidad</th>
+									<th>Magnitud</th>
+								</tr>
+							</thead>
+							<tbody>
+								<td colspan="6" class="delete-if-not-empty">
+									<p class="text-center">
+										No se ha agregado ningun recurso de este tipo.
+									</p>
+								</td>
+							</tbody>
+						</table>
+						<h4 style="display: none;">Total: <span class="total-materials">0</span></h4>
 					</div>
-				</div>
-				<table class="table table-striped materials">
-					<thead class="thead-inverse">
-						<tr>
-							<th></th>
-							<th>Nombre</th>
-							<th>Precio</th>
-							<th>Cantidad</th>
-							<th>Unidad</th>
-							<th>Unico</th>
-						</tr>
-					</thead>
-					<tbody>
-						<td colspan="6" class="delete-if-not-empty">
-							<p class="text-center">
-								No se ha agregado ningun recurso de este tipo.
-							</p>
-						</td>
-					</tbody>
-				</table>
-				<h4>Total: <span class="total-materials">0</span></h4>
-			</div>
+				</div>	
 					
-				<br>
-
-				<div id="equipment">
-					<h3>Equipos <a href="#" data-toggle="modal" data-target="#equipmentModal" class="btn btn-outline-success">Agregar</a>
-					</h3>
-					
-					<!-- Modal -->
-					<div class="modal fade" id="equipmentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-					  <div class="modal-dialog" role="document">
-					    <div class="modal-content">
-					      <div class="modal-header">
-					        <h5 class="modal-title" id="exampleModalLabel">Equipos</h5>
-					        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					          <span aria-hidden="true">&times;</span>
-					        </button>
-					      </div>
-					      <div class="modal-body">
-					        <input type="text" name="search-equipments" class="form-control col-md-7 input-close-btn" placeholder="Nombre del Equipo" />
-					        <a href="javascript:;" class="btn btn-outline-primary" id="search-equipments">
-					        	Buscar
-					        </a>
-					        <br>
-							<div class="list-equipments">
-								
-							</div>
-					      </div>
-					      <div class="modal-footer">
-					        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-					      </div>
-					    </div>
-					  </div>
-					</div>
-
-					<table class="table table-striped equipments">
-						<thead class="thead-inverse">
-							<tr>
-								<th></th>
-								<th>Nombre</th>
-								<th>Precio</th>
-								<th>Cantidad</th>
-								<th>Unico</th>
-								<th>Por Trabajador</th>
-							</tr>
-						</thead>
-						<tbody>
-							<td colspan="6" class="delete-if-not-empty">
-							<p class="text-center">
-								No se ha agregado ningun recurso de este tipo.
-							</p>
-						</td>
-						</tbody>
-					</table>
-					<h4>Total: <span class="total-equipments">0</span></h4>
-				</div>
-
-			<br>
-
-			<div id="workforce">
-				<h3>Mano de Obra <a href="#" data-toggle="modal" data-target="#modalworkforce" class="btn btn-outline-success">Agregar</a>
-				</h3>
-
-				<!-- Modal -->
-				<div class="modal fade" id="modalworkforce" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-					<div class="modal-dialog" role="document">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h5 class="modal-title" id="exampleModalLabel">Msno de Obra</h5>
-								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body">
-								<input type="text" name="search-workforces" class="form-control col-md-7 input-close-btn" placeholder="Nombre del Cargo" />
-								<button class="btn btn-outline-primary" id="search-workforces">
-								Buscar
-								</button>
-								<br>
-								<div class="list-workforces">
+				<div class="tab-pane" id="equip" role="tabpanel">
+					<br>
+					<div id="equipment">
+						<h3>Equipos <a href="#" data-toggle="modal" data-target="#equipmentModal" class="btn btn-outline-success">Agregar</a>
+						</h3>
+						
+						<!-- Modal -->
+						<div class="modal fade" id="equipmentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+						  <div class="modal-dialog" role="document">
+						    <div class="modal-content">
+						      <div class="modal-header">
+						        <h5 class="modal-title" id="exampleModalLabel">Equipos</h5>
+						        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						          <span aria-hidden="true">&times;</span>
+						        </button>
+						      </div>
+						      <div class="modal-body">
+						        <input type="text" name="search-equipments" class="form-control col-md-7 input-close-btn" placeholder="Nombre del Equipo" />
+						        <a href="javascript:;" class="btn btn-outline-primary" id="search-equipments">
+						        	Buscar
+						        </a>
+						        <br>
+								<div class="list-equipments">
 									
 								</div>
-							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+						      </div>
+						      <div class="modal-footer">
+						        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+						      </div>
+						    </div>
+						  </div>
+						</div>
+
+						<table class="table table-striped equipments">
+							<thead class="thead-inverse">
+								<tr>
+									<th></th>
+									<th>Nombre</th>
+									<th>Precio</th>
+									<th>Cantidad</th>
+									<th>Por Trabajador</th>
+									<th>Magnitud</th>
+								</tr>
+							</thead>
+							<tbody>
+								<td colspan="6" class="delete-if-not-empty">
+								<p class="text-center">
+									No se ha agregado ningun recurso de este tipo.
+								</p>
+							</td>
+							</tbody>
+						</table>
+						<h4 style="display: none;">Total: <span class="total-equipments">0</span></h4>
+					</div>
+
+				</div>
+				<div class="tab-pane" id="work" role="tabpanel">
+					<br>
+					<div id="workforce">
+						<h3>Mano de Obra <a href="#" data-toggle="modal" data-target="#modalworkforce" class="btn btn-outline-success">Agregar</a>
+						</h3>
+
+						<!-- Modal -->
+						<div class="modal fade" id="modalworkforce" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalLabel">Msno de Obra</h5>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body">
+										<input type="text" name="search-workforces" class="form-control col-md-7 input-close-btn" placeholder="Nombre del Cargo" />
+										<button class="btn btn-outline-primary" id="search-workforces">
+										Buscar
+										</button>
+										<br>
+										<div class="list-workforces">
+											
+										</div>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+									</div>
+								</div>
 							</div>
 						</div>
+						<table class="table table-striped workforces">
+							<thead class="thead-inverse">
+								<tr>
+									<th></th>
+									<th>Cargo</th>
+									<th>Salario</th>
+									<th>Cantidad</th>
+								</tr>
+							</thead>
+							<tbody>
+								<td colspan="4" class="delete-if-not-empty">
+									<p class="text-center">
+										No se ha agregado ningun recurso de este tipo.
+									</p>
+								</td>
+							</tbody>
+						</table>
+						<h4 style="display: none;">Total: <span class="total-workforces">0</span></h4>
 					</div>
 				</div>
-				<table class="table table-striped workforces">
-					<thead class="thead-inverse">
-						<tr>
-							<th></th>
-							<th>Cargo</th>
-							<th>Salario</th>
-							<th>Cantidad</th>
-						</tr>
-					</thead>
-					<tbody>
-						<td colspan="4" class="delete-if-not-empty">
-							<p class="text-center">
-								No se ha agregado ningun recurso de este tipo.
-							</p>
-						</td>
-					</tbody>
-				</table>
-				<h4>Total: <span class="total-workforces">0</span></h4>
 			</div>
 
 			<input type="submit" class="btn btn-outline-success float-right" value="Crear" />

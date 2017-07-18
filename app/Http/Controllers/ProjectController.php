@@ -66,6 +66,7 @@ class ProjectController extends Controller
             'companieId' => Auth::user()->companieId,
             'clientId' => $request->client,
             'stateId' => 1,
+            'userId' => Auth::user()->id,
         ])->id;
 
         $modifiers = [
@@ -119,6 +120,7 @@ class ProjectController extends Controller
                     'quantity' => $partitie['quantity'],
                     'projectId' => $projectId,
                     'partitieId' => $partitie['id'],
+                    'userId' => Auth::user()->id,
                 ])->id;
 
                 foreach ($partitie['materials'] as $material) {

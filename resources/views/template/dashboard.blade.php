@@ -106,7 +106,7 @@
                                 Proyectos
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" style="display: none;">
                             <a id="schedule" class="nav-link disabled" href="#">
                                 <i class="fa fa-calendar-o"></i>
                                 Actividades
@@ -161,9 +161,9 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a id="employees" class="nav-link disabled" href="#">
+                            <a id="employees" class="nav-link " href="#">
                                 <i class="fa fa-users disabled"></i>
-                                Trabajadores
+                                Usuarios
                             </a>
                         </li>
                     </ul>
