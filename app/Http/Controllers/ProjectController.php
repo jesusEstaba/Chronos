@@ -149,7 +149,7 @@ class ProjectController extends Controller
             }
         }
 
-        session()->flash('success', 'Material Creado.');
+        session()->flash('success', 'Proyecto Creado.');
 
         return response()->json(['status'=>'redirect']);
     }

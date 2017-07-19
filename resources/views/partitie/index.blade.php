@@ -17,18 +17,20 @@
 		@if(count($partities))
 			<table class="table table-striped table-bordered">
 				<thead>
+					<th style="width: 20%;">Codigo Covenin</th>
 					<th>Nombre</th>
-					<th>Costo</th>
 				</thead>
 				<tbody>
 					@foreach($partities as $partitie)
 					<tr>
 						<td>
+							<i>sin codigo</i>
+						</td>
+						<td>
 							<a href="/partities/{{$partitie->id}}">
 								{{$partitie->name}}
 							</a>
 						</td>
-						<td>0</td>
 					</tr>
 					@endforeach
 				</tbody>

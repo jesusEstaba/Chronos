@@ -2,6 +2,9 @@
 @section('sub-title', 'Crear')
 
 @section('sub-content')
+<a href="/partities/{{$partitie->id}}/edit" class="btn btn-outline-warning">
+		<i class="fa fa-pencil" aria-hidden="true"></i> Editar
+	</a>
 	<div class="box">
 		<script type="text/javascript">
 			$(() => {
@@ -13,13 +16,38 @@
 		<div class="box-body">
 			@section('titlePrincipal', $partitie->name)
 			<p>
-				<b>Rendimiento:</b> {{$partitie->yield}}
+				<b>Rendimiento:</b> {{number_format($partitie->yield, 2)}}
 			</p>
 			<p>
-				<b>Unidad:</b> {{$partitie->unitId}}
+				<b>Codigo Covenin:</b> <i>sin codigo</i>
+			</p>
+			<p>
+				<b>Unidad:</b> {{Repo\Unit::find($partitie->unitId)->name}}
 			</p>
 			
 			
+			<br>
+
+			<ul class="nav nav-tabs">
+				<li class="nav-item">
+					<a class="nav-link active" data-toggle="tab" href="#mat" role="tab" href="#">
+						Materiales
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" data-toggle="tab" href="#equip" role="tab" href="#">
+						Equipos
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" data-toggle="tab" href="#work" role="tab" href="#">
+						Mano de Obra
+					</a>
+				</li>
+			</ul>
+
+<div class="tab-content">
+	<div class="tab-pane active" id="mat" role="tabpanel">
 			<br>
 
 			<div id="material">
@@ -56,7 +84,9 @@
 					</tbody>
 				</table>
 			</div>
-					
+				
+	</div>
+	<div class="tab-pane" id="equip" role="tabpanel">	
 			<br>
 
 			<div id="equipment">
@@ -101,7 +131,9 @@
 					</tbody>
 				</table>
 			</div>
-			
+	</div>
+
+	<div class="tab-pane" id="work" role="tabpanel">		
 			<br>
 
 			<div id="workforce">
@@ -124,6 +156,8 @@
 						@endforeach
 					</tbody>
 				</table>
+			</div>
+			</div>
 			</div>
 		</div>
 	</div>

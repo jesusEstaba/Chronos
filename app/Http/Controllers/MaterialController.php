@@ -54,7 +54,7 @@ class MaterialController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CreateMaterialRequest $request)
+    public function store(Request $request)
     {
         $materialId = Material::create([
             'name' => $request->name,

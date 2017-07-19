@@ -31,9 +31,27 @@
 								{{$project->name}}
 							</a>
 						</td>
-						<td></td>
-						<td></td>
-						<td></td>
+						<td>
+							{{Repo\Client::find($project->clientId)->name}}
+						</td>
+						<td>
+							<?php
+								if ($project->stateId == 2) {
+									$color = 'primary';
+								} elseif ($project->stateId == 3) {
+									$color = 'warning';
+								}else {
+									$color = 'default';
+								}
+							?>
+							<span class="badge badge-{{$color}}">
+
+							{{Repo\State::find($project->stateId)->name}}
+							</span>
+						</td>
+						<td>
+							{{$project->created_at}}
+						</td>
 						<td></td>
 					</tr>
 					@endforeach

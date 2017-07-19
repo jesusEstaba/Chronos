@@ -10,7 +10,7 @@
         <link rel="icon" href="https://v4-alpha.getbootstrap.com/favicon.ico">
         -->
         
-        <title>Dashboard @yield('subtitle')</title>
+        <title>Panel de Control @yield('subtitle')</title>
     
         <link href="{{asset('font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
 
@@ -49,7 +49,9 @@
             .navbar .nav-link:hover{
                 color: #fff !important;
             }
-            /*SIDEBAR*/
+            
+
+
             .sidebar{
                 background: #374046 !important;
             }
@@ -181,6 +183,33 @@
                $('.sidebar .nav-link#@yield('activeId')').addClass('active'); 
             });
         </script>
+    <style type="text/css">
+        /*
+        * {
+            background: none !important;
+            color: initial !important;
+            border-radius: initial !important;
+            box-shadow: none !important;
+        }
 
+        a {
+            text-decoration: underline !important;
+        }
+
+        .btn{
+            background: #000 !important;
+            color: #fff !important;
+            text-decoration: none !important;
+        }
+        nav {
+            background: #fff !important;
+        }
+        nav, .sidebar{
+            border:1px solid #000 !important;
+        }
+        .fa {
+            display: none !important; 
+        }*/
+    </style>
     </body>
 </html>

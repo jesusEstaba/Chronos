@@ -53,5 +53,6 @@ Route::group(['middleware' => 'isAuth'], function() {
 
 	
 	Route::get('projects/{id}/pdf', 'ProjectController@pdf');
+	Route::get('gantt', 'GanttController@index');
 	
 });

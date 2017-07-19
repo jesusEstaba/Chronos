@@ -4,28 +4,52 @@
 @section('sub-content')
 
 @section('titlePrincipal', $project->name)
-<!--
+
 	<a href="/projects/{{$project->id}}/edit" class="btn btn-outline-warning">
 		<i class="fa fa-pencil" aria-hidden="true"></i> Editar
 	</a>
--->
+	<a href="/projects/{{$project->id}}/clone" style="float: right;" class="btn btn-outline-success">
+		<i class="fa fa-clone" aria-hidden="true"></i> Clonar
+	</a>
+
+
 
 <style type="text/css">
 </style>
 <div class="box">
-	<div class="box-head">
+	<div class="box-head" style="margin-bottom: .5em;">
 		<a target="_blank" style="margin-bottom: .5em;" class="btn btn-outline-primary" href="/projects/{{$project->id}}/pdf">
 			Partidas <i class="fa fa-file-pdf-o" aria-hidden="true"></i> 
+		</a>
+		<a target="_blank" style="margin-bottom: .5em; float: right;" class="btn btn-outline-info" href="/gantt/{{$project->id}}/pdf">
+			Gantt <i class="fa fa-bar-chart" aria-hidden="true"></i>
 		</a>
 		
 	</div>
 	<div class="box-body">
-		<div class="headers">
-			<p>
-				<b>Creado:</b> {{$project->created_at}}
+		
+		
+		<div class="row">
+			<div class="col-md-6">
+				<div class="headers">
+					<p>
+						<b>Cliente:</b> <a href="/clients/{{$project->clientId}}">{{Repo\Client::find($project->clientId)->name}}</a>
+					</p>
+					<p>
+						<b>Creado:</b> {{$project->created_at}}
+					</p>
+					<p>
+						<b>Estado:</b> <span class="badge badge-default">{{Repo\State::find($project->stateId)->name}}</span>
+					</p>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="modifiers">
+			<p style="margin: 0;">
+				<small>
+					Modificadores
+				</small>
 			</p>
-		</div>
-		<div class="modifiers">
 			@foreach ($projectModifiers as $modifier)
             	<p style="margin: .15em 0;">
             		<b>@lang('app.'.$modifier->name):</b> 
@@ -33,6 +57,9 @@
             	</p>
         	@endforeach
 		</div>
+			</div>
+		</div>
+
 		<br>
 			
 		<ul class="nav nav-tabs">

@@ -380,6 +380,9 @@ function totalInworkforces() {
 			<form id="partitie-data" method="POST" class="space-childs">
 				{{csrf_field()}}
 				<input name="name" type="text" class="form-control" placeholder="Nombre" autocomplete="off" />
+				
+				<input name="cod" type="text" class="form-control" placeholder="Codigo Covenin" autocomplete="off" />
+				
 				<input name="yield" type="text" class="form-control" placeholder="Rendimiento" autocomplete="off" />
 				<select class="form-control" name="unit">
 					@foreach($units as $unit)
