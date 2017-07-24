@@ -9,6 +9,10 @@
 		.box-body .row>div *{
 			margin-bottom: .5em;
 		}
+
+		.btn-group, .btn-group * {
+    		margin-bottom: 0 !important;
+		}
 	</style>
 	<div class="box">
 		<div class="box-body">
@@ -29,6 +33,12 @@
 								<option value="{{$client->id}}">{{$client->name}}</option>
 							@endforeach
 						</select>
+						<select name="status" id="" class="form-control">
+							<option>Estado</option>
+							@foreach(Repo\State::get() as $status)
+								<option value="{{$status->id}}">{{$status->name}}</option>
+							@endforeach
+						</select>
 						<p>
 							<small>Configuración Mano de Obra</small>
 						</p>
@@ -43,7 +53,7 @@
 							<small>Modificadores</small>
 						</p>
 						<input name="expenses" type="text" class="form-control" placeholder="% ADMINISTRACION Y GASTOS GENERALES" autocomplete="off" />
-						<input name="utility" type="text" class="form-control" placeholder="% UTILIDAD + COMIISON VENTAS" autocomplete="off" />
+						<input name="utility" type="text" class="form-control" placeholder="% UTILIDAD + COMISON VENTAS" autocomplete="off" />
 						<input name="unexpected" type="text" class="form-control" placeholder="% IMPREVISTO DE COMPRA" autocomplete="off" />
 						<input name="bonus" type="text" class="form-control" placeholder="Bono Alimentacion/Hospedaje diario" autocomplete="off" />
 						<input name="fcas" type="text" class="form-control" placeholder="Factor de Costos Asociados al Salario" autocomplete="off" />
@@ -57,6 +67,9 @@
 				<div class="row">
 					<div class="col-md-12">
 						<h3>Partidas <a href="#" id="modalactivate" data-toggle="modal" data-target="#myModal" class="btn btn-outline-success">Agregar</a>
+						<span class="pull-right">
+							Total: 0.00
+						</span>
 						</h3>
 
 						<!-- Modal -->

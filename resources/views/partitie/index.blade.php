@@ -19,6 +19,9 @@
 				<thead>
 					<th style="width: 20%;">Codigo Covenin</th>
 					<th>Nombre</th>
+					<th>
+						Creador
+					</th>
 				</thead>
 				<tbody>
 					@foreach($partities as $partitie)
@@ -30,6 +33,9 @@
 							<a href="/partities/{{$partitie->id}}">
 								{{$partitie->name}}
 							</a>
+						</td>
+						<td>
+							<a href="/users/{{$partitie->userId}}">{{Repo\User::find($partitie->userId)->name}}</a>
 						</td>
 					</tr>
 					@endforeach

@@ -10,8 +10,8 @@
 	</a>
 
 <p>
-	<b>Category:</b> <a href="/categories/{{$material->category->id}}">{{$material->category->name}}</a> 
-	<b>Unit:</b> <a href="/units/{{$material->unit->id}}">{{$material->unit->name}} </a>
+	<b>Categoria:</b> <a href="/categories/{{$material->category->id}}">{{$material->category->name}}</a> 
+	<b>Unidad:</b> <a href="/units/{{$material->unit->id}}">{{$material->unit->name}} </a>
 </p>
 
 <div class="box">

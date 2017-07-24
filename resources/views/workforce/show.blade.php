@@ -36,7 +36,7 @@
 			<tbody>
 				@foreach($workforceCosts as $cost)
 				<tr>
-					<td>{{$cost->cost}}</td>
+					<td>{{number_format($cost->cost, 2)}}</td>
 					<td>{{$cost->created_at}}</td>
 				</tr>
 				@endforeach

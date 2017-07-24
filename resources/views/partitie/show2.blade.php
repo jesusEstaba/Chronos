@@ -15,6 +15,7 @@
 		</script>
 		<div class="box-body">
 			@section('titlePrincipal', $partitie->name)
+			<small class="pull-right"><b>Creador:</b> <a href="/users/{{$partitie->userId}}">{{Repo\User::find($partitie->userId)->name}}</a></small>
 			<p>
 				<b>Rendimiento:</b> {{number_format($partitie->yield, 2)}}
 			</p>
@@ -66,8 +67,8 @@
 						@foreach($materials as $material)
 							<tr>
 								<td>{{$material->material->name}}</td>
-								<td>{{$material->material->lastCost()}}</td>
-								<td>{{$material->quantity}}</td>
+								<td>{{number_format($material->material->lastCost(), 2)}}</td>
+								<td>{{number_format($material->quantity, 2)}}</td>
 								<td>{{$material->material->unit->abbreviature}}</td>
 								<td>
 									<label class="custom-control custom-checkbox">
@@ -105,8 +106,8 @@
 						@foreach($equipments as $equipment)
 							<tr>
 								<td>{{$equipment->equipment->name}}</td>
-								<td>{{$equipment->equipment->lastCost()}}</td>
-								<td>{{$equipment->quantity}}</td>
+								<td>{{number_format($equipment->equipment->lastCost(), 2)}}</td>
+								<td>{{number_format($equipment->quantity, 2)}}</td>
 								<td>
 									<label class="custom-control custom-checkbox">
 										<input type="checkbox" class="custom-control-input" 
@@ -150,8 +151,8 @@
 						@foreach($workforces as $workforce)
 							<tr>
 								<td>{{$workforce->workforce->name}}</td>
-								<td>{{$workforce->workforce->lastCost()}}</td>
-								<td>{{$workforce->quantity}}</td>
+								<td>{{number_format($workforce->workforce->lastCost(), 2)}}</td>
+								<td>{{number_format($workforce->quantity, 2)}}</td>
 							</tr>
 						@endforeach
 					</tbody>

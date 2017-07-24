@@ -14,6 +14,10 @@ use Repo\MaterialCost;
 
 class MaterialController extends Controller
 {
+    function __construct() {
+       $this->middleware('operatorRestrictedAccess');
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -42,8 +46,11 @@ class MaterialController extends Controller
      */
     public function create()
     {
-        $categories = Category::where('companieId', Auth::user()->companieId)->get();
-        $units = Unit::all();
+        $categories = Category::where('companieId', Auth::user()->companieId)
+            ->orderBy('name')
+            ->get();
+        $units = Unit::where('companieId', Auth::user()->companieId)
+            ->get();
   
         return view('material.create', compact('categories', 'units'));
     }

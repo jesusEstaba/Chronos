@@ -12,6 +12,7 @@ class Partitie extends Model
 		'companieId',
 		'unitId',
         'userId',
+        'reference'
     ];
 
     public function unit() {

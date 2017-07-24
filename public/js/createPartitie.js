@@ -69,7 +69,7 @@ function validateFieldsIsNotEmpty() {
 		isEmpty = true;
 	}
 
-	return isEmpty;
+	return false;
 }
 
 function agregarProcentaje(base, porcentage) {
@@ -81,13 +81,15 @@ partitieList = []
 
 function templatePartitie2(partitie) {
 	return `
-	<div class="col-md-6">
+	<div class="col-md-12">
 	<div class="partitie" style="border: 1px solid rgba(0,0,0,.15);padding: .5em;border-radius: .25rem;">
+		
 		<header>
 			<h5 style="color:#605f52;">
 				${partitie.name}
 			</h5>
 		</header>
+
 		
 		<div class="row">
 			<div class="col-md-6">
@@ -106,14 +108,22 @@ function templatePartitie2(partitie) {
 					<b>Gastos Administrativos:</b> <br /> ${partitie.expenses.toFixed(2)}
 				</p>
 				<p>
-					<b>utilidad:</b> <br /> ${partitie.utility.toFixed(2)}
+					<b>Utilidad:</b> <br /> ${partitie.utility.toFixed(2)}
 				</p>
 				<p>
 					<b>Total Precio Unitario:</b> <br /> ${partitie.unitary.toFixed(2)}
 				</p>
 			</div>
 		</div>
-
+<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+  <div ><div class="btn-group" role="group" aria-label="First group">
+    <button  type="button" class="btn btn-secondary">
+    <i class="fa fa-minus"></i></button>
+    <input style="width:30%;" value="1" type="text" class="btn btn-secondary">
+    <button  type="button" class="btn btn-secondary">
+    <i class="fa fa-plus"></i></button>
+  </div></div>
+  </div>
 		<h6 style="color: #0275d8;">
 			<b>Total Partida:</b> ${partitie.partitie.toFixed(2)}
 		</h6>

@@ -1,14 +1,17 @@
-@extends('equipment.equipment')
-
-@section('titlePrincipal', $equipment->name)
+@extends('user.user')
+@section('sub-title', '')
 
 @section('sub-content')
 
-<a href="/equipments/{{$equipment->id}}/edit" class="btn btn-outline-warning">
-	<i class="fa fa-pencil" aria-hidden="true"></i> Editar
-</a>
+@section('titlePrincipal', $material->name)
+
+	<a href="/materials/{{$material->id}}/edit" class="btn btn-outline-warning">
+		<i class="fa fa-pencil" aria-hidden="true"></i> Editar
+	</a>
+
 <p>
-	<b>Category:</b> <a href="/categories/{{$equipment->category->id}}">{{$equipment->category->name}}</a>
+	<b>Category:</b> <a href="/categories/{{$material->category->id}}">{{$material->category->name}}</a> 
+	<b>Unit:</b> <a href="/units/{{$material->unit->id}}">{{$material->unit->name}} </a>
 </p>
 
 <div class="box">
@@ -16,9 +19,9 @@
 		<h5>Añadir Costo</h5>
 	</div>
 	<div class="box-body">
-		<form action="/equipmentcosts" method="post">
+		<form action="/materialcosts" method="post">
 			{{csrf_field()}}
-			<input type="hidden" name="equipmentId" value="{{$equipment->id}}">
+			<input type="hidden" name="materialId" value="{{$material->id}}">
 			<input type="text" placeholder="Nuevo Costo" class="form-control col-md-3 input-close-btn" name="cost" />
 			<input type="submit" name="new-cost" class="btn btn-outline-success" value="Agregar" />
 		</form>
@@ -36,15 +39,15 @@
 				<th>Fecha</th>
 			</thead>
 			<tbody>
-				@foreach($equipmentCosts as $cost)
+				@foreach($materialCosts as $cost)
 				<tr>
-					<td>{{number_format($cost->cost, 2)}}</td>
+					<td>{{$cost->cost}}</td>
 					<td>{{$cost->created_at}}</td>
 				</tr>
 				@endforeach
 			</tbody>
 		</table>
-		{{ $equipmentCosts->links('vendor.pagination.bootstrap-4') }}
+		{{ $materialCosts->links('vendor.pagination.bootstrap-4') }}
 	</div>
 </div>
 @stop

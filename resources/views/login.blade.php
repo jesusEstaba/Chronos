@@ -71,20 +71,24 @@
 			</div>
 		@endif
 	</div>
+	
 
-      <form class="form-signin" method="post">
+      <form class="form-signin" style="margin-top: 3em;" method="post">
+      	<img class="img-fluid" style="margin-bottom: 3em;" src="{{asset('images/logos/j1atjjNo.png')}}" alt="">
       	{{ csrf_field() }}
-        <h2 class="form-signin-heading">Inicie Sesión</h2>
+        <p class="m-0">
+        	<small>Inicie sesión para continuar</small>
+        </p>
         <label for="inputEmail" class="sr-only">Correo</label>
         <input name="email" type="email" id="inputEmail" class="form-control" placeholder="Correo" required="" autofocus="">
         <label for="inputPassword" class="sr-only">Contraseña</label>
         <input name="password" type="password" id="inputPassword" class="form-control" placeholder="Contraseña" required="">
-        <div class="checkbox">
+        <div class="hidden-xs-up checkbox">
           <label>
             <input name="remember-me" type="checkbox" value="remember-me"> Recuérdame
           </label>
         </div>
-        <button class="btn btn-lg btn-outline-primary btn-block" type="submit">Entrar</button>
+        <button style="cursor: pointer;" class="btn btn-lg btn-outline-primary btn-block" type="submit">Entrar</button>
       </form>
 
     </div>

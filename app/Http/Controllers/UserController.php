@@ -3,17 +3,34 @@
 namespace Cronos\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Repo\User;
+use Auth;
 
 class UserController extends Controller
 {
+	function __construct() {
+       $this->middleware('operatorRestrictedAccess');
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $search = $request->search;
+
+        $users = User::where('companieId', Auth::user()->companieId)
+            ->where(function ($query) use ($search) {
+                if ($search) {
+                    $query->where('name', 'like', '%' . $search . '%');
+                }
+            })
+            ->orderBy('id', 'desc')
+            ->paginate(10);
+
+        return view('user.index', compact('users', 'search'));
     }
 
     /**
@@ -23,7 +40,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('user.create');
     }
 
     /**
@@ -34,7 +51,21 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        User::create([
+            'name' => $request->name,
+	        'email' => $request->email, 
+	        'password' => bcrypt($request->password), 
+	        'companieId' => Auth::user()->companieId,
+	        'rol' => $request->rol,
+	        'state' => $request->state,
+	        'identificator' => $request->rif ?? '',
+	        'phone' => $request->phone ?? '',
+	        'address' => $request->address ?? '',
+        ]);
+
+        session()->flash('success', 'Usuario Creado.');
+        
+        return redirect('/users');
     }
 
     /**

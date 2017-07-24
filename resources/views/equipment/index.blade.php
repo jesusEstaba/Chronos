@@ -35,7 +35,7 @@
 						<td>
 							{{$equipment->depreciation}}
 						</td>
-						<td>{{ $equipment->lastCost()}}</td>
+						<td>{{ number_format($equipment->lastCost(), 2)}}</td>
 					</tr>
 					@endforeach
 				</tbody>

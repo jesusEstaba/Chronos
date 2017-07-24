@@ -5,25 +5,54 @@
 
 @section('titlePrincipal', $project->name)
 
-	<a href="/projects/{{$project->id}}/edit" class="btn btn-outline-warning">
+	
+	
+<div class="row" style="margin: 0 -15px;">
+<div class="col-md-6">
+<a href="/projects/{{$project->id}}/edit" class="btn btn-outline-warning">
 		<i class="fa fa-pencil" aria-hidden="true"></i> Editar
 	</a>
-	<a href="/projects/{{$project->id}}/clone" style="float: right;" class="btn btn-outline-success">
-		<i class="fa fa-clone" aria-hidden="true"></i> Clonar
-	</a>
-
+</div>
+	<div class="col-md-6">
+	
+						<?php
+					  			
+					  	function daysLeft($start, $end) {
+					  		$date1 = new DateTime($start);  //current date or any date
+							$date2 = new DateTime($end);   //Future date
+							$diff = $date2->diff($date1)->format("%a");  //find difference
+					  		return intval($diff);   //rounding days
+					  	}
+					  	$days = daysLeft($project->start, $project->end);
+					  	?>
+					  	<span style="font-size: 1.3em;" class="pull-right badge badge-danger"><!--esto debe ser por porcentaje-->
+									{{$days}} <br> <small>
+										@if($days>1)
+											Días
+										@else
+											Día
+										@endif
+										 Restantes
+									</small></span>
+					
+</div>
+</div>
 
 
 <style type="text/css">
 </style>
 <div class="box">
+	
 	<div class="box-head" style="margin-bottom: .5em;">
-		<a target="_blank" style="margin-bottom: .5em;" class="btn btn-outline-primary" href="/projects/{{$project->id}}/pdf">
+		<a target="_blank" style="margin-bottom: .5em;" class="btn btn-outline-primary" href="/projects/pdf/{{$project->id}}">
 			Partidas <i class="fa fa-file-pdf-o" aria-hidden="true"></i> 
 		</a>
-		<a target="_blank" style="margin-bottom: .5em; float: right;" class="btn btn-outline-info" href="/gantt/{{$project->id}}/pdf">
+		<a target="_blank" style="margin-bottom: .5em;" class="btn btn-outline-info" href="/projects/gantt/{{$project->id}}">
 			Gantt <i class="fa fa-bar-chart" aria-hidden="true"></i>
 		</a>
+		<a href="/projects/clone/{{$project->id}}" style="margin-bottom: .5em;"  class="btn btn-outline-success">
+		<i class="fa fa-clone" aria-hidden="true"></i> Clonar
+	</a>
 		
 	</div>
 	<div class="box-body">
@@ -34,13 +63,19 @@
 				<div class="headers">
 					<p>
 						<b>Cliente:</b> <a href="/clients/{{$project->clientId}}">{{Repo\Client::find($project->clientId)->name}}</a>
+						<br>
+						<b>Responsable:</b> <a href="/users/{{$project->userId}}">{{Repo\User::find($project->userId)->name}}</a>
 					</p>
+					
 					<p>
-						<b>Creado:</b> {{$project->created_at}}
+						<b>Creado:</b> {{$project->created_at}} <br>
+						<b>Inicio:</b> {{$project->start}} <br>
+						<b>Fin:</b>  {{$project->end}}
 					</p>
 					<p>
 						<b>Estado:</b> <span class="badge badge-default">{{Repo\State::find($project->stateId)->name}}</span>
 					</p>
+					
 				</div>
 			</div>
 			<div class="col-md-6">
@@ -53,10 +88,13 @@
 			@foreach ($projectModifiers as $modifier)
             	<p style="margin: .15em 0;">
             		<b>@lang('app.'.$modifier->name):</b> 
-            		{{$modifier->amount}}@if($modifier->type==1)%@endif
+            		{{number_format($modifier->amount, 2)}}@if($modifier->type==1)%@endif
             	</p>
         	@endforeach
 		</div>
+			</div>
+			<div class="col-xs-12">
+				<h4 style="text-align: right;">Total: 0.00</h4>
 			</div>
 		</div>
 
@@ -70,7 +108,7 @@
 			</li>
 			<li class="nav-item">
 				<a class="nav-link" data-toggle="tab" href="#sheet5" role="tab" href="#">
-					Sumatoria Total
+					Sumatoria Global
 				</a>
 			</li>
 		</ul>
@@ -138,7 +176,7 @@
 						@endforeach
 					</tbody>
 				</table>
-				<h4 style="text-align: right;">Total: {{number_format($totalInPartities, 2)}}</h4>
+				
   			</div>
   			<div class="tab-pane" id="sheet5" role="tabpanel">
   				<table class="table">
@@ -242,4 +280,12 @@
   		</div>
 	</div>
 </div>
+<style type="text/css">
+	.table thead{
+		font-size: .7em;
+	}
+	.row{
+		margin: 0;
+	}
+</style>
 @stop

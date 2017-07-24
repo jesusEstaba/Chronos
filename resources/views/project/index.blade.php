@@ -19,6 +19,7 @@
 				<thead>
 					<th>Nombre</th>
 					<th>Cliente</th>
+					<th>Responsable</th>
 					<th>Estado</th>
 					<th>Creación</th>
 					<th>Costo</th>
@@ -32,7 +33,13 @@
 							</a>
 						</td>
 						<td>
-							{{Repo\Client::find($project->clientId)->name}}
+							<a href="/clients/{{$project->clientId}}">{{Repo\Client::find($project->clientId)->name}}</a>
+							
+						</td>
+						<td>
+							<a href="/users/{{$project->userId}}">
+								{{Repo\User::find($project->userId)->name}}
+							</a>
 						</td>
 						<td>
 							<?php

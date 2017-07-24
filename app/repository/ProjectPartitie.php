@@ -12,6 +12,7 @@ class ProjectPartitie extends Model
 		'projectId',
 		'partitieId',
         'userId',
+        'order',
     ];
 
     public function partitie() {

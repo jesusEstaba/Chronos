@@ -36,7 +36,7 @@
 						<td>
 							{{$material->unit->name}}
 						</td>
-						<td>{{ $material->lastCost()}}</td>
+						<td>{{number_format($material->lastCost(),2)}}</td>
 					</tr>
 					@endforeach
 				</tbody>

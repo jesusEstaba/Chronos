@@ -10,6 +10,10 @@ use Auth;
 
 class EquipmentController extends Controller
 {
+    function __construct() {
+       $this->middleware('operatorRestrictedAccess');
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -38,7 +42,9 @@ class EquipmentController extends Controller
      */
     public function create()
     {
-        $categories = Category::where('companieId', Auth::user()->companieId)->get();
+        $categories = Category::where('companieId', Auth::user()->companieId)
+            ->orderBy('name')
+            ->get();
   
         return view('equipment.create', compact('categories'));
     }

@@ -28,7 +28,7 @@
 								{{$workforce->name}}
 							</a>
 						</td>
-						<td>{{ $workforce->lastCost()}}%</td>
+						<td>{{ number_format($workforce->lastCost(),2)}}%</td>
 					</tr>
 					@endforeach
 				</tbody>

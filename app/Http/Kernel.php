@@ -57,5 +57,8 @@ class Kernel extends HttpKernel
         'guest' => \Cronos\Http\Middleware\RedirectIfAuthenticated::class,
         'isAuth' => \Cronos\Http\Middleware\Authenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+
+        'operatorRestrictedAccess'=> \Cronos\Http\Middleware\OperatorLimit::class,
+        'state' => \Cronos\Http\Middleware\UserState::class,
     ];
 }

@@ -7,6 +7,10 @@ use Repo\MaterialCost;
 
 class MaterialCostController extends Controller
 {
+    function __construct() {
+       $this->middleware('operatorRestrictedAccess');
+    }
+    
     /**
      * Display a listing of the resource.
      *

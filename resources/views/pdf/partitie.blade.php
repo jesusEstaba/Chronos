@@ -94,13 +94,16 @@
 		</div>
 		<div class="col-md-12">
 			<p class="text-right">
-				<b>Fecha</b>: {{date('d-m-Y')}}
+				<b>Fecha</b>: {{date('Y-m-d')}}
 			</p>
 			<p class="text-right">
 				<b>Partida N°</b>: {{$page++}}
 			</p>
 		</div>
 		<div class="col-md-12">
+			<p>
+				<b>Responsable:</b> {{Repo\User::find($partitie->userId)->name}}
+			</p>
 			<p>
 				<b>
 				Descripción de la Obra:

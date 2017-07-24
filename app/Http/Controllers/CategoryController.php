@@ -23,7 +23,7 @@ class CategoryController extends Controller
                     $query->where('name', 'like', '%' . $search . '%');
                 }
             })
-            ->orderBy('id', 'desc')
+            ->orderBy('name')
             ->paginate(10);
 
         return view('category.index', compact('categories', 'search'));

@@ -7,6 +7,10 @@ use Repo\WorkforceCost;
 
 class WorkforceCostController extends Controller
 {
+    function __construct() {
+       $this->middleware('operatorRestrictedAccess');
+    }
+    
     /**
      * Display a listing of the resource.
      *
