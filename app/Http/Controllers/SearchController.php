@@ -2,7 +2,8 @@
 
 namespace Cronos\Http\Controllers;
 
-class SearchController extends Controller
+
+class SearchController
 {
     use \ChronosDependency\SearchController;
 }

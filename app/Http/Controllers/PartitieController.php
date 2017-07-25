@@ -2,7 +2,7 @@
 
 namespace Cronos\Http\Controllers;
 
-class PartitieController extends Controller
+class PartitieController
 {
     use \ChronosDependency\PartitieController;
 }

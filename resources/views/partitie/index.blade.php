@@ -27,7 +27,11 @@
 					@foreach($partities as $partitie)
 					<tr>
 						<td>
-							<i>sin codigo</i>
+							@if($partitie->reference)
+								{{$partitie->reference}}
+							@else
+								<i>Sin codigo</i>
+							@endif
 						</td>
 						<td>
 							<a href="/partities/{{$partitie->id}}">

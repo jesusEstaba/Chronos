@@ -79,17 +79,25 @@
 				<div class="col-md-6">
 					<div class="card">
 					  <div class="card-header">
-					    Proyectos Recientes
+					    Proyectos modificados Recientemente
 					  </div>
 					  <div class="card-block">
-					  	@foreach($projectsRecents as $project)
+					  	@if(count($projectsRecents))
+					  		@foreach($projectsRecents as $project)
+						  		<div class="project-dashboard">
+						  			<a href="/projects/{{$project->id}}">
+						  				{{$project->name}}
+						  			</a>
+						  			<em class="text-muted">{{$project->updated_at}}</em>
+						  		</div>
+						  	@endforeach
+					  	@else
 					  		<div class="project-dashboard">
-					  			<a href="/projects/{{$project->id}}">
-					  				{{$project->name}}
-					  			</a>
-					  			<em class="text-muted">{{$project->updated_at}}</em>
-					  		</div>
-					  	@endforeach
+						  		<p class="item-time">
+						  			<em>Sin proyectos modificados Recientemente</em>
+						  		</p>
+						  	</div>
+					  	@endif
 					  </div>
 					</div>
 				</div>

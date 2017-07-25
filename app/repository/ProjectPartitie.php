@@ -13,10 +13,15 @@ class ProjectPartitie extends Model
 		'partitieId',
         'userId',
         'order',
+        'parent'
     ];
 
     public function partitie() {
         return $this->belongsTo('Repo\Partitie', 'partitieId')->first();
+    }
+
+    public function activity() {
+        return $this->hasMany('Repo\Activity', 'partitieId')->first();
     }
 
     public function materials() {

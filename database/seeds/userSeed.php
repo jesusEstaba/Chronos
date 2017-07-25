@@ -6,6 +6,7 @@ use Repo\Company;
 use Repo\User;
 use Repo\Unit;
 use Repo\Category;
+use Repo\State;
 
 class UserSeed extends Seeder
 {
@@ -36,6 +37,22 @@ class UserSeed extends Seeder
         Category::create([
         	'name' => 'Sin Categoria',
         	'companieId' => $companyId,
+        ]);
+
+        State::create([
+            'name' => 'borrador'
+        ]);
+        State::create([
+            'name' => 'presupuesto'
+        ]);
+        State::create([
+            'name' => 'iniciado'
+        ]);
+        State::create([
+            'name' => 'cancelado'
+        ]);
+        State::create([
+            'name' => 'finalizado'
         ]);
     }
 }

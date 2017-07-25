@@ -20,11 +20,24 @@
 				<b>Rendimiento:</b> {{number_format($partitie->yield, 2)}}
 			</p>
 			<p>
-				<b>Codigo Covenin:</b> <i>sin codigo</i>
+				<b>Codigo Covenin:</b> 
+				@if($partitie->reference)
+					{{$partitie->reference}}
+				@else
+					<i>Sin codigo</i>
+				@endif
 			</p>
 			<p>
 				<b>Unidad:</b> {{Repo\Unit::find($partitie->unitId)->name}}
 			</p>
+			
+				<p style="display: none;">
+					<b>Dependencia:</b> 
+					<a href="/partities/{{$partitie->parent}}">
+						{{Repo\Partitie::find($partitie->parent)->name}}
+					</a>
+				</p>
+			
 			
 			
 			<br>

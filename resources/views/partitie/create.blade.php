@@ -351,6 +351,8 @@ function totalInworkforces() {
 															"yield": $('[name="yield"]').val(),
 															"unit": $('[name="unit"]').val(),
 															"category": $('[name="category"]').val(),
+															"reference": $('[name="reference"]').val(),
+															"parent": $('[name="parent"]').val(),
 															"materials": materials,
 															"equipments": equipments,
 															"workforces": workforces,
@@ -381,14 +383,21 @@ function totalInworkforces() {
 				{{csrf_field()}}
 				<input name="name" type="text" class="form-control" placeholder="Nombre" autocomplete="off" />
 				
-				<input name="cod" type="text" class="form-control" placeholder="Codigo Covenin" autocomplete="off" />
+				<input name="reference" type="text" class="form-control" placeholder="Codigo Covenin" autocomplete="off" />
 				
 				<input name="yield" type="text" class="form-control" placeholder="Rendimiento" autocomplete="off" />
 				<select class="form-control" name="unit">
 					@foreach($units as $unit)
 					<option value="{{$unit->id}}">{{$unit->name}}</option>
 					@endforeach
-				</select>			
+				</select>
+
+				<select style="display: none;" class="form-control" name="parent">
+					<option value="0">Sin Dependencia</option>
+					@foreach($partities as $partitie)
+					<option value="{{$partitie->id}}">{{$partitie->name}}</option>
+					@endforeach
+				</select>		
 			</form>
 			
 			<br>

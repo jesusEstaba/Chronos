@@ -2,7 +2,8 @@
 
 namespace Cronos\Http\Controllers;
 
-class ProjectController extends Controller
+class ProjectController
 {
     use \ChronosDependency\ProjectController;
 }
+

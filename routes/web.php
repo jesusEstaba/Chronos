@@ -54,6 +54,7 @@ Route::group(['middleware' => 'isAuth'], function() {
 	
 	Route::get('projects/pdf/{id}', 'ProjectController@pdf');
 	Route::get('projects/gantt/{id}', 'ProjectController@gantt');
+	Route::post('projects/gantt/{id}', 'ProjectController@saveGantt');
 	Route::get('projects/clone/{id}', 'ProjectController@clone');
 	Route::post('search/{name}', 'SearchController@search');
 	Route::resource('users', 'UserController');

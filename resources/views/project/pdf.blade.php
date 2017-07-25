@@ -134,7 +134,7 @@
 
 					<tr>
 						<td class="center">{{$partitie->partitie()->id}}</td>
-						<td class="center"></td>
+						<td class="center">{{$partitie->partitie()->reference}}</td>
 						<td class="center">{{$partitie->partitie()->unit()->name}}</td>
 						<td class="center">{{$partitie->quantity}}</td>
 						<td class="center">UND</td>
