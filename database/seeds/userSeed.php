@@ -26,6 +26,9 @@ class UserSeed extends Seeder
         	'companieId' => $companyId,
             'rol' => 1,
             'state' => 1,
+            'identificator'=> '',
+            'phone' => '',
+            'address' => '',
         ]);
 
         Unit::create([
