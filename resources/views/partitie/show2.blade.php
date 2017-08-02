@@ -30,13 +30,7 @@
 			<p>
 				<b>Unidad:</b> {{Repo\Unit::find($partitie->unitId)->name}}
 			</p>
-			
-				<p style="display: none;">
-					<b>Dependencia:</b> 
-					<a href="/partities/{{$partitie->parent}}">
-						{{Repo\Partitie::find($partitie->parent)->name}}
-					</a>
-				</p>
+		
 			
 			
 			

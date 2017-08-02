@@ -399,16 +399,16 @@
         },
         {
             "name": "jesusestaba/chronosdependency",
-            "version": "1.5",
+            "version": "1.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jesusEstaba/chronosDependency.git",
-                "reference": "42884b31120afaaf54035dc83170e63f2172a917"
+                "reference": "4e29093e0c7f12647f42ed033907cee596cce4bd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jesusEstaba/chronosDependency/zipball/42884b31120afaaf54035dc83170e63f2172a917",
-                "reference": "42884b31120afaaf54035dc83170e63f2172a917",
+                "url": "https://api.github.com/repos/jesusEstaba/chronosDependency/zipball/4e29093e0c7f12647f42ed033907cee596cce4bd",
+                "reference": "4e29093e0c7f12647f42ed033907cee596cce4bd",
                 "shasum": ""
             },
             "type": "library",
@@ -426,7 +426,7 @@
                     "name": "Jesus Estaba"
                 }
             ],
-            "time": "2017-07-25T14:23:43+00:00"
+            "time": "2017-08-02T14:03:02+00:00"
         },
         {
             "name": "laravel/dusk",
