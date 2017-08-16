@@ -1,58 +1,99 @@
 var Partitie = {
+	fcas: 0,
+	expenses: 0,
+	utility: 0,
+	unexpected: 0,
+	bonus: 0,
+	salary: 0,
+	salaryBonus: 0,
+	days: 30,
 	partities : [],
 	calcMaterials(materials) {
-		var imprevisto = Number($('[name=unexpected]').val())
-		return materials.reduce((a, m) => a + agregarProcentaje(m.cost, imprevisto) * m.quantity, 0)
+		return materials.reduce((a, material) => 
+			a + agregarProcentaje(material.cost, this.unexpected) * material.quantity, 0
+		)
 	},
 	calcEquipments(equipments) {
-		return equipments.reduce((a, e) => a + e.cost * e.depreciation * e.quantity, 0)
+		return equipments.reduce((a, equipment) => 
+			a + equipment.cost * equipment.depreciation * equipment.quantity, 0
+		)
 	},
 	calcWorkforces(workforces) {
-		var salario = Number($('[name=salary]').val()) ,
-			bono = Number($('[name=salaryBonus]').val())
-
-		return workforces.reduce((a, w) => a + ((bono + agregarProcentaje(salario, w.cost)) / 30) * w.quantity, 0)
+		return workforces.reduce((a, workforce) => 
+			a + ((this.salaryBonus + agregarProcentaje(this.salary, workforce.cost)) / this.days) * workforce.quantity, 0
+		)
 	},
 	calcPartitie(partitie) {
 		var materialsTotal = this.calcMaterials(partitie.materials),
 			equipmentsTotal = this.calcEquipments(partitie.equipments),
 			workforcesTotal = this.calcWorkforces(partitie.workforces)
 
-		var fcas = Number($('[name=fcas]').val())
-			expenses = Number($('[name=expenses]').val()),
-			utility = Number($('[name=utility]').val()),
-			unexpected = Number($('[name=unexpected]').val()),
-			bonus = Number($('[name=bonus]').val())
+		unitaryEquip = equipmentsTotal/partitie.yield
 
-		console.log('TOTAL MATERIALES: ' + materialsTotal);
+		totalfcas = workforcesTotal*this.fcas/100
+
+		totalwork= workforcesTotal + totalfcas
+		unitarywork = totalwork / partitie.yield
 		
-		
-		console.log('TOTAL EQUIPOS: ' + equipmentsTotal);
-		console.log('UNITARIO DE EQUIPOS: ' + (unitaryEquip = equipmentsTotal/partitie.yield));
+		recursos = materialsTotal + unitaryEquip + unitarywork
+		totalexpenses = recursos * this.expenses/100
+		subtotal = recursos + totalexpenses
+		totalUtility = subtotal * this.utility/100
+		totalPartitie = subtotal + totalUtility
 
-
-		console.log('TOTAL MANO DE OBRA: ' + workforcesTotal);
-		console.log('Factor de Costos Asociados al Salario: ' + (totalfcas = workforcesTotal*fcas/100))
-
-		console.log('TOTAL MANO DE OBRA: ' + (totalwork= workforcesTotal + totalfcas))
-		console.log('UNITARIO DE MANO DE OBRA: ' + (unitarywork = totalwork / partitie.yield))
-		
-		console.log('COSTO DIRECTO POR UNIDAD: ' + (recursos = materialsTotal + unitaryEquip + unitarywork))
-		console.log('% ADMINISTRACION Y GASTOS GENERALES: ' + (totalexpenses = recursos * expenses/100))
-		console.log('SUBTOTAL: ' + (subtotal = recursos + totalexpenses))
-		console.log('30% UTILIDAD: ' + (totalUtility = subtotal * utility/100))
-		console.log('SUBTOTAL: ' + (totalPartitie = subtotal + totalUtility))
-
-		$('#partities2').append(templatePartitie2({
-			name: partitie.name,
+		return {
+			partitie: partitie,
 			materials: materialsTotal,
 			expenses: totalexpenses,
 			workforce: unitarywork,
 			depreciation: unitaryEquip,
 			utility: totalUtility,
 			unitary: totalPartitie,
-			partitie: totalPartitie
-		}))
+			totalPartitie: totalPartitie * partitie.quantity,
+		}
+	},
+	addPartitie(data) {
+		data.quantity = 1
+		data.magnitude = 1
+		data.position = this.partities.length
+		this.partities.push(data)
+
+		return templatePartitie2(this.calcPartitie(data))
+	},
+	updateHeaderPartitie(position) {
+		let partitie = this.partities[position]
+		
+		return partitieHeadersTemplate(this.calcPartitie(partitie))
+	},
+	updateFooterPartitie(position) {
+		let partitie = this.partities[position]
+		return partitieFooterTemplate(this.calcPartitie(partitie))
+	},
+	updateAll(){
+		let allPartitiesHTML = '';
+		
+		this.partities.forEach(function(partitie) {
+			allPartitiesHTML += `<div class="col-md-6">${templatePartitie2(this.calcPartitie(partitie))}</div>`
+		}.bind(this))
+
+		return allPartitiesHTML
+	},
+	getTotalInProject(){
+		let total = 0;
+		
+		this.partities.forEach(function(partitie){
+			total += this.calcPartitie(partitie).totalPartitie
+		}.bind(this))
+
+		return total
+	},
+	removePartitie(position) {
+		this.partities.splice(position, 1)
+		let index = 0
+
+		this.partities.forEach(function(partitie){
+			partitie.position = index++
+		})
 	}
 }
 
@@ -73,82 +114,118 @@ function validateFieldsIsNotEmpty() {
 }
 
 function agregarProcentaje(base, porcentage) {
+	
 	return base + base * porcentage / 100
 }
 
-partitieList = []
-
-
 function templatePartitie2(partitie) {
-	return `
-	<div class="col-md-12">
-	<div class="partitie" style="border: 1px solid rgba(0,0,0,.15);padding: .5em;border-radius: .25rem;">
-		
-		<header>
-			<h5 style="color:#605f52;">
-				${partitie.name}
-			</h5>
-		</header>
+	return `<div class="partitie" style="border: 1px solid rgba(0,0,0,.15);padding: .5em;border-radius: .25rem;">
 
-		
+		<div class="modal-header">
+          <h5 class="modal-title" style="color:#605f52;">${partitie.partitie.name}</h5>
+          <button class="close remove-partitie" data-position="${partitie.partitie.position}">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+
+		<div class="row partitie-header">
+			${partitieHeadersTemplate(partitie)}
+		</div>
 		<div class="row">
-			<div class="col-md-6">
-				<p>
-					<b>Materiales:</b> <br /> ${partitie.materials.toFixed(2)}
-				</p>
-				<p>
-					<b>Depreciación:</b> <br /> ${partitie.depreciation.toFixed(2)}
-				</p>
-				<p>
-					<b>Mano de Obra:</b> <br /> ${partitie.workforce.toFixed(2)}
-				</p>
-			</div>
-			<div class="col-md-6">
-				<p>
-					<b>Gastos Administrativos:</b> <br /> ${partitie.expenses.toFixed(2)}
-				</p>
-				<p>
-					<b>Utilidad:</b> <br /> ${partitie.utility.toFixed(2)}
-				</p>
-				<p>
-					<b>Total Precio Unitario:</b> <br /> ${partitie.unitary.toFixed(2)}
-				</p>
+			<div class="col-md-12">
+				<input name="quantity" data-position="${partitie.partitie.position}" value="${partitie.partitie.quantity}" placeholder="Cantidad" class="form-control partitie-modificator" type="number" pattern="^[0-9]" min="0" step="any">
+				<input name="magnitude" data-position="${partitie.partitie.position}" value="${partitie.partitie.magnitude}" placeholder="Magnitud" class="form-control partitie-modificator" type="number" min="0" step="any">
+				<input name="yield" data-position="${partitie.partitie.position}" value="${partitie.partitie.yield.toFixed(2)}" placeholder="Rendimiento" class="form-control partitie-modificator" type="number" min="0.01" step="any">
 			</div>
 		</div>
-<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-  <div ><div class="btn-group" role="group" aria-label="First group">
-    <button  type="button" class="btn btn-secondary">
-    <i class="fa fa-minus"></i></button>
-    <input style="width:30%;" value="1" type="text" class="btn btn-secondary">
-    <button  type="button" class="btn btn-secondary">
-    <i class="fa fa-plus"></i></button>
-  </div></div>
-  </div>
-		<h6 style="color: #0275d8;">
-			<b>Total Partida:</b> ${partitie.partitie.toFixed(2)}
+
+		<h6 style="color: #0275d8;" class="partitie-footer">
+			${partitieFooterTemplate(partitie)}
 		</h6>
-	</div>
-</div>`
+	</div>`
+}
+
+function partitieHeadersTemplate(partitie) {
+	return `
+			<div class="col-md-6">
+				<p>
+					<b>Materiales:</b> <br /> ${partitie.materials.formatMoney()}
+				</p>
+				<p>
+					<b>Depreciación:</b> <br /> ${partitie.depreciation.formatMoney()}
+				</p>
+				<p>
+					<b>Mano de Obra:</b> <br /> ${partitie.workforce.formatMoney()}
+				</p>
+			</div>
+			<div class="col-md-6">
+				<p>
+					<b>Gastos Administrativos:</b> <br /> ${partitie.expenses.formatMoney()}
+				</p>
+				<p>
+					<b>Utilidad:</b> <br /> ${partitie.utility.formatMoney()}
+				</p>
+				<p>
+					<b>Total Precio Unitario:</b> <br /> ${partitie.unitary.formatMoney()}
+				</p>
+			</div>`
+}
+
+function partitieFooterTemplate(partitie) {
+	return `
+	<b>Total Partida:</b> ${partitie.totalPartitie.formatMoney()}
+	`
 }
 
 
-function templatePartitie(partitie) {
-	return `
-	<tr>
-		<td>${partitie.name}</td>
-		<td><input type="text" value="1"/></td>
-		<td>${partitie.materials}</td>
-		<td>${partitie.expenses}</td>
-		<td>${partitie.workforce}</td>
-		<td>${partitie.depreciation}</td>
-		<td>${partitie.utility}</td>
-		<td>${partitie.unitary}</td>
-		<td>${partitie.partitie}</td>
-	</tr>`
+
+partitieList = []
+
+$(document).on('change keyup', '.partitie-modificator',function(e) {
+	let position = $(this).attr('data-position'),
+		father = $(this).parents('.partitie'),
+		partitie = Partitie.partities[position]
+
+	partitie.quantity = Number(father.find('[name="quantity"]').val())
+	partitie.magnitude = Number(father.find('[name="magnitude"]').val())
+	partitie.yield = Number(father.find('[name="yield"]').val())
+
+	father.find('.partitie-header').html(Partitie.updateHeaderPartitie(position))
+	father.find('.partitie-footer').html(Partitie.updateFooterPartitie(position))
+	
+	$('.total-in-project').html(Partitie.getTotalInProject().formatMoney())
+})
+
+$(document).on('click', '.remove-partitie', function(event) {
+	event.preventDefault();
+	/* Act on the event */
+	Partitie.removePartitie($(this).attr('data-position'))
+	$('#partities2').html(Partitie.updateAll())
+
+	$('.total-in-project').html(Partitie.getTotalInProject().formatMoney())
+});
+
+Number.prototype.formatMoney = function() {
+	let n = this
+	return n.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')
 }
 
 
 $(() => {
+	$('.project-modifier').on('change keyup', function(e) {
+		
+		Partitie.salary = Number($('[name=salary]').val())
+		Partitie.salaryBonus = Number($('[name=salaryBonus]').val())
+		Partitie.expenses = Number($('[name=expenses]').val())
+		Partitie.utility = Number($('[name=utility]').val())
+		Partitie.unexpected = Number($('[name=unexpected]').val())
+		Partitie.bonus = Number($('[name=bonus]').val())
+		Partitie.fcas = Number($('[name=fcas]').val())
+
+		$('#partities2').html(Partitie.updateAll())
+		$('.total-in-project').html(Partitie.getTotalInProject().formatMoney())
+	})
+
     $('#search-partities').on('click', (e) => {
         e.preventDefault();
         $.ajax({
@@ -202,11 +279,8 @@ $(() => {
                 }
             })
             .done(data => {
-				//materialList.push(idPartitie);
-				data.quantity = 1
-				Partitie.partities.push(data)
-
-				Partitie.calcPartitie(Partitie.partities[Partitie.partities.length - 1])
+				$('#partities2').append(`<div class="col-md-6">${Partitie.addPartitie(data)}</div>`)
+				$('.total-in-project').html(Partitie.getTotalInProject().formatMoney())
             })
     });
 
@@ -226,6 +300,7 @@ $(() => {
                 	name: $('[name=name]').val(),
 					description: $('[name=description]').val(),
 					client: $('[name=client]').val(),
+					status: $('[name=status]').val(),
 					salary: $('[name=salary]').val(),
 					salaryBonus: $('[name=salaryBonus]').val(),
 

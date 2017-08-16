@@ -16,7 +16,7 @@
 	</style>
 	<div class="box">
 		<div class="box-body">
-			<form class="space-childs" method="POST" action="/projects">
+			<div class="space-childs">
 				<script type="text/javascript" src="{{asset('js/createPartitie.js')}}"></script>
 				{{csrf_field()}}
 				
@@ -43,20 +43,40 @@
 							<small>Configuración Mano de Obra</small>
 						</p>
 						
-						<input name="salary" type="text" class="form-control" placeholder="Salario Minimo" autocomplete="off" />
+						<input name="salary" type="number" class="form-control project-modifier" placeholder="Salario Minimo" autocomplete="off" />
 
-						<input name="salaryBonus" type="text" class="form-control" placeholder="Bono de Alimentación" autocomplete="off" />
+						<input name="salaryBonus" type="number" class="form-control project-modifier" project-modifier placeholder="Bono de Alimentación" autocomplete="off" />
 					</div>
 
 					<div class="col-md-6">
 						<p>
 							<small>Modificadores</small>
 						</p>
-						<input name="expenses" type="text" class="form-control" placeholder="% ADMINISTRACION Y GASTOS GENERALES" autocomplete="off" />
-						<input name="utility" type="text" class="form-control" placeholder="% UTILIDAD + COMISON VENTAS" autocomplete="off" />
-						<input name="unexpected" type="text" class="form-control" placeholder="% IMPREVISTO DE COMPRA" autocomplete="off" />
-						<input name="bonus" type="text" class="form-control" placeholder="Bono Alimentacion/Hospedaje diario" autocomplete="off" />
-						<input name="fcas" type="text" class="form-control" placeholder="Factor de Costos Asociados al Salario" autocomplete="off" />
+						
+							<div class="input-group">
+								<input name="expenses" id="expenses" type="number" class="form-control project-modifier" placeholder="Administración y gastos generales" autocomplete="off" />
+								<div class="input-group-addon">%</div>
+							</div>
+						
+							<div class="input-group">
+								<input name="utility" id="utility" type="number" class="form-control project-modifier" placeholder="Utilidad + Comisión de ventas" autocomplete="off" />
+								<div class="input-group-addon">%</div>
+							</div>
+						
+							<div class="input-group">
+								<input name="unexpected" id="unexpected" type="number" class="form-control project-modifier" placeholder="Imprevisto de compra" autocomplete="off" />
+								<div class="input-group-addon">%</div>
+							</div>
+						
+							<div class="input-group">
+								<input name="fcas" id="fcas" type="number" class="form-control project-modifier" placeholder="Factor de Costos Asociados al Salario" autocomplete="off" />
+								<div class="input-group-addon">%</div>
+							</div>
+							
+							<div class="input-group">
+								<input name="bonus" id="bonus" type="number" class="form-control project-modifier" placeholder="Bono Alimentacion/Hospedaje diario" autocomplete="off" />
+							</div>
+						
 					</div>
 				</div>
 
@@ -68,7 +88,7 @@
 					<div class="col-md-12">
 						<h3>Partidas <a href="#" id="modalactivate" data-toggle="modal" data-target="#myModal" class="btn btn-outline-success">Agregar</a>
 						<span class="pull-right">
-							Total: 0.00
+							Total: <span class="total-in-project">0.00</span>
 						</span>
 						</h3>
 
