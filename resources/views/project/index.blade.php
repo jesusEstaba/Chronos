@@ -59,7 +59,33 @@
 						<td>
 							{{$project->created_at}}
 						</td>
-						<td></td>
+						<td>
+							<?php
+								$totalInPartities = 0;
+
+								$projectModifiers = Repo\Modifier::where('projectId', $project->id)->get();
+
+						        $modifiers = [];
+
+						        foreach ($projectModifiers as $modifier) {
+						            $modifiers[$modifier->name] = $modifier->amount;
+						        }
+
+								$calculator = new Cronos\model\CostPartitie($modifiers);
+
+								foreach ($project->partities() as $projectPartitie) {
+									$calculator->calcPartitie(
+										$projectPartitie->id, 
+										$projectPartitie->partitie()->yield
+									);
+
+									$totalInPartities += 
+										$projectPartitie->quantity*$calculator->totalPartitie;
+								}
+
+								echo number_format($totalInPartities, 2);
+							?>
+						</td>
 					</tr>
 					@endforeach
 				</tbody>

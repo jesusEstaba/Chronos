@@ -52,7 +52,8 @@ Route::group(['middleware' => 'isAuth'], function() {
 	});
 
 	
-	Route::get('projects/pdf/{id}', 'ProjectController@pdf');
+	Route::get('projects/partities/{id}', 'ProjectController@partitiePDF');
+	Route::get('projects/offer/{id}', 'ProjectController@offerPDF');
 	Route::get('projects/gantt/{id}', 'ProjectController@gantt');
 	Route::post('projects/gantt/{id}', 'ProjectController@saveGantt');
 	Route::get('projects/clone/{id}', 'ProjectController@clone');

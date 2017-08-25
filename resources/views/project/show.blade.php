@@ -44,8 +44,11 @@
 <div class="box">
 	
 	<div class="box-head" style="margin-bottom: .5em;">
-		<a target="_blank" style="margin-bottom: .5em;" class="btn btn-outline-primary" href="/projects/pdf/{{$project->id}}">
+		<a target="_blank" style="margin-bottom: .5em;" class="btn btn-outline-primary" href="/projects/partities/{{$project->id}}">
 			Partidas <i class="fa fa-file-pdf-o" aria-hidden="true"></i> 
+		</a>
+		<a target="_blank" style="margin-bottom: .5em;" class="btn btn-outline-warning" href="/projects/offer/{{$project->id}}">
+			Oferta Económica <i class="fa fa-file-pdf-o" aria-hidden="true"></i> 
 		</a>
 		<a target="_blank" style="margin-bottom: .5em;" class="btn btn-outline-info" href="/projects/gantt/{{$project->id}}">
 			Gantt <i class="fa fa-bar-chart" aria-hidden="true"></i>

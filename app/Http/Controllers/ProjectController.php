@@ -181,25 +181,6 @@ class ProjectController extends Controller
         return view('project.show', compact('project', 'projectModifiers', 'calculator'));
     }
 
-    public function pdf($id)
-    {
-        $project = Project::where('companieId', Auth::user()->companieId)->find($id);
-
-        $projectModifiers = Modifier::where('projectId', $id)->get();
-
-        $modifiers = [];
-
-        foreach ($projectModifiers as $modifier) {
-            $modifiers[$modifier->name] = $modifier->amount;
-        }
-
-        $calculator = new CostPartitie($modifiers);
-        
-        $pdf = \PDF::loadView('project.pdf', compact('project', 'calculator'));
-        
-        return $pdf->stream();
-    }
-
     public function edit($id)
     {
         //
@@ -234,6 +215,54 @@ class ProjectController extends Controller
     	}
 
     	return view('project.gantt', compact('project', 'projectPartities'));
+    }
+
+    public function partitiesPDF($id)
+    {
+        $project = Project::where('companieId', Auth::user()->companieId)->find($id);
+
+        $projectModifiers = Modifier::where('projectId', $id)->get();
+
+        $modifiers = [];
+
+        foreach ($projectModifiers as $modifier) {
+            $modifiers[$modifier->name] = $modifier->amount;
+        }
+
+        $calculator = new CostPartitie($modifiers);
+        
+        $pdf = \PDF::loadView('project.pdf', compact('project', 'calculator'));
+        
+        return $pdf->stream();
+    }
+
+    public function offerPDF($id)
+    {
+        $project = Project::where('companieId', Auth::user()->companieId)
+            ->where(function ($query) {
+                if (Auth::user()->rol == 0) {
+                    $query->where('userId', Auth::user()->id);
+                }
+            })
+            ->find($id);
+
+        if (!$project) {
+            return redirect('/projects');
+        }
+
+        $projectModifiers = Modifier::where('projectId', $id)->get();
+
+        $modifiers = [];
+
+        foreach ($projectModifiers as $modifier) {
+            $modifiers[$modifier->name] = $modifier->amount;
+        }
+
+        $calculator = new CostPartitie($modifiers);
+
+        $pdf = \PDF::loadView('project.offer_pdf', compact('project', 'projectModifiers', 'calculator'))->setPaper('a4', 'landscape');
+        
+        return $pdf->stream();
     }
 
     public function saveGantt(Request $request)
