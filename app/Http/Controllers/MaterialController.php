@@ -5,7 +5,7 @@ namespace Cronos\Http\Controllers;
 use Illuminate\Http\Request;
 use Auth;
 
-use Request\CreateMaterialRequest;
+use Cronos\Http\Requests\CreateMaterialRequest;
 
 use Repo\Category;
 use Repo\Unit;
@@ -61,7 +61,7 @@ class MaterialController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateMaterialRequest $request)
     {
         $materialId = Material::create([
             'name' => $request->name,

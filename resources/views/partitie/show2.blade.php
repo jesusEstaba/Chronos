@@ -71,24 +71,32 @@
 						</tr>
 					</thead>
 					<tbody>
-						@foreach($materials as $material)
-							<tr>
-								<td>{{$material->material->name}}</td>
-								<td>{{number_format($material->material->lastCost(), 2)}}</td>
-								<td>{{number_format($material->quantity, 2)}}</td>
-								<td>{{$material->material->unit->abbreviature}}</td>
-								<td>
-									<label class="custom-control custom-checkbox">
-										<input type="checkbox" class="custom-control-input"
-										@if($material->uniq)
-										checked
-										@endif
-										>
-										<span class="custom-control-indicator"></span>
-									</label>
-								</td>
-							</tr>
-						@endforeach
+						@if(count($materials))
+							@foreach($materials as $material)
+								<tr>
+									<td>{{$material->material->name}}</td>
+									<td>{{number_format($material->material->lastCost(), 2)}}</td>
+									<td>{{number_format($material->quantity, 2)}}</td>
+									<td>{{$material->material->unit->abbreviature}}</td>
+									<td>
+										<label class="custom-control custom-checkbox">
+											<input type="checkbox" class="custom-control-input"
+											@if($material->uniq)
+											checked
+											@endif
+											>
+											<span class="custom-control-indicator"></span>
+										</label>
+									</td>
+								</tr>
+							@endforeach
+						@else
+							<td colspan="6" class="delete-if-not-empty">
+								<p class="text-center">
+									No se ha agregado ningun recurso de este tipo.
+								</p>
+							</td>
+						@endif
 					</tbody>
 				</table>
 			</div>
@@ -105,37 +113,34 @@
 							<th>Nombre</th>
 							<th>Precio</th>
 							<th>Cantidad</th>
-							<th>Unico</th>
 							<th>Por Trabajador</th>
 						</tr>
 					</thead>
 					<tbody>
-						@foreach($equipments as $equipment)
-							<tr>
-								<td>{{$equipment->equipment->name}}</td>
-								<td>{{number_format($equipment->equipment->lastCost(), 2)}}</td>
-								<td>{{number_format($equipment->quantity, 2)}}</td>
-								<td>
-									<label class="custom-control custom-checkbox">
-										<input type="checkbox" class="custom-control-input" 
-										@if($equipment->uniq)
-										checked
-										@endif
-										>
-										<span class="custom-control-indicator"></span>
-									</label>
-								</td>
-								<td>
-									<label class="custom-control custom-checkbox">
-										<input type="checkbox" class="custom-control-input" 
-										@if($equipment->workers)
-										checked
-										@endif>
-										<span class="custom-control-indicator"></span>
-									</label>
-								</td>
-							</tr>
-						@endforeach
+						@if(count($equipments))
+							@foreach($equipments as $equipment)
+								<tr>
+									<td>{{$equipment->equipment->name}}</td>
+									<td>{{number_format($equipment->equipment->lastCost(), 2)}}</td>
+									<td>{{number_format($equipment->quantity, 2)}}</td>
+									<td>
+										<label class="custom-control custom-checkbox">
+											<input type="checkbox" class="custom-control-input" 
+											@if($equipment->workers)
+											checked
+											@endif>
+											<span class="custom-control-indicator"></span>
+										</label>
+									</td>
+								</tr>
+							@endforeach
+						@else
+							<td colspan="6" class="delete-if-not-empty">
+								<p class="text-center">
+									No se ha agregado ningun recurso de este tipo.
+								</p>
+							</td>
+						@endif
 					</tbody>
 				</table>
 			</div>
@@ -155,13 +160,21 @@
 						</tr>
 					</thead>
 					<tbody>
-						@foreach($workforces as $workforce)
-							<tr>
-								<td>{{$workforce->workforce->name}}</td>
-								<td>{{number_format($workforce->workforce->lastCost(), 2)}}</td>
-								<td>{{number_format($workforce->quantity, 2)}}</td>
-							</tr>
-						@endforeach
+						@if(count($workforces))
+							@foreach($workforces as $workforce)
+								<tr>
+									<td>{{$workforce->workforce->name}}</td>
+									<td>{{number_format($workforce->workforce->lastCost(), 2)}}</td>
+									<td>{{number_format($workforce->quantity, 2)}}</td>
+								</tr>
+							@endforeach
+						@else
+							<td colspan="6" class="delete-if-not-empty">
+								<p class="text-center">
+									No se ha agregado ningun recurso de este tipo.
+								</p>
+							</td>
+						@endif
 					</tbody>
 				</table>
 			</div>

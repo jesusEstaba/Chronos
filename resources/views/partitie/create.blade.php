@@ -2,6 +2,8 @@
 @section('sub-title', 'Crear')
 
 @section('sub-content')
+
+<div id="errors"></div>
 	<div class="box">
 		<div class="box-body">
 <script type="text/javascript">
@@ -177,12 +179,6 @@
 														</td>
 														<td>
 																<label class="custom-control custom-checkbox">
-																	<input value="off" type="checkbox" class="custom-control-input" name="uniq">
-																	<span class="custom-control-indicator"></span>
-																</label>
-														</td>
-														<td>
-																<label class="custom-control custom-checkbox">
 																	<input value="off" type="checkbox" class="custom-control-input"
 																		name="workers">
 																	<span class="custom-control-indicator"></span>
@@ -331,7 +327,6 @@ function totalInworkforces() {
 														equipments.push({
 															'id': $(this).find('[name="qty"]').attr('data-item-id'),
 															'qty': $(this).find('[name="qty"]').val(),
-															'uniq': $(this).find('[name="uniq"]').val(),
 															'workers': $(this).find('[name="workers"]').val()
 														});
 													});
@@ -341,6 +336,8 @@ function totalInworkforces() {
 															'qty': $(this).find('[name="qty"]').val(),
 														});
 													});
+
+													$('#errors').html("");
 
 													$.ajax({
 														url: '/partities',
@@ -364,8 +361,33 @@ function totalInworkforces() {
 													.done(function() {
 														window.location.href = "/partities";
 													})
-													.fail(function() {
-														console.log("error");
+													.fail(function(data) {
+														if (data.status == 422) {
+															let errors = data.responseJSON;
+															let errorsHTML = '';
+															
+															$.each(errors, function(index, el) {
+																console.log(el[0]);
+																errorsHTML += `<li>${el[0]}</li>`;
+															});
+
+															let errorTemplate = `<div class="alert alert-danger alert-dismissible fade show" role="alert">
+																<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+																	<span aria-hidden="true">&times;</span>
+																</button>
+																<ul style="margin: 0;">
+																	${errorsHTML}
+																</ul>
+															</div>`;
+
+															$('#errors').append(errorTemplate);
+														}
+														
+
+													}).always(function () {
+														$('[type=submit]')
+															.removeClass('active')
+															.removeAttr('disabled');
 													});
 													
 												}//end if
@@ -379,6 +401,7 @@ function totalInworkforces() {
 											
 										})
 				</script>
+				
 			<form id="partitie-data" method="POST" class="space-childs">
 				{{csrf_field()}}
 				<input name="name" type="text" class="form-control" placeholder="Nombre" autocomplete="off" />
@@ -517,7 +540,6 @@ function totalInworkforces() {
 									<th>Precio</th>
 									<th>Cantidad</th>
 									<th>Por Trabajador</th>
-									<th>Magnitud</th>
 								</tr>
 							</thead>
 							<tbody>

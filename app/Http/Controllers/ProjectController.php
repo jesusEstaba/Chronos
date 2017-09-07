@@ -209,7 +209,9 @@ class ProjectController extends Controller
     				'start' => $project->start,
     				'end' => $project->start,
     				'finish' => $project->start,
-    				'stateId' => 1
+    				'stateId' => 1,
+                    'progress' => 0,
+                    'note' => ''
     			]);
     		}
     	}
@@ -217,7 +219,7 @@ class ProjectController extends Controller
     	return view('project.gantt', compact('project', 'projectPartities'));
     }
 
-    public function partitiesPDF($id)
+    public function partitiePDF($id)
     {
         $project = Project::where('companieId', Auth::user()->companieId)->find($id);
 
@@ -285,6 +287,11 @@ class ProjectController extends Controller
     	}
 
     	return response()->json(['status' => 'success']);
+    }
+
+    public function clone($id)
+    {
+        //
     }
 
     private function jsTime($time)

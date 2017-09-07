@@ -11,6 +11,8 @@ class Activity extends Model
 		'start',
 		'stateId',
 		'end',
-		'finish'
+		'finish',
+		'progress',
+		'note'
     ];
 }

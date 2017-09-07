@@ -120,6 +120,8 @@ return [
         'name' => 'Nombre',
         'cost' => 'Precio',
         'unit' => 'Unidad',
+        'reference' => 'Código Covenin',
+        'yield' => 'Rendimiento',
     ],
 
 ];
