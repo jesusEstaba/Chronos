@@ -105,12 +105,7 @@
 				<b>Responsable:</b> {{Repo\User::find($partitie->userId)->name}}
 			</p>
 			<p>
-				<b>
-				Descripción de la Obra:
-				</b>
-			</p>
-			<p>
-				{{$project->name}}
+				<b>Descripción de la Obra:</b> {{$project->description}}
 			</p>
 			<p>
 				<b>Propietario:</b> {{$project->client()->name}}
@@ -247,7 +242,7 @@
 							{{   number_format($equipment->qty(), 2)}}
 						</td>
 						<td>
-							{{number_format($equipment->equipment()->depreciation, 2)}}
+							{{$equipment->equipment()->depreciation}}
 						</td>
 						<td>
 							{{   number_format($equipment->cost(), 2)}}
