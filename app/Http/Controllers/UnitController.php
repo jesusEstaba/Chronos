@@ -3,6 +3,9 @@
 namespace Cronos\Http\Controllers;
 
 use Illuminate\Http\Request;
+
+use Cronos\Http\Requests\CreateUnitRequest;
+
 use Repo\Unit;
 use Auth;
 
@@ -45,7 +48,7 @@ class UnitController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateUnitRequest $request)
     {
         Unit::create([
             'name' => $request->name,

@@ -2,7 +2,6 @@
 @section('sub-title', 'Crear')
 
 @section('sub-content')
-	@include('template.validation')
 	<div class="box">
 		<div class="box-body">
 			<form class="space-childs" method="POST" action="/materials">

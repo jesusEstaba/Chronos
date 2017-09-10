@@ -3,6 +3,10 @@
 namespace Cronos\Http\Controllers;
 
 use Illuminate\Http\Request;
+
+use Cronos\Http\Requests\CreateEquipmentRequest;
+use Cronos\Http\Requests\EditEquipmentRequest;
+
 use Repo\Equipment;
 use Repo\EquipmentCost;
 use Repo\Category;
@@ -14,11 +18,7 @@ class EquipmentController extends Controller
        $this->middleware('operatorRestrictedAccess');
     }
     
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index(Request $request)
     {
         $search = $request->search;
@@ -35,11 +35,7 @@ class EquipmentController extends Controller
         return view('equipment.index', compact('equipments', 'search'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
         $categories = Category::where('companieId', Auth::user()->companieId)
@@ -49,13 +45,8 @@ class EquipmentController extends Controller
         return view('equipment.create', compact('categories'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+
+    public function store(CreateEquipmentRequest $request)
     {
         $equipmentId = Equipment::create([
             'name' => $request->name,
@@ -115,7 +106,7 @@ class EquipmentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(EditEquipmentRequest $request, $id)
     {   
         Equipment::where('companieId', Auth::user()->companieId)
             ->where('id', $id)

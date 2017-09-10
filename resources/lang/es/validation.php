@@ -122,6 +122,15 @@ return [
         'unit' => 'Unidad',
         'reference' => 'Código Covenin',
         'yield' => 'Rendimiento',
+        'depreciation' => 'Depreciación',
+        'abbreviature' => 'Abreviatura',
+        'email' => 'Correo',
+        'password' => 'Contraseña',
+        'rol' => 'Rol',
+        'state' => 'Estado',
+        'rif' => 'CI/RIF',
+        'phone' => 'Teléfono',
+        'address' => 'Dirección',
     ],
 
 ];

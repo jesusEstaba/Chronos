@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Auth;
 
 use Cronos\Http\Requests\CreateMaterialRequest;
+use Cronos\Http\Requests\EditMaterialRequest;
 
 use Repo\Category;
 use Repo\Unit;
@@ -18,11 +19,7 @@ class MaterialController extends Controller
        $this->middleware('operatorRestrictedAccess');
     }
     
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index(Request $request)
     {
         $search = $request->search;
@@ -39,11 +36,7 @@ class MaterialController extends Controller
         return view('material.index', compact('materials', 'search'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
         $categories = Category::where('companieId', Auth::user()->companieId)
@@ -55,12 +48,7 @@ class MaterialController extends Controller
         return view('material.create', compact('categories', 'units'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(CreateMaterialRequest $request)
     {
         $materialId = Material::create([
@@ -80,12 +68,7 @@ class MaterialController extends Controller
         return redirect('/materials');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function show($id)
     {
         $material = Material::where('companieId', Auth::user()->companieId)
@@ -98,12 +81,7 @@ class MaterialController extends Controller
         return view('material.show', compact('material', 'materialCosts'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit($id)
     {
         $categories = Category::where('companieId', Auth::user()->companieId)
@@ -115,14 +93,8 @@ class MaterialController extends Controller
         return view('material.edit', compact('categories', 'units', 'material'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+
+    public function update(EditMaterialRequest $request, $id)
     {   
         Material::where('companieId', Auth::user()->companieId)
             ->where('id', $id)
@@ -137,12 +109,7 @@ class MaterialController extends Controller
         return redirect('/materials/' . $id . '/edit');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy($id)
     {
         //

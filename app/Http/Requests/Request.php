@@ -24,4 +24,11 @@ class Request extends FormRequest
             $query->where('companieId', Auth::user()->companieId);
         });
     }
+
+    public function uniqueInCompanie($table)
+    {
+        return Rule::unique($table, 'email')->where(function ($query) {
+            $query->where('companieId', Auth::user()->companieId);
+        });
+    }
 }

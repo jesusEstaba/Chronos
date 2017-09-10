@@ -264,11 +264,10 @@
 						@endforeach
 					</tbody>
 					<tfoot>
-						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
+						<tr style="background: #FFE0B2;">
+							<td colspan="4" style="text-align: right;">
+								<b>Total de Inversión: </b>
+							</td>
 							<td>{{number_format($sheet5->materialsTotal, 2)}}</td>
 							<td>{{number_format($sheet5->totalexpenses, 2)}}</td>
 							<td>{{number_format($sheet5->equipmentsTotal, 2)}}</td>

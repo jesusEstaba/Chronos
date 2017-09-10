@@ -10,7 +10,7 @@
         <link rel="icon" href="https://v4-alpha.getbootstrap.com/favicon.ico">
         -->
         
-        <title>Panel de Control @yield('subtitle')</title>
+        <title>CHRONOS @yield('subtitle')</title>
     
         <link href="{{asset('font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
 

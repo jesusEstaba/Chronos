@@ -26,7 +26,7 @@
 					<option value="0">Desactivado</option>
 				</select>
 				<input name="rif"  type="text" class="form-control" placeholder="CI/RIF" autocomplete="off" />
-				<input name="phone" type="text" class="form-control" placeholder="Telefono" autocomplete="off" />
+				<input name="phone" type="text" class="form-control" placeholder="Teléfono" autocomplete="off" />
 				<textarea name="address" class="form-control" placeholder="Dirección" ></textarea>
 				<input type="submit" class="btn btn-outline-success float-right" value="Crear" />
 			</form>

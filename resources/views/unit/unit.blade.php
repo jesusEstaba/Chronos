@@ -14,6 +14,7 @@
 				['state' => 'Correcto', 'message'=> session()->get('success')]
 			)
 		@endif
+		@include('template.validation')
 	</div>
 
 	@yield('sub-content')

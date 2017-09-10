@@ -3,6 +3,9 @@
 namespace Cronos\Http\Controllers;
 
 use Illuminate\Http\Request;
+
+use Cronos\Http\Requests\CreateCategoryRequest;
+
 use Repo\Category;
 use Auth;
 
@@ -45,7 +48,7 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateCategoryRequest $request)
     {
         Category::create([
             'name' => $request->name,
