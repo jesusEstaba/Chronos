@@ -120,7 +120,7 @@ return [
         'name' => 'Nombre',
         'cost' => 'Precio',
         'unit' => 'Unidad',
-        'reference' => 'Código Covenin',
+        'reference' => 'Código',
         'yield' => 'Rendimiento',
         'depreciation' => 'Depreciación',
         'abbreviature' => 'Abreviatura',

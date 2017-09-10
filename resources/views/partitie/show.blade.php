@@ -1,54 +1,185 @@
-@extends('material.material')
-@section('sub-title', '')
+@extends('partitie.partitie')
+@section('sub-title', 'Crear')
 
 @section('sub-content')
-
-@section('titlePrincipal', $material->name)
-
-	<a href="/materials/{{$material->id}}/edit" class="btn btn-outline-warning">
+<a href="/partities/{{$partitie->id}}/edit" class="btn btn-outline-warning">
 		<i class="fa fa-pencil" aria-hidden="true"></i> Editar
 	</a>
+	<div class="box">
+		<script type="text/javascript">
+			$(() => {
+				$('.custom-checkbox').on('click', function(e) {
+					e.preventDefault();
+				});
+			})
+		</script>
+		<div class="box-body">
+			@section('titlePrincipal', $partitie->name)
+			<small class="pull-right"><b>Creador:</b> <a href="/users/{{$partitie->userId}}">{{Repo\User::find($partitie->userId)->name}}</a></small>
+			<p>
+				<b>Rendimiento:</b> {{number_format($partitie->yield, 2)}}
+			</p>
+			<p>
+				<b>Código:</b> 
+				@if($partitie->reference)
+					{{$partitie->reference}}
+				@else
+					<i>Sin codigo</i>
+				@endif
+			</p>
+			<p>
+				<b>Unidad:</b> {{Repo\Unit::find($partitie->unitId)->name}}
+			</p>
+		
+			
+			
+			
+			<br>
 
-<p>
-	<b>Category:</b> <a href="/categories/{{$material->category->id}}">{{$material->category->name}}</a> 
-	<b>Unit:</b> <a href="/units/{{$material->unit->id}}">{{$material->unit->name}} </a>
-	
-</p>
+			<ul class="nav nav-tabs">
+				<li class="nav-item">
+					<a class="nav-link active" data-toggle="tab" href="#mat" role="tab" href="#">
+						Materiales
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" data-toggle="tab" href="#equip" role="tab" href="#">
+						Equipos
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" data-toggle="tab" href="#work" role="tab" href="#">
+						Mano de Obra
+					</a>
+				</li>
+			</ul>
 
-<div class="box">
-	<div class="box-head">
-		<h5>Añadir Costo</h5>
-	</div>
-	<div class="box-body">
-		<form action="/materialcosts" method="post">
-			{{csrf_field()}}
-			<input type="hidden" name="materialId" value="{{$material->id}}">
-			<input type="text" placeholder="Nuevo Costo" class="form-control col-md-3 input-close-btn" name="cost" />
-			<input type="submit" name="new-cost" class="btn btn-outline-success" value="Agregar" />
-		</form>
-	</div>
-</div>
+<div class="tab-content">
+	<div class="tab-pane active" id="mat" role="tabpanel">
+			<br>
 
-<div class="box">
-	<div class="box-head">
-		<h5>Lista de Costos</h5>
+			<div id="material">
+				<h3>Materiales</h3>
+				<table class="table table-striped materials">
+					<thead>
+						<tr>
+							<th>Nombre</th>
+							<th>Precio</th>
+							<th>Cantidad</th>
+							<th>Unidad</th>
+							<th>Unico</th>
+						</tr>
+					</thead>
+					<tbody>
+						@if(count($materials))
+							@foreach($materials as $material)
+								<tr>
+									<td>{{$material->material->name}}</td>
+									<td>{{number_format($material->material->lastCost(), 2)}}</td>
+									<td>{{number_format($material->quantity, 2)}}</td>
+									<td>{{$material->material->unit->abbreviature}}</td>
+									<td>
+										<label class="custom-control custom-checkbox">
+											<input type="checkbox" class="custom-control-input"
+											@if($material->uniq)
+											checked
+											@endif
+											>
+											<span class="custom-control-indicator"></span>
+										</label>
+									</td>
+								</tr>
+							@endforeach
+						@else
+							<td colspan="6" class="delete-if-not-empty">
+								<p class="text-center">
+									No se ha agregado ningun recurso de este tipo.
+								</p>
+							</td>
+						@endif
+					</tbody>
+				</table>
+			</div>
+				
 	</div>
-	<div class="box-body">
-		<table class="table table-striped table-bordered">
-			<thead>
-				<td>Costo</td>
-				<td>Fecha</td>
-			</thead>
-			<tbody>
-				@foreach($materialCosts as $cost)
-				<tr>
-					<td>{{$cost->cost}}</td>
-					<td>{{$cost->created_at}}</td>
-				</tr>
-				@endforeach
-			</tbody>
-		</table>
-		{{ $materialCosts->links('vendor.pagination.bootstrap-4') }}
+	<div class="tab-pane" id="equip" role="tabpanel">	
+			<br>
+
+			<div id="equipment">
+				<h3>Equipos</h3>
+				<table class="table table-striped equipments">
+					<thead>
+						<tr>
+							<th>Nombre</th>
+							<th>Precio</th>
+							<th>Cantidad</th>
+							<th>Por Trabajador</th>
+						</tr>
+					</thead>
+					<tbody>
+						@if(count($equipments))
+							@foreach($equipments as $equipment)
+								<tr>
+									<td>{{$equipment->equipment->name}}</td>
+									<td>{{number_format($equipment->equipment->lastCost(), 2)}}</td>
+									<td>{{number_format($equipment->quantity, 2)}}</td>
+									<td>
+										<label class="custom-control custom-checkbox">
+											<input type="checkbox" class="custom-control-input" 
+											@if($equipment->workers)
+											checked
+											@endif>
+											<span class="custom-control-indicator"></span>
+										</label>
+									</td>
+								</tr>
+							@endforeach
+						@else
+							<td colspan="6" class="delete-if-not-empty">
+								<p class="text-center">
+									No se ha agregado ningun recurso de este tipo.
+								</p>
+							</td>
+						@endif
+					</tbody>
+				</table>
+			</div>
 	</div>
-</div>
+
+	<div class="tab-pane" id="work" role="tabpanel">		
+			<br>
+
+			<div id="workforce">
+				<h3>Mano de Obra</h3>
+				<table class="table table-striped workforces">
+					<thead>
+						<tr>
+							<th>Cargo</th>
+							<th>Salario</th>
+							<th>Cantidad</th>
+						</tr>
+					</thead>
+					<tbody>
+						@if(count($workforces))
+							@foreach($workforces as $workforce)
+								<tr>
+									<td>{{$workforce->workforce->name}}</td>
+									<td>{{number_format($workforce->workforce->lastCost(), 2)}}</td>
+									<td>{{number_format($workforce->quantity, 2)}}</td>
+								</tr>
+							@endforeach
+						@else
+							<td colspan="6" class="delete-if-not-empty">
+								<p class="text-center">
+									No se ha agregado ningun recurso de este tipo.
+								</p>
+							</td>
+						@endif
+					</tbody>
+				</table>
+			</div>
+			</div>
+			</div>
+		</div>
+	</div>
 @stop

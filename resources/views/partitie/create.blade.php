@@ -406,7 +406,7 @@ function totalInworkforces() {
 				{{csrf_field()}}
 				<input name="name" type="text" class="form-control" placeholder="Nombre" autocomplete="off" />
 				
-				<input name="reference" type="text" class="form-control" placeholder="Codigo Covenin" autocomplete="off" />
+				<input name="reference" type="text" class="form-control" placeholder="Código" autocomplete="off" />
 				
 				<input name="yield" type="text" class="form-control" placeholder="Rendimiento" autocomplete="off" />
 				<select class="form-control" name="unit">
@@ -477,7 +477,7 @@ function totalInworkforces() {
 							</div>
 						</div>
 						<table class="table table-striped materials">
-							<thead class="thead-inverse">
+							<thead>
 								<tr>
 									<th></th>
 									<th>Nombre</th>
@@ -533,7 +533,7 @@ function totalInworkforces() {
 						</div>
 
 						<table class="table table-striped equipments">
-							<thead class="thead-inverse">
+							<thead>
 								<tr>
 									<th></th>
 									<th>Nombre</th>
@@ -587,7 +587,7 @@ function totalInworkforces() {
 							</div>
 						</div>
 						<table class="table table-striped workforces">
-							<thead class="thead-inverse">
+							<thead>
 								<tr>
 									<th></th>
 									<th>Cargo</th>

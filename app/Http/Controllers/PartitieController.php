@@ -131,7 +131,7 @@ class PartitieController
             ->get();
 
         return view(
-            'partitie.show2', 
+            'partitie.show', 
             compact(
                 'partitie', 
                 'materials', 

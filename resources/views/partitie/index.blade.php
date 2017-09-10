@@ -17,7 +17,7 @@
 		@if(count($partities))
 			<table class="table table-striped table-bordered">
 				<thead>
-					<th style="width: 20%;">Codigo Covenin</th>
+					<th style="width: 20%;">Código</th>
 					<th>Nombre</th>
 					<th>
 						Creador
