@@ -3,7 +3,7 @@
 }
 
 input.btn, button.btn{
-	cursor: pointer;
+	cursor: pointer !important;
 }
 
 .on-table{
@@ -43,4 +43,8 @@ nav.sidebar hr{
 
 .box-body{
 	overflow: auto;
+}
+
+.nav a.nav-link.active{
+	cursor: pointer !important;
 }
