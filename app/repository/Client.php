@@ -13,4 +13,8 @@ class Client extends Model
 		'phone',
 		'companieId'
     ];
+
+    public function projects() {
+    	return $this->hasMany('Repo\Project', 'clientId');
+    }
 }

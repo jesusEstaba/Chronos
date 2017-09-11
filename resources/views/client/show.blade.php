@@ -1,53 +1,62 @@
-@extends('material.material')
+@extends('client.client')
 @section('sub-title', '')
 
 @section('sub-content')
 
-@section('titlePrincipal', $material->name)
+@section('titlePrincipal', $client->name)
 
-	<a href="/materials/{{$material->id}}/edit" class="btn btn-outline-warning">
+	<a href="/clients/{{$client->id}}/edit" class="btn btn-outline-warning">
 		<i class="fa fa-pencil" aria-hidden="true"></i> Editar
 	</a>
 
-<p>
-	<b>Category:</b> <a href="/categories/{{$material->category->id}}">{{$material->category->name}}</a> 
-	<b>Unit:</b> <a href="/units/{{$material->unit->id}}">{{$material->unit->name}} </a>
-</p>
-
 <div class="box">
-	<div class="box-head">
-		<h5>Añadir Costo</h5>
-	</div>
 	<div class="box-body">
-		<form action="/materialcosts" method="post">
-			{{csrf_field()}}
-			<input type="hidden" name="materialId" value="{{$material->id}}">
-			<input type="text" placeholder="Nuevo Costo" class="form-control col-md-3 input-close-btn" name="cost" />
-			<input type="submit" name="new-cost" class="btn btn-outline-success" value="Agregar" />
-		</form>
+		<p>
+			<b>Nombre:</b> {{$client->name}}
+		</p>
+		<p>
+			<b>RIF:</b> {{$client->rif}}
+		</p>
+		<p>
+			<b>Teléfono:</b> {{$client->phone}}
+		</p>
+		<p>
+			<b>Dirección:</b> {{$client->address}}
+		</p>
 	</div>
 </div>
 
 <div class="box">
 	<div class="box-head">
-		<h5>Lista de Costos</h5>
+		<h5>Lista de Proyectos</h5>
 	</div>
+	
 	<div class="box-body">
+	@if(count($clientProjects))
 		<table class="table table-striped table-bordered">
 			<thead>
-				<th>Costo</th>
-				<th>Fecha</th>
+				<th>Nombre</th>
+				<th>Responsable</th>
 			</thead>
 			<tbody>
-				@foreach($materialCosts as $cost)
-				<tr>
-					<td>{{$cost->cost}}</td>
-					<td>{{$cost->created_at}}</td>
-				</tr>
+				@foreach($clientProjects as $project)
+					<tr>
+						<td><a href="/projects/{{$project->id}}">{{$project->name}}</a></td>
+						<td><a href="/users/{{$project->userId}}">{{$project->user()->name}}</a></td>
+					</tr>
 				@endforeach
 			</tbody>
 		</table>
-		{{ $materialCosts->links('vendor.pagination.bootstrap-4') }}
+		{{ $clientProjects->links('vendor.pagination.bootstrap-4') }}
+		@else
+			<p class="text-center">
+				<em>
+					No existen Proyectos asociados a {{$client->name}}
+				</em>
+			</p>
+			
+		@endif
 	</div>
+
 </div>
 @stop

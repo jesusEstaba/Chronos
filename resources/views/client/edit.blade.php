@@ -1,34 +1,20 @@
-@extends('material.material')
+@extends('client.client')
 @section('sub-title', 'Editar')
 
 @section('sub-content')
 	<div class="box">
 		<div class="box-body">
-			<form class="space-childs" method="post" action="/materials/{{$material->id}}">
+			<form class="space-childs" method="post" action="/clients/{{$client->id}}">
 				{{csrf_field()}}
 				<input name="_method" type="hidden" value="PUT">
-				<input name="name" type="text" class="form-control" placeholder="Nombre" autocomplete="off" value="{{$material->name}}" />
-				<select class="form-control" name="unit">
-					@foreach($units as $unit)
-						@if($unit->id == $material->unit->id)
-							<option selected="selected" value="{{$unit->id}}">{{$unit->name}}</option>
-						@else
-							<option value="{{$unit->id}}">{{$unit->name}}</option>
-						@endif
-						
-					@endforeach
-				</select>
-				<select class="form-control" name="category">
-					@foreach($categories as $category)
-						@if($category->id == $material->category->id)
-							<option selected="selected" value="{{$category->id}}">{{$category->name}}</option>
-						@else
-							<option value="{{$category->id}}">{{$category->name}}</option>
-						@endif
-					@endforeach
-				</select>
+				
+				<input name="name" value="{{$client->name}}" type="text" class="form-control" placeholder="Nombre" autocomplete="off" />
+				<input name="rif" value="{{$client->rif}}" type="text" class="form-control" placeholder="RIF" autocomplete="off" />
+				<input name="phone" value="{{$client->phone}}" type="text" class="form-control" placeholder="Teléfono" autocomplete="off" />
+				<textarea class="form-control" placeholder="Dirección" name="address">{{$client->address}}</textarea>
+
 				<input type="submit" class="btn btn-outline-warning float-right" value="Actualizar" />
-				<a class="btn btn-outline-secondary float-left" href="/materials/{{$material->id}}">Atrás</a>
+				<a class="btn btn-outline-secondary float-left" href="/clients/{{$client->id}}">Atrás</a>
 			</form>
 		</div>
 	</div>

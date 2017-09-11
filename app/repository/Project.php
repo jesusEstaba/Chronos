@@ -21,6 +21,9 @@ class Project extends Model
         return $this->belongsTo('Repo\Client', 'clientId')->first();
     }
 
+    public function user() {
+        return $this->belongsTo('Repo\User', 'userId')->first();
+    }
 
     public function modifiers() {
     	return $this->hasMany('Repo\Modifier', 'projectId')->get();

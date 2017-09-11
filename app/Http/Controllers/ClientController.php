@@ -43,9 +43,9 @@ class ClientController extends Controller
 	{
 	    Client::create([
 	        'name' => $request->name,
-	        'rif' => $request->rif ?? '',
-	        'address' => $request->address ?? '',
-	        'phone' => $request->phone ?? '',
+	        'rif' => $request->rif,
+	        'address' => $request->address,
+	        'phone' => $request->phone,
 	        'companieId' => Auth::user()->companieId,
 	    ]);
 
@@ -57,18 +57,39 @@ class ClientController extends Controller
 
 	public function show($id)
 	{
-	    //
+	    $client = Client::where('companieId', Auth::user()->companieId)
+            ->find($id);
+
+        $clientProjects = $client->projects()
+            ->orderBy('id', 'desc')
+            ->paginate(5);
+
+        return view('client.show', compact('client', 'clientProjects'));
 	}
 
 
 	public function edit($id)
 	{
-	    //
+	    $client = Client::where('companieId', Auth::user()->companieId)
+            ->find($id);
+
+        return view('client.edit', compact('client'));
 	}
 
 
-	public function update(Request $request, $id)
+	public function update(CreateClientRequest $request, $id)
 	{
-	    //
+	    Client::where('companieId', Auth::user()->companieId)
+            ->where('id', $id)
+            ->update([
+                'name' => $request->name,
+		        'rif' => $request->rif,
+		        'address' => $request->address,
+		        'phone' => $request->phone,
+            ]); 
+
+        session()->flash('success', 'Cliente Actualizado.');
+        
+        return redirect('/clients/' . $id . '/edit');
 	}
 }
