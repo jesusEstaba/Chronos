@@ -37,8 +37,15 @@ Route::group(['middleware' => 'isAuth'], function() {
 	Route::resource('categories', 'CategoryController');
 
 	Route::resource('projects', 'ProjectController');
-	Route::resource('clients', 'ClientController');
+	Route::get('projects/partities/{id}', 'ProjectController@partitiePDF');
+	Route::get('projects/offer/{id}', 'ProjectController@offerPDF');
+	Route::get('projects/gantt/{id}', 'ProjectController@gantt');
+	Route::post('projects/gantt/{id}', 'ProjectController@saveGantt');
+	Route::get('projects/clone/{id}', 'ProjectController@clone');
 
+	Route::resource('clients', 'ClientController');
+	Route::get('clients/{id}/enabled', 'ClientController@enabled');
+	Route::get('clients/{id}/disabled', 'ClientController@disabled');
 
 
 	Route::resource('units', 'UnitController');
@@ -52,11 +59,7 @@ Route::group(['middleware' => 'isAuth'], function() {
 	});
 
 	
-	Route::get('projects/partities/{id}', 'ProjectController@partitiePDF');
-	Route::get('projects/offer/{id}', 'ProjectController@offerPDF');
-	Route::get('projects/gantt/{id}', 'ProjectController@gantt');
-	Route::post('projects/gantt/{id}', 'ProjectController@saveGantt');
-	Route::get('projects/clone/{id}', 'ProjectController@clone');
+	
 	Route::post('search/{name}', 'SearchController@search');
 	Route::resource('users', 'UserController');
 });

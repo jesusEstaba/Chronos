@@ -90,6 +90,32 @@ class ClientController extends Controller
 
         session()->flash('success', 'Cliente Actualizado.');
         
-        return redirect('/clients/' . $id . '/edit');
+        return redirect('/clients/' . $id );
 	}
+
+	public function disabled($id)
+    {
+    	Client::where('companieId', Auth::user()->companieId)
+            ->where('id', $id)
+            ->update([
+                'disabled' => 1,
+            ]); 
+
+        session()->flash('success', 'Cliente Desactivado.');
+
+        return redirect('/clients/' . $id);
+    }
+
+    public function enabled($id)
+    {
+    	Client::where('companieId', Auth::user()->companieId)
+            ->where('id', $id)
+            ->update([
+                'disabled' => 0,
+            ]); 
+
+        session()->flash('success', 'Cliente Activado.');
+
+        return redirect('/clients/' . $id);
+    }
 }

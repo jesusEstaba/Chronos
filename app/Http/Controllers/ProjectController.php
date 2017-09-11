@@ -39,7 +39,9 @@ class ProjectController extends Controller
 
     public function create()
     {
-        $clients = Client::where('companieId', Auth::user()->companieId)->get();
+        $clients = Client::where('companieId', Auth::user()->companieId)
+            ->where('disabled', 0)
+            ->get();
 
         return view('project.create', compact('clients'));
     }

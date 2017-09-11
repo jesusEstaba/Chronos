@@ -11,7 +11,8 @@ class Client extends Model
 		'rif',
 		'address',
 		'phone',
-		'companieId'
+		'companieId',
+		'disabled'
     ];
 
     public function projects() {
