@@ -13,6 +13,20 @@
 		.btn-group, .btn-group * {
     		margin-bottom: 0 !important;
 		}
+		.add-partitie{
+			display: block;
+		    margin: .5em 0;
+		    border: #ccc 1px solid;
+		    padding: .5em;
+		    text-decoration: none !important;
+		    border-radius: .25rem;
+		}
+		.add-partitie:hover{
+		    background: #eee;
+		}
+		.add-partitie span, i{
+			margin: 0 !important;
+		}
 	</style>
 	<div class="box">
 		<div class="box-body">
@@ -136,9 +150,9 @@
 										<span aria-hidden="true">&times;</span>
 										</button>
 									</div>
-									<div class="modal-body">
+									<div class="modal-body" style="padding: 0 15px;">
 										<input type="text" name="search-partities" class="form-control col-md-7 input-close-btn" placeholder="Nombre de la Partida" />
-										<button class="btn btn-outline-primary" id="search-partities">
+										<button style="margin-top: 5px;" class="btn btn-outline-primary" id="search-partities">
 										Buscar
 										</button>
 										<br>

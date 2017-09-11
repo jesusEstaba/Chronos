@@ -239,26 +239,29 @@ $(() => {
             })
             .done(data => {
                 $('.list-partities').html("");
+                let templatePartitiesHTML = '';
 
                 data.forEach((partitie) => {
                     if (!partitieList.some(id => id == partitie.id)) {
-                        $('.list-partities').append(`
-                        	<div style="margin:.5em 0;">
-								<a href="javascript:;"
-									class="add-partitie btn btn-outline-success"
-									data-partitie="${partitie.id}"
-								>
+                        templatePartitiesHTML += `
+                        	<a 
+                        		style="margin:.5em 0;"
+								class="add-partitie"
+								href="javascript:;"
+								data-partitie="${partitie.id}"
+                        	>
+								<span class="btn btn-outline-success">
 									<i class="fa fa-plus" aria-hidden="true"></i>
-								</a>
+								</span>
 								<span class="name">${partitie.name}</span>
-							<div>`
-						);
+							</a>
+						`;
                     }
 
                 });
 
+                $('.list-partities').append(templatePartitiesHTML);
                 $('[name="search-partities"]').val("");
-
             })
     });
 
@@ -267,7 +270,7 @@ $(() => {
 
     	var idPartitie = $(this).attr('data-partitie');
     	
-    	$(this).parent().remove();
+    	$(this).remove();
     	
     	$.ajax({
                 url: '/search/partitie',

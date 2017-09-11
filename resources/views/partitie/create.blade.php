@@ -11,6 +11,7 @@
 	    border: #ccc 1px solid;
 	    padding: .5em;
 	    text-decoration: none !important;
+	    border-radius: .25rem;
 	}
 	.add-material:hover, .add-equipment:hover, .add-workforce:hover{
 	    background: #eee;
@@ -90,7 +91,7 @@
 									</div>
 									<div class="modal-body">
 										<input type="text" name="search-materials" class="form-control col-md-7 input-close-btn" placeholder="Nombre del Material" />
-										<button class="btn btn-outline-primary" id="search-materials">
+										<button style="margin-top: -2px;" class="btn btn-outline-primary" id="search-materials">
 										Buscar
 										</button>
 										<br>
@@ -147,7 +148,7 @@
 						      </div>
 						      <div class="modal-body">
 						        <input type="text" name="search-equipments" class="form-control col-md-7 input-close-btn" placeholder="Nombre del Equipo" />
-						        <a href="javascript:;" class="btn btn-outline-primary" id="search-equipments">
+						        <a style="margin-top: -2px;" href="javascript:;" class="btn btn-outline-primary" id="search-equipments">
 						        	Buscar
 						        </a>
 						        <br>
@@ -204,7 +205,7 @@
 									</div>
 									<div class="modal-body">
 										<input type="text" name="search-workforces" class="form-control col-md-7 input-close-btn" placeholder="Nombre del Cargo" />
-										<button class="btn btn-outline-primary" id="search-workforces">
+										<button  style="margin-top: -2px;" class="btn btn-outline-primary" id="search-workforces">
 										Buscar
 										</button>
 										<br>
