@@ -32,7 +32,7 @@ $(function() {
                         		href="javascript:;" 
                         		style="display:block;margin:.5em 0;"
                         		data-material="${material.id}"
-								data-material-unit="${material.unitId}"
+								data-material-unit="${material.unit.abbreviature}"
 								data-material-price="${material.price}"
 								class="add-material"
                         	>
