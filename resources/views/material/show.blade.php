@@ -10,9 +10,10 @@
 	</a>
 
 <p>
-	<b>Categoria:</b> <a href="/categories/{{$material->category->id}}">{{$material->category->name}}</a> 
-	<b>Unidad:</b> <a href="/units/{{$material->unit->id}}">{{$material->unit->name}} </a>
-	<b>Porcentaje de Desperdicio:</b> {{$material->junk}}% </a>
+	<br>
+	<b>Categoria:</b> {{$material->category->name}}<br> 
+	<b>Unidad:</b> {{$material->unit->name}} <br> 
+	<b>Porcentaje de Desperdicio:</b> {{$material->junk}}%
 </p>
 
 <div class="box">

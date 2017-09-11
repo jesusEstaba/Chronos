@@ -8,7 +8,8 @@
 	<i class="fa fa-pencil" aria-hidden="true"></i> Editar
 </a>
 <p>
-	<b>Category:</b> <a href="/categories/{{$equipment->category->id}}">{{$equipment->category->name}}</a>
+	<br>
+	<b>Category:</b> {{$equipment->category->name}}
 </p>
 
 <div class="box">
