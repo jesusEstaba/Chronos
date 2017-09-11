@@ -13,6 +13,7 @@ class EditMaterialRequest extends Request
     {
         return [
             'name' => 'required',
+            'junk' => 'numeric',
             'unit' => $this->existsInCompanie('units'),
             'category' => $this->existsInCompanie('categories')
         ];

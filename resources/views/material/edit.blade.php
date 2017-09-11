@@ -8,6 +8,10 @@
 				{{csrf_field()}}
 				<input name="_method" type="hidden" value="PUT">
 				<input name="name" type="text" class="form-control" placeholder="Nombre" autocomplete="off" value="{{$material->name}}" />
+				<div class="input-group">
+					<input value="{{$material->junk}}" name="junk" type="text" class="form-control" placeholder="Desperdicio" autocomplete="off" />
+					<div class="input-group-addon">%</div>
+				</div>
 				<select class="form-control" name="unit">
 					@foreach($units as $unit)
 						@if($unit->id == $material->unit->id)
@@ -15,7 +19,6 @@
 						@else
 							<option value="{{$unit->id}}">{{$unit->name}}</option>
 						@endif
-						
 					@endforeach
 				</select>
 				<select class="form-control" name="category">

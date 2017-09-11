@@ -10,7 +10,8 @@ class Material extends Model
     	'name',
         'companieId',
         'unitId',
-        'categoryId'
+        'categoryId',
+        'junk',
     ];
 
     public function unit() {

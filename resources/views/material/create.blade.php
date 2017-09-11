@@ -7,6 +7,10 @@
 			<form class="space-childs" method="POST" action="/materials">
 				{{csrf_field()}}
 				<input value="{{old('name')}}" name="name" type="text" class="form-control" placeholder="Nombre" autocomplete="off" />
+				<div class="input-group">
+					<input value="{{old('junk')}}" name="junk" type="text" class="form-control" placeholder="Desperdicio" autocomplete="off" />
+					<div class="input-group-addon">%</div>
+				</div>
 				<select class="form-control" name="unit">
 					@foreach($units as $unit)
 						<option value="{{$unit->id}}"

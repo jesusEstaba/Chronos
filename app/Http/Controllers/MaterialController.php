@@ -55,7 +55,8 @@ class MaterialController extends Controller
             'name' => $request->name,
             'companieId' => Auth::user()->companieId,
             'unitId' => $request->unit,
-            'categoryId' => $request->category
+            'categoryId' => $request->category,
+            'junk' => $request->junk,
         ])->id;
 
         MaterialCost::create([
@@ -101,7 +102,8 @@ class MaterialController extends Controller
             ->update([
                 'name' => $request->name,
                 'unitId' => $request->unit,
-                'categoryId' => $request->category
+                'categoryId' => $request->category,
+                'junk' => $request->junk,
             ]); 
 
         session()->flash('success', 'Material Actualizado.');

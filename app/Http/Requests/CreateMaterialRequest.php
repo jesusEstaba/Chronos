@@ -14,6 +14,7 @@ class CreateMaterialRequest extends Request
         return [
             'name' => 'required',
             'cost' => 'required|numeric',
+            'junk' => 'numeric',
             'unit' => $this->existsInCompanie('units'),
             'category' => $this->existsInCompanie('categories')
         ];

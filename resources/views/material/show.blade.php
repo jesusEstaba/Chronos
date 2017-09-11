@@ -12,6 +12,7 @@
 <p>
 	<b>Categoria:</b> <a href="/categories/{{$material->category->id}}">{{$material->category->name}}</a> 
 	<b>Unidad:</b> <a href="/units/{{$material->unit->id}}">{{$material->unit->name}} </a>
+	<b>Porcentaje de Desperdicio:</b> {{$material->junk}}% </a>
 </p>
 
 <div class="box">

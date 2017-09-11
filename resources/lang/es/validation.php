@@ -131,6 +131,7 @@ return [
         'rif' => 'CI/RIF',
         'phone' => 'Teléfono',
         'address' => 'Dirección',
+        'junk' => 'Despredicio',
     ],
 
 ];
