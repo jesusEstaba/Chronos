@@ -204,8 +204,9 @@
 
 
 
-
-				<input id="createProject" type="submit" class="btn btn-outline-success float-right" value="Crear" />
+				<button id="createProject" type="submit" class="btn btn-outline-success float-right">
+					Crear
+				</button>
 			</form>
 		</div>
 	</div>

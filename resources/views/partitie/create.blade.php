@@ -2,8 +2,6 @@
 @section('sub-title', 'Crear')
 
 @section('sub-content')
-
-<div id="errors"></div>
 <style type="text/css">
 	.add-material, .add-equipment, .add-workforce{
 		display: block;

@@ -289,9 +289,17 @@ $(() => {
 
     $('#createProject').on('click', function(event) {
     	event.preventDefault();
-    	console.log("sds");
+
+    	
 
     	if (!validateFieldsIsNotEmpty()) {
+    		let buttonCreateProject = $(this);
+        	
+        	buttonCreateProject
+	        	.append('<i class="fa fa-spinner fa-pulse fa-1x"></i>')
+	            .addClass('active')
+	            .attr('disabled', true);
+
     		$.ajax({
                 url: '/projects',
                 type: 'POST',
@@ -320,7 +328,13 @@ $(() => {
 				} else {
 					alert('Algo no salio bien...')
 				}
-            })
+            }).always(function() {
+                buttonCreateProject
+                    .removeClass('active')
+                    .removeAttr('disabled')
+                    .find('.fa')
+                    .remove();
+            });
     	} else {
     		alert("campos vacios")
     	}

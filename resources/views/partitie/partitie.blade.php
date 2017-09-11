@@ -7,14 +7,7 @@
 		@yield('titlePrincipal', 'Partidas')
 	</h2>
 
-	<div class="notifications">
-		@if (session()->has('success'))
-			@include(
-				'template.alert-success', 
-				['state' => 'Correcto', 'message'=> session()->get('success')]
-			)
-		@endif
-	</div>
+	@include('template.notification-messages')
 
 	@yield('sub-content')
 @stop

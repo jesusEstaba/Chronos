@@ -409,7 +409,7 @@ $(function() {
                 });
             });
 
-            $('#errors').html("");
+            $('.notifications').html("");
 
             $.ajax({
                     url: '/partities',
@@ -452,7 +452,7 @@ $(function() {
 																</ul>
 															</div>`;
 
-                        $('#errors').append(errorTemplate);
+                        $('.notifications').append(errorTemplate);
                     }
 
 
