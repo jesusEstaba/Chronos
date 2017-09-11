@@ -3,6 +3,10 @@
 namespace Cronos\Http\Controllers;
 
 use Illuminate\Http\Request;
+
+use Cronos\Http\Requests\CreateWorkforceRequest;
+use Cronos\Http\Requests\EditWorkforceRequest;
+
 use Repo\Workforce;
 use Repo\WorkforceCost;
 use Auth;
@@ -50,7 +54,7 @@ class WorkforceController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateWorkforceRequest $request)
     {
         $workforceId = Workforce::create([
             'name' => $request->name,
@@ -106,7 +110,7 @@ class WorkforceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(EditWorkforceRequest $request, $id)
     {
         Workforce::where('companieId', Auth::user()->companieId)
             ->where('id', $id)
