@@ -4,416 +4,44 @@
 @section('sub-content')
 
 <div id="errors"></div>
+<style type="text/css">
+	.add-material, .add-equipment, .add-workforce{
+		display: block;
+	    margin: .5em 0;
+	    border: #ccc 1px solid;
+	    padding: .5em;
+	    text-decoration: none !important;
+	}
+	.add-material:hover, .add-equipment:hover, .add-workforce:hover{
+	    background: #eee;
+	}
+</style>
 	<div class="box">
 		<div class="box-body">
-<script type="text/javascript">
-						$(function() {
-							//MATERIAl
-							var materialList = [];
-							$('#search-materials').on('click', function(e) {
-								e.preventDefault();
-									$.ajax({
-									url: '/search/materials',
-									type: 'POST',
-									dataType: 'json',
-									data: {
-										search: $('[name="search-materials"]').val(),
-										"_token": $('[name="_token"]').val(),
-									}
-								})
-								.done(function(data) {
-									$('.list-materials').html("");
-									data.forEach((material) => {
-										if (!materialList.some(id => id == material.id)) {
-											$('.list-materials').append(`<div style="margin:.5em 0;">
-													<a href="javascript:;"
-															class="add-material btn btn-outline-success"
-															data-material="${material.id}"
-															data-material-unit="${material.unitId}"
-															data-material-price="${material.price}"
-														>
-															<i class="fa fa-plus" aria-hidden="true"></i>
-													</a>
-													<span class="name">${material.name}</span>
-												<div>`);
-												}
-												
-											});
-											$('[name="search-materials"]').val("");
-										})
-										.fail(function() {
-											console.log("error");
-										});
-									});
-									$('.list-materials').on('click', '.add-material',function(e) {
-										e.preventDefault();
-										
-										if ($('#material .delete-if-not-empty')[0]) {
-											$('#material .delete-if-not-empty').remove();
-										}
-
-										materialList.push($(this).attr('data-material'));
-										$(this).parent().remove();
-										
-										$('.materials tbody').append(`<tr>
-												<td>
-														<a class="remove-item" href="javascript:;">
-																<i class="fa fa-times" aria-hidden="true"></i>
-														</a>
-												</td>
-												<td>
-														${$(this).siblings('.name').html()}
-												</td>
-												<td class="price">
-														${$(this).attr('data-material-price')}
-												</td>
-												<td class="quantity">
-														<input type="text"
-															name="qty"
-															class="form-control  input-close-btn"
-															data-item-id="${$(this).attr('data-material')}"
-															value="1"
-														/>
-												</td>
-												<td>
-														${$(this).attr('data-material-unit')}
-												</td>
-												<td>
-														<label class="custom-control custom-checkbox">
-															<input type="checkbox" class="custom-control-input"
-																name="uniq" value="off">
-															<span class="custom-control-indicator"></span>
-														</label>
-												</td>
-										</tr>`);
-										totalInMaterials();
-									});
-									$('.materials').on('click', '.remove-item',function(e) {
-										e.preventDefault();
-										$(this).parent().parent().remove();
-										totalInMaterials();
-									});
-									$('.materials').on('keyup', '[name="qty"]',function(e) {
-										if (!isNaN($(this).val())) {
-											totalInMaterials();
-										}
-									});
-									function totalInMaterials() {
-										var total = 0;
-										$('.materials tbody tr').each(function(index, el) {
-											var price = Number($(el).children('.price').html()),
-												qty = Number($(el).children('.quantity').children('input').val());
-											
-											if (!isNaN(qty)) {
-													total += price * qty;
-											}
-											
-										});
-										$('.total-materials').html(total.toFixed(2));
-									}
-									
-
-
-									//EQUIPMENT
-									var equipmentList = [];
-									$('#search-equipments').on('click', function(e) {
-										e.preventDefault();
-											$.ajax({
-											url: '/search/equipments',
-											type: 'POST',
-											dataType: 'json',
-											data: {
-												search: $('[name="search-equipments"]').val(),
-												"_token": $('[name="_token"]').val(),
-											}
-										})
-										.done(function(data) {
-											$('.list-equipments').html("");
-											data.forEach((equipment) => {
-												if (!equipmentList.some(id => id == equipment.id)) {
-													$('.list-equipments').append(`<div style="margin:.5em 0;">
-															<a href="javascript:;"
-																	class="add-equipment btn btn-outline-success"
-																	data-equipment="${equipment.id}"
-																	data-equipment-price="${equipment.price}"
-																>
-																	<i class="fa fa-plus" aria-hidden="true"></i>
-															</a>
-															<span class="name">${equipment.name}</span>
-														<div>`);
-														}
-														
-													});
-													$('[name="search-equipments"]').val("");
-												})
-												.fail(function() {
-													console.log("error");
-												});
-											});
-											$('.list-equipments').on('click', '.add-equipment',function(e) {
-												e.preventDefault();
-												if ($('#equipment .delete-if-not-empty')[0]) {
-													$('#equipment .delete-if-not-empty').remove();
-												}
-												equipmentList.push($(this).attr('data-equipment'));
-												$(this).parent().remove();
-												$('.equipments tbody').append(`<tr>
-														<td>
-																<a class="remove-item" href="javascript:;">
-																		<i class="fa fa-times" aria-hidden="true"></i>
-																</a>
-														</td>
-														<td>
-																${$(this).siblings('.name').html()}
-														</td>
-														<td class="price">
-																${$(this).attr('data-equipment-price')}
-														</td>
-														<td class="quantity">
-																<input type="text"
-																	name="qty"
-																	class="form-control  input-close-btn"
-																	data-item-id="${$(this).attr('data-equipment')}"
-																	value="1"
-																/>
-														</td>
-														<td>
-																<label class="custom-control custom-checkbox">
-																	<input value="off" type="checkbox" class="custom-control-input"
-																		name="workers">
-																	<span class="custom-control-indicator"></span>
-																</label>
-														</td>
-												</tr>`);
-												totalInEquipments();
-											});
-											$('.equipments').on('click', '.remove-item',function(e) {
-												e.preventDefault();
-												$(this).parent().parent().remove();
-												totalInEquipments();
-											});
-											$('.equipments').on('keyup', '[name="qty"]',function(e) {
-												if (!isNaN($(this).val())) {
-													totalInEquipments();
-												}
-												
-											});
-											function totalInEquipments() {
-												var total = 0;
-												$('.equipments tbody tr').each(function(index, el) {
-													var price = Number($(el).children('.price').html()),
-														qty = Number($(el).children('.quantity').children('input').val());
-													
-													if (!isNaN(qty)) {
-															total += price * qty;
-													}
-													
-												});
-												$('.total-equipments').html(total.toFixed(2));
-											}
-
-//WORKFORCE
-var workforceList = [];
-$('#search-workforces').on('click', function(e) {
-    e.preventDefault();
-    $.ajax({
-            url: '/search/workforces',
-            type: 'POST',
-            dataType: 'json',
-            data: {
-                search: $('[name="search-workforces"]').val(),
-                "_token": $('[name="_token"]').val(),
-            }
-        })
-        .done(function(data) {
-            $('.list-workforces').html("");
-            data.forEach((workforce) => {
-                if (!workforceList.some(id => id == workforce.id)) {
-                    $('.list-workforces').append(`<div style="margin:.5em 0;">
-													<a href="javascript:;"
-															class="add-workforce btn btn-outline-success"
-															data-workforce="${workforce.id}"
-															data-workforce-price="${workforce.price}"
-														>
-															<i class="fa fa-plus" aria-hidden="true"></i>
-													</a>
-													<span class="name">${workforce.name}</span>
-												<div>`);
-                }
-
-            });
-            $('[name="search-workforces"]').val("");
-        })
-        .fail(function() {
-            console.log("error");
-        });
-});
-$('.list-workforces').on('click', '.add-workforce', function(e) {
-    e.preventDefault();
-
-    if ($('#workforce .delete-if-not-empty')[0]) {
-        $('#workforce .delete-if-not-empty').remove();
-    }
-
-    workforceList.push($(this).attr('data-workforce'));
-    $(this).parent().remove();
-
-    $('.workforces tbody').append(`<tr>
-												<td>
-														<a class="remove-item" href="javascript:;">
-																<i class="fa fa-times" aria-hidden="true"></i>
-														</a>
-												</td>
-												<td>
-														${$(this).siblings('.name').html()}
-												</td>
-												<td class="price">
-														${$(this).attr('data-workforce-price')}
-												</td>
-												<td class="quantity">
-														<input type="text"
-															name="qty"
-															class="form-control  input-close-btn"
-															data-item-id="${$(this).attr('data-workforce')}"
-															value="1"
-														/>
-												</td>
-										</tr>`);
-    totalInworkforces();
-});
-$('.workforces').on('click', '.remove-item', function(e) {
-    e.preventDefault();
-    $(this).parent().parent().remove();
-    totalInworkforces();
-});
-$('.workforces').on('keyup', '[name="qty"]', function(e) {
-    if (!isNaN($(this).val())) {
-        totalInworkforces();
-    }
-});
-
-function totalInworkforces() {
-    var total = 0;
-    $('.workforces tbody tr').each(function(index, el) {
-        var price = Number($(el).children('.price').html()),
-            qty = Number($(el).children('.quantity').children('input').val());
-
-        if (!isNaN(qty)) {
-            total += price * qty;
-        }
-
-    });
-    $('.total-workforces').html(total.toFixed(2));
-}
-
-
-											//GLOBAL
-											$('[type="submit"]').on('click', function(e) {
-												e.preventDefault();
-												if (!$(this).hasClass('active')) {
-													$(this).addClass('active').attr('disabled', true);
-													var materials = [],
-														equipments = [],
-														workforces = [];
-													
-													$('.materials tbody tr').each(function() {
-														materials.push({
-															'id': $(this).find('[name="qty"]').attr('data-item-id'),
-															'qty': $(this).find('[name="qty"]').val(),
-															'uniq': $(this).find('[name="uniq"]').val()
-														});
-													});
-													$('.equipments tbody tr').each(function() {
-														equipments.push({
-															'id': $(this).find('[name="qty"]').attr('data-item-id'),
-															'qty': $(this).find('[name="qty"]').val(),
-															'workers': $(this).find('[name="workers"]').val()
-														});
-													});
-													$('.workforces tbody tr').each(function() {
-														workforces.push({
-															'id': $(this).find('[name="qty"]').attr('data-item-id'),
-															'qty': $(this).find('[name="qty"]').val(),
-														});
-													});
-
-													$('#errors').html("");
-
-													$.ajax({
-														url: '/partities',
-														type: 'POST',
-														dataType: 'json',
-														data: {
-															"name": $('[name="name"]').val(),
-															"yield": $('[name="yield"]').val(),
-															"unit": $('[name="unit"]').val(),
-															"category": $('[name="category"]').val(),
-															"reference": $('[name="reference"]').val(),
-															"parent": $('[name="parent"]').val(),
-															"materials": materials,
-															"equipments": equipments,
-															"workforces": workforces,
-														},
-														headers: {
-													'X-CSRF-TOKEN': $('[name="_token"]').val()
-													}
-													})
-													.done(function() {
-														window.location.href = "/partities";
-													})
-													.fail(function(data) {
-														if (data.status == 422) {
-															let errors = data.responseJSON;
-															let errorsHTML = '';
-															
-															$.each(errors, function(index, el) {
-																console.log(el[0]);
-																errorsHTML += `<li>${el[0]}</li>`;
-															});
-
-															let errorTemplate = `<div class="alert alert-danger alert-dismissible fade show" role="alert">
-																<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-																	<span aria-hidden="true">&times;</span>
-																</button>
-																<ul style="margin: 0;">
-																	${errorsHTML}
-																</ul>
-															</div>`;
-
-															$('#errors').append(errorTemplate);
-														}
-														
-
-													}).always(function () {
-														$('[type=submit]')
-															.removeClass('active')
-															.removeAttr('disabled');
-													});
-													
-												}//end if
-											});
-											$('.box-body').on('click', '.custom-checkbox', function(e) {
-												e.preventDefault();
-												var $input = $(this).children("input");
-												$input.val(($input.val() == "on") ? "off" : "on");
-												$input.prop("checked", () => !$input.prop("checked"));
-											});
-											
-										})
-				</script>
+			<script type="text/javascript" src="{{asset('js/partitie.js')}}"></script>
 				
 			<form id="partitie-data" method="POST" class="space-childs">
 				{{csrf_field()}}
-				<input name="name" type="text" class="form-control" placeholder="Nombre" autocomplete="off" />
-				
-				<input name="reference" type="text" class="form-control" placeholder="Código" autocomplete="off" />
-				
-				<input name="yield" type="text" class="form-control" placeholder="Rendimiento" autocomplete="off" />
-				<select class="form-control" name="unit">
-					@foreach($units as $unit)
-					<option value="{{$unit->id}}">{{$unit->name}}</option>
-					@endforeach
-				</select>
+				<div class="form-group">
+					<label class="small">Nombre</label>
+					<input name="name" type="text" class="form-control" placeholder="Nombre" autocomplete="off" />
+				</div>
+				<div class="form-group">
+					<label class="small">Código</label>
+					<input name="reference" type="text" class="form-control" placeholder="Código" autocomplete="off" />
+				</div>
+				<div class="form-group">
+					<label class="small">Rendimiento</label>
+					<input name="yield" type="text" class="form-control" placeholder="Rendimiento" autocomplete="off" />
+				</div>
+				<div class="form-group">
+					<label class="small">Unidad</label>
+					<select class="form-control" name="unit">
+						@foreach($units as $unit)
+						<option value="{{$unit->id}}">{{$unit->name}}</option>
+						@endforeach
+					</select>
+				</div>
 
 				<select style="display: none;" class="form-control" name="parent">
 					<option value="0">Sin Dependencia</option>
@@ -488,11 +116,13 @@ function totalInworkforces() {
 								</tr>
 							</thead>
 							<tbody>
-								<td colspan="6" class="delete-if-not-empty">
-									<p class="text-center">
-										No se ha agregado ningun recurso de este tipo.
-									</p>
-								</td>
+								<tr class="delete-if-not-empty">
+									<td colspan="6">
+										<p class="text-center">
+											No se ha agregado ningun recurso de este tipo.
+										</p>
+									</td>
+								</tr>
 							</tbody>
 						</table>
 						<h4 style="display: none;">Total: <span class="total-materials">0</span></h4>
@@ -543,11 +173,13 @@ function totalInworkforces() {
 								</tr>
 							</thead>
 							<tbody>
-								<td colspan="6" class="delete-if-not-empty">
-								<p class="text-center">
-									No se ha agregado ningun recurso de este tipo.
-								</p>
-							</td>
+								<tr class="delete-if-not-empty">
+									<td colspan="6">
+										<p class="text-center">
+											No se ha agregado ningun recurso de este tipo.
+										</p>
+									</td>
+								</tr>
 							</tbody>
 						</table>
 						<h4 style="display: none;">Total: <span class="total-equipments">0</span></h4>
@@ -596,11 +228,13 @@ function totalInworkforces() {
 								</tr>
 							</thead>
 							<tbody>
-								<td colspan="4" class="delete-if-not-empty">
-									<p class="text-center">
-										No se ha agregado ningun recurso de este tipo.
-									</p>
-								</td>
+								<tr class="delete-if-not-empty">
+									<td colspan="6">
+										<p class="text-center">
+											No se ha agregado ningun recurso de este tipo.
+										</p>
+									</td>
+								</tr>
 							</tbody>
 						</table>
 						<h4 style="display: none;">Total: <span class="total-workforces">0</span></h4>
@@ -608,7 +242,9 @@ function totalInworkforces() {
 				</div>
 			</div>
 
-			<input type="submit" class="btn btn-outline-success float-right" value="Crear" />
+			<button type="submit" class="btn btn-outline-success float-right">
+				Crear
+			</button>
 		</div>
 	</div>
 @stop
