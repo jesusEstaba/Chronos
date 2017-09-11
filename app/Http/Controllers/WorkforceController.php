@@ -17,11 +17,7 @@ class WorkforceController extends Controller
        $this->middleware('operatorRestrictedAccess');
     }
     
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index(Request $request)
     {
         $search = $request->search;
@@ -38,22 +34,13 @@ class WorkforceController extends Controller
         return view('workforce.index', compact('workforces', 'search'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
         return view('workforce.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(CreateWorkforceRequest $request)
     {
         $workforceId = Workforce::create([
@@ -71,12 +58,7 @@ class WorkforceController extends Controller
         return redirect('/workforces');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function show($id)
     {
         $workforce = Workforce::where('companieId', Auth::user()->companieId)
@@ -89,12 +71,7 @@ class WorkforceController extends Controller
         return view('workforce.show', compact('workforce', 'workforceCosts'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit($id)
     {
         $workforce = Workforce::where('companieId', Auth::user()->companieId)
@@ -103,13 +80,7 @@ class WorkforceController extends Controller
         return view('workforce.edit', compact('workforce'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(EditWorkforceRequest $request, $id)
     {
         Workforce::where('companieId', Auth::user()->companieId)
@@ -120,17 +91,34 @@ class WorkforceController extends Controller
 
         session()->flash('success', 'Cargo Actualizado.');
         
-        return redirect('/workforces/' . $id . '/edit');
+        return redirect('/workforces/' . $id);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+
+    public function disabled($id)
     {
-        //
+        Workforce::where('companieId', Auth::user()->companieId)
+            ->where('id', $id)
+            ->update([
+                'disabled' => 1,
+            ]); 
+
+        session()->flash('success', 'Cargo Desactivado.');
+
+        return redirect('/workforces/' . $id);
+    }
+
+
+    public function enabled($id)
+    {
+        Workforce::where('companieId', Auth::user()->companieId)
+            ->where('id', $id)
+            ->update([
+                'disabled' => 0,
+            ]); 
+
+        session()->flash('success', 'Cargo Activado.');
+
+        return redirect('/workforces/' . $id);
     }
 }

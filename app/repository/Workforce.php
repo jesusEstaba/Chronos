@@ -9,6 +9,7 @@ class Workforce extends Model
 	protected $fillable = [
     	'name',
         'companieId',
+        'disabled'
     ];
 
     public function lastCost() {

@@ -65,12 +65,7 @@ class EquipmentController extends Controller
         return redirect('/equipments');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function show($id)
     {
         $equipment = Equipment::where('companieId', Auth::user()->companieId)
@@ -83,12 +78,7 @@ class EquipmentController extends Controller
         return view('equipment.show', compact('equipment', 'equipmentCosts'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit($id)
     {
         $categories = Category::where('companieId', Auth::user()->companieId)
@@ -99,13 +89,7 @@ class EquipmentController extends Controller
         return view('equipment.edit', compact('categories',  'equipment'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(EditEquipmentRequest $request, $id)
     {   
         Equipment::where('companieId', Auth::user()->companieId)
@@ -118,17 +102,34 @@ class EquipmentController extends Controller
 
         session()->flash('success', 'Equipo Actualizado.');
         
-        return redirect('/equipments/' . $id . '/edit');
+        return redirect('/equipments/' . $id);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+
+    public function disabled($id)
     {
-        //
+        Equipment::where('companieId', Auth::user()->companieId)
+            ->where('id', $id)
+            ->update([
+                'disabled' => 1,
+            ]); 
+
+        session()->flash('success', 'Equipo Desactivado.');
+
+        return redirect('/equipments/' . $id);
+    }
+
+
+    public function enabled($id)
+    {
+        Equipment::where('companieId', Auth::user()->companieId)
+            ->where('id', $id)
+            ->update([
+                'disabled' => 0,
+            ]); 
+
+        session()->flash('success', 'Equipo Activado.');
+
+        return redirect('/equipments/' . $id);
     }
 }

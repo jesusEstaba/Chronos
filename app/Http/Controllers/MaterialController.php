@@ -108,12 +108,33 @@ class MaterialController extends Controller
 
         session()->flash('success', 'Material Actualizado.');
         
-        return redirect('/materials/' . $id . '/edit');
+        return redirect('/materials/' . $id);
     }
 
 
-    public function destroy($id)
+    public function disabled($id)
     {
-        //
+        Material::where('companieId', Auth::user()->companieId)
+            ->where('id', $id)
+            ->update([
+                'disabled' => 1,
+            ]); 
+
+        session()->flash('success', 'Material Desactivado.');
+
+        return redirect('/materials/' . $id);
+    }
+
+    public function enabled($id)
+    {
+        Material::where('companieId', Auth::user()->companieId)
+            ->where('id', $id)
+            ->update([
+                'disabled' => 0,
+            ]); 
+
+        session()->flash('success', 'Material Activado.');
+
+        return redirect('/materials/' . $id);
     }
 }

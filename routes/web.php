@@ -25,12 +25,18 @@ Route::group(['middleware' => 'isAuth'], function() {
 	Route::resource('user', 'UserController');
 	Route::resource('materials', 'MaterialController');
 	Route::resource('materialcosts', 'MaterialCostController');
+	Route::get('materials/{id}/enabled', 'MaterialController@enabled');
+	Route::get('materials/{id}/disabled', 'MaterialController@disabled');
 
 	Route::resource('equipments', 'EquipmentController');
 	Route::resource('equipmentcosts', 'EquipmentCostController');
+	Route::get('equipments/{id}/enabled', 'EquipmentController@enabled');
+	Route::get('equipments/{id}/disabled', 'EquipmentController@disabled');
 
 	Route::resource('workforces', 'WorkforceController');
 	Route::resource('workforcecosts', 'WorkforceCostController');
+	Route::get('workforces/{id}/enabled', 'WorkforceController@enabled');
+	Route::get('workforces/{id}/disabled', 'WorkforceController@disabled');
 
 	Route::resource('partities', 'PartitieController');
 

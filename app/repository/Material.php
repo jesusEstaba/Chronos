@@ -12,6 +12,7 @@ class Material extends Model
         'unitId',
         'categoryId',
         'junk',
+        'disabled'
     ];
 
     public function unit() {

@@ -25,8 +25,9 @@ class SearchController
                     $query->where('name', 'like', '%' . $search . '%');
                 }
             })
+            ->where('disabled', 0)
             ->orderBy('id', 'desc')
-            ->take(10)//limitar o paginar
+            ->take(10)
             ->get();
 
         foreach ($materials as $material) {
@@ -50,8 +51,9 @@ class SearchController
                     $query->where('name', 'like', '%' . $search . '%');
                 }
             })
+            ->where('disabled', 0)
             ->orderBy('id', 'desc')
-            ->take(10)//limitar o paginar
+            ->take(10)
             ->get();
 
         foreach ($equipments as $equipment) {
@@ -74,8 +76,9 @@ class SearchController
                     $query->where('name', 'like', '%' . $search . '%');
                 }
             })
+            ->where('disabled', 0)
             ->orderBy('id', 'desc')
-            ->take(10)//limitar o paginar
+            ->take(10)
             ->get();
 
         foreach ($workforces as $workforce) {

@@ -12,7 +12,8 @@ class Equipment extends Model
     	'name',
         'companieId',
         'categoryId',
-        'depreciation'
+        'depreciation',
+        'disabled'
     ];
 
     public function category() {
