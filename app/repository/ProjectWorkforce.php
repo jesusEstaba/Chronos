@@ -10,6 +10,7 @@ class ProjectWorkforce extends Model
 		'partitieId',
 		'workforceId',
 		'costId',
+        'quantity'
     ];
 
     public function workforce() {
@@ -17,12 +18,7 @@ class ProjectWorkforce extends Model
     }
 
     public function qty() {
-        $partitieId = ProjectPartitie::find($this->partitieId)->partitieId;
-
-        return PartitieWorkforce::where('partitieId', $partitieId)
-            ->where('workforceId', $this->workforceId)
-            ->first()
-            ->quantity;
+        return $this->quantity;
     }
 
     public function cost() {

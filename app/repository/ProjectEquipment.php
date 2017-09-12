@@ -10,6 +10,7 @@ class ProjectEquipment extends Model
 		'partitieId',
 		'equipmentId',
 		'costId',
+        'quantity'
     ];
 
     public function equipment() {
@@ -17,12 +18,7 @@ class ProjectEquipment extends Model
     }
 
     public function qty() {
-        $partitieId = ProjectPartitie::find($this->partitieId)->partitieId;
-
-        return PartitieEquipment::where('partitieId', $partitieId)
-            ->where('equipmentId', $this->equipmentId)
-            ->first()
-            ->quantity;
+        return $this->quantity;
     }
 
     public function cost() {

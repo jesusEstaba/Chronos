@@ -10,7 +10,6 @@ class PartitieEquipment extends Model
 		'partitieId',
 		'equipmentId',
 		'quantity',
-		'uniq',
 		'workers'
     ];
 

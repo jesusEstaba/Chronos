@@ -10,7 +10,7 @@ class PartitieMaterial extends Model
 		'partitieId',
 		'materialId',
 		'quantity',
-		'uniq'
+		'magnitude'
     ];
 
     public function material() {

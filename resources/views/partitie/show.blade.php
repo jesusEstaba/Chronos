@@ -78,7 +78,7 @@
 								<td>
 									<label class="custom-control custom-checkbox">
 										<input type="checkbox" class="custom-control-input"
-										@if($material->uniq)
+										@if($material->magnitude)
 										checked
 										@endif
 										>
@@ -156,7 +156,7 @@
 							@foreach($workforces as $workforce)
 							<tr>
 								<td>{{$workforce->workforce->name}}</td>
-								<td>{{number_format($workforce->workforce->lastCost(), 2)}}</td>
+								<td>{{$workforce->workforce->lastCost()}}%</td>
 								<td>{{number_format($workforce->quantity, 2)}}</td>
 							</tr>
 							@endforeach
