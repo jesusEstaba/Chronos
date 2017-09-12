@@ -60,6 +60,8 @@ class PartitieController
 
         $this->addResources($partitieId, $request);
 
+        session()->flash('success', 'Partida Creada.');
+
         return response()->json(["redirect" => true]);
     }
 
