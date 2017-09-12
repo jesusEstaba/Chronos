@@ -135,8 +135,9 @@ class SearchController
                     $query->where('name', 'like', '%' . $search . '%');
                 }
             })
+            ->where('disabled', 0)
             ->orderBy('id', 'desc')
-            ->take(10)//limitar o paginar
+            ->take(10)
             ->get();
 
         return response()->json($partities);

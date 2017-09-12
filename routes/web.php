@@ -39,6 +39,8 @@ Route::group(['middleware' => 'isAuth'], function() {
 	Route::get('workforces/{id}/disabled', 'WorkforceController@disabled');
 
 	Route::resource('partities', 'PartitieController');
+	Route::get('partities/{id}/enabled', 'PartitieController@enabled');
+	Route::get('partities/{id}/disabled', 'PartitieController@disabled');
 
 	Route::resource('categories', 'CategoryController');
 

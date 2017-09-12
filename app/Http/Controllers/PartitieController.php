@@ -15,12 +15,6 @@ use Auth;
 
 class PartitieController
 {
-    /**
-     * 
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index(Request $request)
     {
         $search = $request->search;
@@ -37,11 +31,7 @@ class PartitieController
         return view('partitie.index', compact('partities', 'search'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
         $categories = Category::where('companieId', Auth::user()->companieId)->get();
@@ -55,12 +45,7 @@ class PartitieController
         ));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(CreatePartitieRequest $request)
     {
         $partitieId = Partitie::create([
@@ -109,12 +94,7 @@ class PartitieController
         return response()->json(["redirect" => true]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function show($id)
     {
         $partitie = Partitie::where('companieId', Auth::user()->companieId)
@@ -141,37 +121,42 @@ class PartitieController
         );
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit($id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $request, $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+
+    public function disabled($id)
     {
-        //
+        Partitie::where('companieId', Auth::user()->companieId)
+            ->where('id', $id)
+            ->update([
+                'disabled' => 1,
+            ]); 
+
+        session()->flash('success', 'Partida Desactivada.');
+
+        return redirect('/partities/' . $id);
+    }
+
+    public function enabled($id)
+    {
+        Partitie::where('companieId', Auth::user()->companieId)
+            ->where('id', $id)
+            ->update([
+                'disabled' => 0,
+            ]); 
+
+        session()->flash('success', 'Partida Activada.');
+
+        return redirect('/partities/' . $id);
     }
 }

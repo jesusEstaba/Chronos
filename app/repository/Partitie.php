@@ -13,7 +13,8 @@ class Partitie extends Model
 		'unitId',
         'userId',
         'reference',
-        'parent'
+        'parent',
+        'disabled'
     ];
 
     public function unit() {
