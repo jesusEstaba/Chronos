@@ -3,64 +3,71 @@
 
 @section('sub-content')
 
-@section('titlePrincipal', $project->name)
-
-	
-	
-<div class="row" style="margin: 0 -15px;">
-<div class="col-md-6">
-<a href="/projects/{{$project->id}}/edit" class="btn btn-outline-warning">
-		<i class="fa fa-pencil" aria-hidden="true"></i> Editar
-	</a>
-</div>
-	<div class="col-md-6">
-	
-						<?php
-					  			
-					  	function daysLeft($start, $end) {
-					  		$date1 = new DateTime($start);  //current date or any date
-							$date2 = new DateTime($end);   //Future date
-							$diff = $date2->diff($date1)->format("%a");  //find difference
-					  		return intval($diff);   //rounding days
-					  	}
-					  	$days = daysLeft($project->start, $project->end);
-					  	?>
-					  	<span style="font-size: 1.3em;" class="pull-right badge badge-danger"><!--esto debe ser por porcentaje-->
-									{{$days}} <br> <small>
-										@if($days>1)
-											Días
-										@else
-											Día
-										@endif
-										 Restantes
-									</small></span>
-					
-</div>
-</div>
-
-
 <style type="text/css">
+	.table thead{
+		font-size: .7em;
+	}
+	.row{
+		margin: 0;
+	}
+	.page-title{
+		display: none;
+	}
 </style>
+
+<div class="row" style="margin: 0 -15px;">
+	<div class="col-md-9">
+		<h2>{{$project->name}}</h2>
+	</div>
+	<div class="col-md-3">
+		<?php	
+			function daysLeft($start, $end) {
+				$date1 = new DateTime($start);  //current date or any date
+				$date2 = new DateTime($end);   //Future date
+				$diff = $date2->diff($date1)->format("%a");  //find difference
+				return intval($diff);   //rounding days
+			}
+			$days = daysLeft($project->start, $project->end);
+		?>
+			<span style="font-size: 1.3em;" class="pull-right badge badge-danger"><!--esto debe ser por porcentaje-->
+				{{$days}} <br> 
+				<small>
+					@if($days>1)
+						Días
+					@else
+						Día
+					@endif
+					Restantes
+				</small>
+			</span>
+	</div>
+</div>
+
 <div class="box">
-	
-	<div class="box-head" style="margin-bottom: .5em;">
-		<a target="_blank" style="margin-bottom: .5em;" class="btn btn-outline-primary" href="/projects/partities/{{$project->id}}">
-			Partidas <i class="fa fa-file-pdf-o" aria-hidden="true"></i> 
+	<div class="box-body" >
+		<a href="/projects/{{$project->id}}/edit" class="btn btn-outline-warning">
+			<i class="fa fa-pencil" aria-hidden="true"></i> Editar
 		</a>
-		<a target="_blank" style="margin-bottom: .5em;" class="btn btn-outline-warning" href="/projects/offer/{{$project->id}}">
-			Oferta Económica <i class="fa fa-file-pdf-o" aria-hidden="true"></i> 
-		</a>
-		<a target="_blank" style="margin-bottom: .5em;" class="btn btn-outline-info" href="/projects/gantt/{{$project->id}}">
-			Gantt <i class="fa fa-bar-chart" aria-hidden="true"></i>
-		</a>
-		<a href="/projects/clone/{{$project->id}}" style="margin-bottom: .5em;"  class="btn btn-outline-success">
-		<i class="fa fa-clone" aria-hidden="true"></i> Clonar
-	</a>
+		<div class="buttons-actions pull-right" >
+			<a target="_blank"  class="btn btn-outline-primary" href="/projects/partities/{{$project->id}}">
+				Partidas <i class="fa fa-file-pdf-o" aria-hidden="true"></i> 
+			</a>
+			<a target="_blank"  class="btn btn-outline-warning" href="/projects/offer/{{$project->id}}">
+				Oferta Económica <i class="fa fa-file-pdf-o" aria-hidden="true"></i> 
+			</a>
+			<a target="_blank"  class="btn btn-outline-info" href="/projects/gantt/{{$project->id}}">
+				Gantt <i class="fa fa-bar-chart" aria-hidden="true"></i>
+			</a>
+			<a href="/projects/clone/{{$project->id}}"   class="btn btn-outline-success">
+				<i class="fa fa-clone" aria-hidden="true"></i> Clonar
+			</a>
+		</div>
 		
 	</div>
+</div>
+
+<div class="box">
 	<div class="box-body">
-		
-		
 		<div class="row">
 			<div class="col-md-6">
 				<div class="headers">
@@ -96,13 +103,18 @@
         	@endforeach
 		</div>
 			</div>
-			<div class="col-xs-12">
-				<h4 style="text-align: right;">Total: 0.00</h4>
+			<div class="col-md-12">
+				<p>
+					<b>Descripción:</b>
+				</p>
+				<p> {{$project->description}}</p>
 			</div>
 		</div>
+	</div>
+</div>
 
-		<br>
-			
+<div class="box">
+	<div class="box-body">	
 		<ul class="nav nav-tabs">
 			<li class="nav-item">
 				<a class="nav-link active" data-toggle="tab" href="#home" role="tab" href="#">
@@ -282,12 +294,4 @@
   		</div>
 	</div>
 </div>
-<style type="text/css">
-	.table thead{
-		font-size: .7em;
-	}
-	.row{
-		margin: 0;
-	}
-</style>
 @stop
