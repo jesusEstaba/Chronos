@@ -132,6 +132,16 @@ return [
         'phone' => 'Teléfono',
         'address' => 'Dirección',
         'junk' => 'Despredicio',
+        'client' => 'Cliente',
+        'status' => 'Estado',
+        'description' => 'Descripción',
+        'salary' => 'Salario Mínimo',
+        'salaryBonus' => 'Bono de Alimentación',
+        'fcas' => 'Factor de Costos Asociados al Salario',
+        'expenses' => 'Imprevisto de compra',
+        'utility' => 'Utilidad + Comisíon de ventas',
+        'unexpected' => 'Imprevisto de compra',
+        'bonus' => 'Gasto diario de viáticos',
     ],
 
 ];

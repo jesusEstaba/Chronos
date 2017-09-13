@@ -14,7 +14,6 @@ class ProjectPartitie extends Model
         'userId',
         'order',
         'parent',
-        'magnitude'
     ];
 
     public function partitie() {

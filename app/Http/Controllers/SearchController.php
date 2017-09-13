@@ -102,6 +102,7 @@ class SearchController
         $partitie->materials = $partitie->materials()->get();
         
         foreach ($partitie->materials as $material) {
+            $material->name = $material->material()->first()->name;
             $material->cost = $material->material()->first()->lastCost(); 
             $material->costId = $material->material()->first()->lastCostId();
         }
@@ -109,6 +110,7 @@ class SearchController
         $partitie->equipments = $partitie->equipments()->get();
         
         foreach ($partitie->equipments as $equipment) {
+            $equipment->name = $equipment->equipment()->first()->name;
             $equipment->cost = $equipment->equipment()->first()->lastCost();
             $equipment->costId = $equipment->equipment()->first()->lastCostId();
             $equipment->depreciation = $equipment->equipment()->first()->depreciation; 
@@ -117,6 +119,7 @@ class SearchController
         $partitie->workforces = $partitie->workforces()->get();
         
         foreach ($partitie->workforces as $workforce) {
+            $workforce->name = $workforce->workforce()->first()->name;
             $workforce->cost = $workforce->workforce()->first()->lastCost(); 
             $workforce->costId = $workforce->workforce()->first()->lastCostId();
         }

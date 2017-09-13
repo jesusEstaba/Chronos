@@ -2,6 +2,9 @@
 namespace Cronos\Http\Controllers;
 
 use Illuminate\Http\Request;
+
+use Cronos\Http\Requests\CreateProjectRequest;
+
 use Repo\Project;
 use Repo\ProjectPartitie;
 use Repo\ProjectMaterial;
@@ -46,10 +49,11 @@ class ProjectController extends Controller
         return view('project.create', compact('clients'));
     }
 
-    public function store(Request $request)
+    public function store(CreateProjectRequest $request)
     {
         $projectId = Project::create([
             'name' => $request->name,
+            'description' => $request->description,
             'start' => date("Y-m-d"),
             'end' => date("Y-m-d"),
             'finish' => date("Y-m-d"),
@@ -110,7 +114,6 @@ class ProjectController extends Controller
                 $partitieId = ProjectPartitie::create([
                     'yield' => $partitie['yield'],
                     'quantity' => $partitie['quantity'],
-                    'magnitude' => $partitie['magnitude'],
                     'projectId' => $projectId,
                     'partitieId' => $partitie['id'],
                     'userId' => Auth::user()->id,
@@ -125,6 +128,7 @@ class ProjectController extends Controller
 	                        'partitieId' => $partitieId,
 	                        'materialId' => $material['materialId'],
 	                        'costId' => $material['costId'],
+                            'quantity' => $material['quantity'],
 	                    ]);
 	                }
             	}
@@ -135,6 +139,7 @@ class ProjectController extends Controller
 	                        'partitieId' => $partitieId,
 	                        'equipmentId' => $equipment['equipmentId'],
 	                        'costId' => $equipment['costId'],
+                            'quantity' => $equipment['quantity'],
 	                    ]);
 	                }
             	}
@@ -145,6 +150,7 @@ class ProjectController extends Controller
 	                        'partitieId' => $partitieId,
 	                        'workforceId' => $workforce['workforceId'],
 	                        'costId' => $workforce['costId'],
+                            'quantity' => $workforce['quantity'],
 	                    ]);
 	                }
             	}
