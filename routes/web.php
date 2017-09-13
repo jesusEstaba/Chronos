@@ -45,6 +45,7 @@ Route::group(['middleware' => 'isAuth'], function() {
 	Route::resource('categories', 'CategoryController');
 
 	Route::resource('projects', 'ProjectController');
+	Route::get('projects/{id}/destroy', 'ProjectController@destroy');
 	Route::get('projects/partities/{id}', 'ProjectController@partitiePDF');
 	Route::get('projects/offer/{id}', 'ProjectController@offerPDF');
 	Route::get('projects/gantt/{id}', 'ProjectController@gantt');

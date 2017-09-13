@@ -22,11 +22,12 @@
 	<div class="col-md-3">
 		<?php	
 			function daysLeft($start, $end) {
-				$date1 = new DateTime($start);  //current date or any date
-				$date2 = new DateTime($end);   //Future date
-				$diff = $date2->diff($date1)->format("%a");  //find difference
-				return intval($diff);   //rounding days
+				$date1 = new DateTime($start);
+				$date2 = new DateTime($end);
+				$diff = $date2->diff($date1)->format("%a");
+				return intval($diff);
 			}
+
 			$days = daysLeft($project->start, $project->end);
 		?>
 			<span style="font-size: 1.3em;" class="pull-right badge badge-danger"><!--esto debe ser por porcentaje-->
@@ -50,13 +51,13 @@
 		</a>
 		<div class="buttons-actions pull-right" >
 			<a target="_blank"  class="btn btn-outline-primary" href="/projects/partities/{{$project->id}}">
-				Partidas <i class="fa fa-file-pdf-o" aria-hidden="true"></i> 
+				<i class="fa fa-file-pdf-o" aria-hidden="true"></i>  Partidas
 			</a>
 			<a target="_blank"  class="btn btn-outline-warning" href="/projects/offer/{{$project->id}}">
-				Oferta Económica <i class="fa fa-file-pdf-o" aria-hidden="true"></i> 
+				<i class="fa fa-file-pdf-o" aria-hidden="true"></i>  Oferta Económica
 			</a>
 			<a target="_blank"  class="btn btn-outline-info" href="/projects/gantt/{{$project->id}}">
-				Gantt <i class="fa fa-bar-chart" aria-hidden="true"></i>
+				<i class="fa fa-bar-chart" aria-hidden="true"></i> Gantt
 			</a>
 			<a href="/projects/clone/{{$project->id}}"   class="btn btn-outline-success">
 				<i class="fa fa-clone" aria-hidden="true"></i> Clonar
@@ -292,6 +293,38 @@
 				</table>
   			</div>
   		</div>
+	</div>
+</div>
+
+<div class="box">
+	<div class="box-body">
+		<a href="#" data-toggle="modal" data-target="#myModal" class="btn float-right btn-outline-danger">
+			<span class="fa fa-trash"></span> Eliminar
+		</a>
+
+
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Eliminar Proyecto</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<p>
+							¿Realmente de sea borrar el proyecto {{$project->name}}?<br>
+							<small>Este cambio será permanente.</small>
+						</p>
+					</div>
+					<div class="modal-footer">
+						<a href="/projects/{{$project->id}}/destroy" class="btn btn-outline-danger">Eliminar</a>
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
 @stop

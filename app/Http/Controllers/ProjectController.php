@@ -201,7 +201,26 @@ class ProjectController extends Controller
 
     public function destroy($id)
     {
-        //
+
+        Modifier::where('projectId', $id)->delete();
+        $projectPartities = ProjectPartitie::where('projectId', $id)->get();
+        
+        if ($projectPartities) {
+            foreach ($projectPartities as $partitie) {
+                ProjectMaterial::where('partitieId', $partitie->id)->delete();
+                ProjectEquipment::where('partitieId', $partitie->id)->delete();
+                ProjectWorkforce::where('partitieId', $partitie->id)->delete();
+                Activity::where('partitieId', $partitie->id)->delete();
+            }
+
+            ProjectPartitie::where('projectId', $id)->delete();
+        }
+        
+        Project::where('id', $id)->delete();
+
+        session()->flash('success', 'Proyecto Eliminado.');
+
+        return redirect('/projects');
     }
 
     public function gantt($id)
