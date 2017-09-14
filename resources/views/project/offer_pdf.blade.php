@@ -132,38 +132,40 @@
 				<table>
 					<thead>
 						<tr>
-							<th class="col-1"></th>
-							<th class="col-3"></th>
-							<th class="col-1"></th>
-							<th class="col-3"></th>
+							<th style="width: 20%;"></th>
+							<th style="width: 40%;"></th>
+							<th style="width: 20%;"></th>
+							<th style="width: 20%;"></th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
-							<td>
+							<td >
 								<b>Cliente:</b>
 							</td>
 							<td>{{$project->client()->name}}</td>
-							<td>
+							<td >
 								<b>Fecha:</b>
 							</td>
 							<td>{{date('Y-m-d')}}</td>
 						</tr>
 						<tr>
-							<td>
+							<td >
 								<b>RIF:</b>
 							</td>
 							<td>{{$project->client()->rif}}</td>
-							<td>
+							<td >
 								<b>N°:</b>
 							</td>
 							<td>{{$project->id}}</td>
 						</tr>
 						<tr>
-							<td>
+							<td >
 								<b>Atención:</b>
 							</td>
-							<td colspan="3">{{$project->client()->address}}</td>
+							<td>{{$project->client()->address}}</td>
+							<td></td>
+							<td></td>
 						</tr>
 						<tr>
 							<td colspan="4"><br></td>
@@ -270,14 +272,16 @@
 					<td class="border">
 						{{$projectPartitie->partitie()->unit()->abbreviature}}
 					</td>
-					<td class="border"></td>
+					<td class="border right"></td>
 					
-					<td class="border">{{number_format($calculator->totalPartitie, 2)}}</td>
-					<td class="border">{{number_format($calculator->totalPartitie, 2)}}</td>
-					<td class="border">
-						{{
-						number_format($projectPartitie->quantity*$calculator->totalPartitie, 2)
-						}}
+					<td class="border right">{{number_format($calculator->totalPartitie, 2)}}</td>
+					<td class="border right">{{number_format($calculator->totalPartitie, 2)}}</td>
+					<td class="border right">
+						<b>
+							{{
+								number_format($projectPartitie->quantity*$calculator->totalPartitie, 2)
+							}}
+						</b>
 					</td>
 				</tr>
 				<?php
@@ -286,6 +290,46 @@
 				@endforeach
 			</tbody>
 		</table>
+
+<table>
+	<thead>
+		<tr>
+			<th style="width: 52%;"></th>
+			<th style="width: 24%;"></th>
+			<th style="width: 24%;"></th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr style="text-align: right;">
+			<td></td>
+			<td>
+				<h2 style="margin:0;">SUB-TOTAL:</h2>
+			</td>
+			<td>
+				<h2 style="margin:0;">{{number_format($totalInPartities, 2)}}</h2>
+			</td>
+		</tr>
+		<tr style="text-align: right;">
+			<td></td>
+			<td>
+				<h2 style="margin:0;">I.V.A. 12%:</h2>
+			</td>
+			<td>
+				<?php $iva = $totalInPartities / 0.12; ?>
+				<h2 style="margin:0;">{{number_format($iva, 2)}}</h2>
+			</td>
+		</tr>
+		<tr style="text-align: right;">
+			<td></td>
+			<td>
+				<h2 style="margin:0;">TOTAL GENERAL Bs:</h2>
+			</td>
+			<td>
+				<h2 style="margin:0;">{{number_format($totalInPartities + $iva, 2)}}</h2>
+			</td>
+		</tr>
+	</tbody>
+</table>
 
 <table>
 	<thead>
@@ -301,7 +345,7 @@
 					<tr>
 						<td>
 							<h2>NOTA:</h2>
-							<h3>70% ORDEN DE COMPRA, 30% AL FINALIZAR LA INSTALACION. PRECIOS SUJETOS A CAMBIO.</h3>
+							<h3>70% ORDEN DE COMPRA, 30% AL FINALIZAR LA INSTALACIÓN. PRECIOS SUJETOS A CAMBIO.</h3>
 						</td>
 					</tr>
 					<tr>
@@ -320,7 +364,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
+						<tr class="right">
 							<td>
 								<b>
 									OFERTA N°:
@@ -328,7 +372,7 @@
 							</td>
 							<td>{{$project->id}}</td>
 						</tr>
-						<tr>
+						<tr class="right">
 							<td>
 								<b>
 									TOTAL DE RENGLONES OFERTADOS:
@@ -336,29 +380,29 @@
 							</td>
 							<td>{{count($project->partities())}}</td>
 						</tr>
-						<tr>
+						<tr class="right">
 							<td>
 								<b>
-									PERIODO DE GARANTIA:
+									PERÍODO DE GARANTÍA:
 								</b>
 							</td>
-							<td>1 Año PARA LA ELECTRONICA </td>
+							<td>1 AÑO PARA LA ELECTRÓNICA </td>
 						</tr>
-						<tr>
+						<tr class="right">
 							<td>
 								<b>
 									TIEMPO DE ENTREGA:
 								</b>
 							</td>
-							<td>05 DIAS CONTINUOS DE EJECUCION</td>
+							<td>05 DÍAS CONTINUOS DE EJECUCIÓN</td>
 						</tr>
-						<tr>
+						<tr class="right">
 							<td>
 								<b>
 									VALIDEZ DE OFERTA:
 								</b>
 							</td>
-							<td>4 Dias HABILES.</td>
+							<td>4 DÍAS HÁBILES</td>
 						</tr>
 					</tbody>
 				</table>
