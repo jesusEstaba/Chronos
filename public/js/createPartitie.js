@@ -19,9 +19,23 @@ var Partitie = {
         )
     },
     calcWorkforces(workforces) {
-        return workforces.reduce((a, workforce) => 
-            a + ((this.salaryBonus + agregarProcentaje(this.salary, workforce.cost)) / this.days) * workforce.quantity, 0
+
+        return workforces.reduce(
+            (a, workforce) => 
+                a + 
+                (
+                    this.bonus + 
+                    (
+                        this.salaryBonus + agregarProcentaje(this.salary, workforce.cost)
+                    ) / 
+                    this.days
+                ) * 
+                workforce.quantity
+            , 0
         )
+    },
+    getBonus() {
+        return this.bonus * this.getProjectDurationDays();
     },
     calcPartitie(partitie) {
         var materialsTotal = this.calcMaterials(partitie.materials),
@@ -86,6 +100,13 @@ var Partitie = {
 
         return total
     },
+    getProjectDurationDays() {
+        if (this.partities.length) {
+            return this.partities.reduce((days, partitie) => days + Math.ceil( Number(partitie.quantity) / Number(partitie.yield) ), 0)    
+        }
+        
+        return 0;  
+    },
     removePartitie(position) {
         this.partities.splice(position, 1)
         let index = 0
@@ -133,7 +154,7 @@ function validateFieldsIsNotEmpty() {
 
 function agregarProcentaje(base, porcentage) {
     
-    return base + base * porcentage / 100
+    return base * (1 + porcentage / 100);
 }
 
 function templatePartitie2(partitie) {
@@ -413,17 +434,17 @@ $(() => {
                     id: idPartitie,
                     "_token": $('[name="_token"]').val(),
                 }
-            })
-            .done(data => {
-                $('#partities2').append(`<div class="col-md-6">${Partitie.addPartitie(data)}</div>`)
-                $('.total-in-project').html(Partitie.getTotalInProject().formatMoney())
-            })
-            .always(function() {
-                $('#modalactivate')
-                    .removeClass('active')
-                    .removeAttr('disabled')
-                    .find('.fa').remove();
-            });
+        })
+        .done(data => {
+            $('#partities2').append(`<div class="col-md-6">${Partitie.addPartitie(data)}</div>`)
+            $('.total-in-project').html(Partitie.getTotalInProject().formatMoney())
+        })
+        .always(function() {
+            $('#modalactivate')
+                .removeClass('active')
+                .removeAttr('disabled')
+                .find('.fa').remove();
+        });
 
         //$(this).remove();
     });

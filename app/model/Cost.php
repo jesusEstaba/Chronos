@@ -1,6 +1,7 @@
 <?php
 
 namespace Cronos\model;
+use Repo\ProjectPartitie;
 
 class Cost
 {
@@ -16,7 +17,11 @@ class Cost
 	protected $expenses;
 	protected $utility;
 	protected $unexpected;
-	protected $bonus;
+	public $bonus;
+
+	public $projectDuration;
+	protected $yield;
+	protected $quantity;
 
 	public function __construct($modifiers)
 	{
@@ -28,6 +33,23 @@ class Cost
 		$this->utility = $modifiers['utility'];
 		$this->unexpected = $modifiers['unexpected'];
 		$this->bonus = $modifiers['bonus'];
+	}
+
+
+	public function setPartitie($partitie)
+	{
+		$this->yield = $partitie->yield;
+		$this->quantity = $partitie->quantity;
+	}
+
+
+	protected function getProjectDurationDays()
+	{
+		if ($this->quantity > 0 && $this->yield > 0) {
+			return ceil($this->quantity/$this->yield);
+		}
+
+		return 0;
 	}
 
 	public function getTotalInMaterials()
@@ -74,7 +96,7 @@ class Cost
 
 	public function totalInWorkforce($cost, $qty)
 	{
-		$workforceCost = $this->workforce($cost) * $qty;
+		$workforceCost = ($this->bonus + $this->workforce($cost)) * $qty;
 		$this->workforces += $workforceCost;
 
 		return $workforceCost;
@@ -82,12 +104,17 @@ class Cost
 
 	public function workforce($cost)
 	{
-		return ($this->salaryBonus + $this->porcentage($this->salary, $cost)) / 30;
+		return 
+		($this->salaryBonus + $this->porcentage($this->salary, $cost)) / 30;
+	}
+
+	protected  function getBonus() {
+		return $this->getProjectDurationDays() * $this->bonus;
 	}
 
 	protected function porcentage($base, $porcentage) 
 	{
-		return $base + $base * $porcentage / 100;
+		return $base * (1 + $porcentage / 100);
 	}
 
 }

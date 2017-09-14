@@ -156,9 +156,10 @@
 						?>
 						@foreach ($project->partities() as $projectPartitie)
 							<?php
+									$calculator->setPartitie($projectPartitie);
 									$calculator->calcPartitie(
 										$projectPartitie->id, 
-										$projectPartitie->partitie()->yield
+										$projectPartitie->yield
 									);
 							?>
 							<tr>
@@ -243,7 +244,7 @@
 							<?php
 									$calculator->calcPartitie(
 										$projectPartitie->id, 
-										$projectPartitie->partitie()->yield
+										$projectPartitie->yield
 									);
 
 									$qty = $projectPartitie->quantity;

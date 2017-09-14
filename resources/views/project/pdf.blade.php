@@ -133,7 +133,7 @@
 						<td class="center">{{$partitie->partitie()->unit()->name}}</td>
 						<td class="center">{{$partitie->quantity}}</td>
 						<td class="center">UND</td>
-						<td class="center">{{number_format($partitie->partitie()->yield, 2)}}</td>
+						<td class="center">{{number_format($partitie->yield, 2)}}</td>
 					</tr>
 				</tbody>
 			</table>
@@ -314,7 +314,7 @@
 								{{number_format($calculator->workforce($workforce->cost()), 2)}}
 							</td>
 							<td>
-								{{number_format(0, 2)}}
+								{{number_format($calculator->bonus, 2)}}
 							</td>
 							<td>
 								{{

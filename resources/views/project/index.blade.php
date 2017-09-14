@@ -76,7 +76,7 @@
 								foreach ($project->partities() as $projectPartitie) {
 									$calculator->calcPartitie(
 										$projectPartitie->id, 
-										$projectPartitie->partitie()->yield
+										$projectPartitie->yield
 									);
 
 									$totalInPartities += 
