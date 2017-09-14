@@ -71,4 +71,6 @@ Route::group(['middleware' => 'isAuth'], function() {
 	
 	Route::post('search/{name}', 'SearchController@search');
 	Route::resource('users', 'UserController');
+	Route::get('users/{id}/enabled', 'UserController@enabled');
+	Route::get('users/{id}/disabled', 'UserController@disabled');
 });
