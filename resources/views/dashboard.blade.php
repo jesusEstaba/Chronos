@@ -7,19 +7,22 @@
 		<div class="box-body">
 			<div class="row" style="margin: 0;">
 				<div class="col-md-4">
-					<div class="card card-inverse card-warning p-3 text-center">
-					    <blockquote class="card-blockquote">
-					      	<h3>
-					      		<i class="fa fa-folder-open"></i>
-					      		 {{$numOfPartities}}
-					      	</h3>
-					    	<footer>
-					    		<small>Partidas</small>
-					    	</footer>
-					    </blockquote>
-					</div>
+					<a href="/partities" style="text-decoration:none;">
+						<div class="card card-inverse card-warning p-3 text-center">
+							<blockquote class="card-blockquote">
+								<h3>
+									<i class="fa fa-folder-open"></i>
+									{{$numOfPartities}}
+								</h3>
+								<footer>
+									<small>Partidas</small>
+								</footer>
+							</blockquote>
+						</div>
+					</a>
 				</div>
 				<div class="col-md-4">
+					<a href="/projects" style="text-decoration:none;">
 					<div class="card card-inverse card-primary p-3 text-center">
 					    <blockquote class="card-blockquote">
 					      	<h3>
@@ -31,8 +34,10 @@
 					    	</footer>
 					    </blockquote>
 					</div>
+					</a>
 				</div>
 				<div class="col-md-4">
+					<a href="/clients" style="text-decoration:none;">
 					<div class="card card-inverse card-danger p-3 text-center">
 					    <blockquote class="card-blockquote">
 					      	<h3>
@@ -44,6 +49,7 @@
 					    	</footer>
 					    </blockquote>
 					</div>
+					</a>
 				</div>
 			</div>
 			<style type="text/css">
