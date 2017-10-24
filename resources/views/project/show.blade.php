@@ -51,13 +51,13 @@
 		</a>
 		<div class="buttons-actions pull-right" >
 			<a target="_blank"  class="btn btn-outline-primary" href="/projects/partities/{{$project->id}}">
-				<i class="fa fa-file-pdf-o" aria-hidden="true"></i>  Partidas
+				<i class="fa fa-file-pdf-o" aria-hidden="true"></i>  APU
 			</a>
 			<a target="_blank"  class="btn btn-outline-warning" href="/projects/offer/{{$project->id}}">
 				<i class="fa fa-file-pdf-o" aria-hidden="true"></i>  Oferta Económica
 			</a>
 			<a target="_blank"  class="btn btn-outline-info" href="/projects/gantt/{{$project->id}}">
-				<i class="fa fa-bar-chart" aria-hidden="true"></i> Gantt
+				<i class="fa fa-bar-chart" aria-hidden="true"></i> Cronograma
 			</a>
 			<a href="/projects/clone/{{$project->id}}"   class="btn btn-outline-success">
 				<i class="fa fa-clone" aria-hidden="true"></i> Clonar
