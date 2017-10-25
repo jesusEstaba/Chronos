@@ -59,6 +59,10 @@
 							</select>
 						</div>
 						<div class="form-group">
+							<label class="small">Fecha de Incio</label>
+							<input type="date" name="start" placeholder="Fecha de Incio" class="form-control" />
+						</div>
+						<div class="form-group">
 							<label class="small">Estado</label>
 							<select name="status" id="" class="form-control">
 								<option value="">Estado</option>

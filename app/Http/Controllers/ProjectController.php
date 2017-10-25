@@ -58,7 +58,7 @@ class ProjectController extends Controller
         $projectId = Project::create([
             'name' => $request->name,
             'description' => $request->description,
-            'start' => date("Y-m-d"),
+            'start' => $request->start,
             'end' => date("Y-m-d"),
             'finish' => date("Y-m-d"),
             'companieId' => Auth::user()->companieId,

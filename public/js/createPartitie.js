@@ -475,6 +475,7 @@ $(() => {
                     name: $('[name=name]').val(),
                     description: $('textarea[name=description]').val(),
                     client: $('[name=client]').val(),
+                    start: $('[name=start]').val(),
                     status: $('[name=status]').val(),
                     salary: Number($('[name=salary]').val()),
                     salaryBonus: Number($('[name=salaryBonus]').val()),
