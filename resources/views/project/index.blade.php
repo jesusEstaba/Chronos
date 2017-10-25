@@ -17,11 +17,11 @@
 		@if(count($projects))
 			<table class="table table-striped table-bordered">
 				<thead>
-					<th style="width: 40%;">Nombre</th>
-					<th style="width: 15%;">Responsable</th>
-					<th style="width: 15%;">Estado</th>
-					<th style="width: 15%;">Creación</th>
-					<th style="width: 15%;">Costo</th>
+					<th style="width: 35%;">Nombre</th>
+					<th style="width: 19%;">Responsable</th>
+					<th style="width: 10%;">Estado</th>
+					<th style="width: 16%;">Creación</th>
+					<th style="width: 20%;">Costo</th>
 				</thead>
 				<tbody>
 					@foreach($projects as $project)
@@ -38,21 +38,17 @@
 						</td>
 						<td>
 							<?php
-								if ($project->stateId == 2) {
-									$color = 'primary';
-								} elseif ($project->stateId == 3) {
-									$color = 'warning';
-								}else {
-									$color = 'default';
-								}
+								$state = Repo\State::find($project->stateId)
 							?>
-							<span class="badge badge-{{$color}}">
-
-							{{Repo\State::find($project->stateId)->name}}
+							<span class="badge badge-{{$state->color}}">
+								{{$state->name}}
 							</span>
 						</td>
 						<td>
-							{{$project->created_at}}
+							<?php
+								$date = new DateTime($project->created_at);
+							?>
+							{{$date->format('d-m-Y')}}
 						</td>
 						<td>
 							<?php

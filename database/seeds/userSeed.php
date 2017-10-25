@@ -43,19 +43,24 @@ class UserSeed extends Seeder
         ]);
 
         State::create([
-            'name' => 'borrador'
+            'name' => 'borrador',
+            'color' => 'default'
         ]);
         State::create([
-            'name' => 'presupuesto'
+            'name' => 'presupuesto',
+            'color' => 'primary'
         ]);
         State::create([
-            'name' => 'iniciado'
+            'name' => 'iniciado',
+            'color' => 'warning'
         ]);
         State::create([
-            'name' => 'cancelado'
+            'name' => 'cancelado',
+            'color' => 'danger'
         ]);
         State::create([
-            'name' => 'finalizado'
+            'name' => 'finalizado',
+            'color' => 'success'
         ]);
     }
 }

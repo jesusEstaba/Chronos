@@ -84,7 +84,13 @@
 						<b>Fin:</b>  {{$project->end}}
 					</p>
 					<p>
-						<b>Estado:</b> <span class="badge badge-default">{{Repo\State::find($project->stateId)->name}}</span>
+						<b>Estado:</b>
+						<?php
+							$state = Repo\State::find($project->stateId)
+						?>
+						<span class="badge badge-{{$state->color}}">
+							{{$state->name}}
+						</span>
 					</p>
 					
 				</div>
