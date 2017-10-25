@@ -16,6 +16,7 @@ use Repo\WorkforceCost;
 use Repo\Modifier;
 use Repo\Client;
 use Repo\Activity;
+use Repo\State;
 use Auth;
 
 use Cronos\model\Cost;
@@ -189,7 +190,14 @@ class ProjectController extends Controller
 
         $calculator = new CostPartitie($modifiers);
 
-        return view('project.show', compact('project', 'projectModifiers', 'calculator'));
+        $state = State::find($project->stateId);
+
+        return view('project.show', compact(
+            'project', 
+            'projectModifiers',
+            'calculator',
+            'state'
+        ));
     }
 
     public function edit($id)

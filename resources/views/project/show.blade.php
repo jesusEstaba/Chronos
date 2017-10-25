@@ -46,22 +46,25 @@
 
 <div class="box">
 	<div class="box-body" >
-		<a href="/projects/{{$project->id}}/edit" class="btn btn-outline-warning">
-			<i class="fa fa-pencil" aria-hidden="true"></i> Editar
+		<a target="_blank"  class="btn btn-outline-primary" href="/projects/partities/{{$project->id}}">
+			<i class="fa fa-file-pdf-o" aria-hidden="true"></i>  APU
 		</a>
+		<a target="_blank"  class="btn btn-outline-warning" href="/projects/offer/{{$project->id}}">
+			<i class="fa fa-file-pdf-o" aria-hidden="true"></i>  Oferta Económica
+		</a>
+		<a target="_blank"  class="btn btn-outline-info" href="/projects/gantt/{{$project->id}}">
+			<i class="fa fa-bar-chart" aria-hidden="true"></i> Cronograma
+		</a>
+		<a href="/projects/{{$project->id}}/clone"   class="btn btn-outline-success">
+			<i class="fa fa-clone" aria-hidden="true"></i> Duplicar
+		</a>
+		
 		<div class="buttons-actions pull-right" >
-			<a target="_blank"  class="btn btn-outline-primary" href="/projects/partities/{{$project->id}}">
-				<i class="fa fa-file-pdf-o" aria-hidden="true"></i>  APU
-			</a>
-			<a target="_blank"  class="btn btn-outline-warning" href="/projects/offer/{{$project->id}}">
-				<i class="fa fa-file-pdf-o" aria-hidden="true"></i>  Oferta Económica
-			</a>
-			<a target="_blank"  class="btn btn-outline-info" href="/projects/gantt/{{$project->id}}">
-				<i class="fa fa-bar-chart" aria-hidden="true"></i> Cronograma
-			</a>
-			<a href="/projects/{{$project->id}}/clone"   class="btn btn-outline-success">
-				<i class="fa fa-clone" aria-hidden="true"></i> Duplicar
-			</a>
+			@if($state->id <= 2)
+				<a href="/projects/{{$project->id}}/edit" class="btn btn-outline-warning">
+					<i class="fa fa-pencil" aria-hidden="true"></i> Editar
+				</a>
+			@endif
 		</div>
 		
 	</div>
@@ -85,9 +88,6 @@
 					</p>
 					<p>
 						<b>Estado:</b>
-						<?php
-							$state = Repo\State::find($project->stateId)
-						?>
 						<span class="badge badge-{{$state->color}}">
 							{{$state->name}}
 						</span>
@@ -305,9 +305,11 @@
 
 <div class="box">
 	<div class="box-body">
-		<a href="#" data-toggle="modal" data-target="#myModal" class="btn float-right btn-outline-danger">
-			<span class="fa fa-trash"></span> Eliminar
-		</a>
+		@if($state->id <= 1)
+			<a href="#" data-toggle="modal" data-target="#myModal" class="btn float-right btn-outline-danger">
+				<span class="fa fa-trash"></span> Eliminar
+			</a>
+		@endif
 
 
 		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
