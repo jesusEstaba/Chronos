@@ -29,6 +29,7 @@ class DashboardController
                 }
             })
             ->where('end', '>', date('Y-m-d'))
+            ->where('stateId', '>', 2)
             ->orderBy('end', 'desc')
             ->take(5)
             ->get();
