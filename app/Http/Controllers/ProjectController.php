@@ -202,12 +202,217 @@ class ProjectController extends Controller
 
     public function edit($id)
     {
-        //
+        $project = Project::where('companieId', Auth::user()->companieId)
+            ->where(function ($query) {
+                if (Auth::user()->rol == 0) {
+                    $query->where('userId', Auth::user()->id);
+                }
+            })
+            ->find($id);
+
+        if (!$project) {
+            return redirect('/projects');
+        }
+
+        $projectModifiers = Modifier::where('projectId', $id)->get();
+
+        $modifiers = [];
+
+        foreach ($projectModifiers as $modifier) {
+            $modifiers[$modifier->name] = $modifier->amount;
+        }
+
+        $clients = Client::where('companieId', Auth::user()->companieId)
+            ->where('disabled', 0)
+            ->get();
+
+        $projectPartities = json_encode($this->getPartitiesWithResourcesFromProject($project->id));
+
+        return view('project.edit', compact('project', 'projectPartities', 'modifiers','clients'));
+    }
+
+    private function getPartitiesWithResourcesFromProject($projectId)
+    {
+        $projectPartities = ProjectPartitie::where('projectId', $projectId)->get();
+
+        $partities = [];
+
+        foreach ($projectPartities as $partitie) {
+            $builPartitie = $partitie->partitie();
+            $builPartitie->yield = $partitie->yield;
+            $builPartitie->quantity = $partitie->quantity;
+
+            $builPartitie->materials = $this->getResourcesFromProjectPartitie(
+                ProjectMaterial::class, 
+                'material', 
+                $partitie->id
+            );
+
+            $builPartitie->equipments = $this->getResourcesFromProjectPartitie(
+                ProjectEquipment::class, 
+                'equipment', 
+                $partitie->id
+            );
+
+            $builPartitie->workforces = $this->getResourcesFromProjectPartitie(
+                Projectworkforce::class, 
+                'workforce', 
+                $partitie->id
+            );
+            
+            $partities[] = $builPartitie;
+        }
+
+        return $partities;
+    }
+
+    private function getResourcesFromProjectPartitie($repository, $entitieName, $projectPartitieId)
+    {
+        $projectResources = $repository::where('partitieId',  $projectPartitieId)->get();
+        $resources = [];
+
+        foreach ($projectResources as $resource) {
+            $resource->name = $resource->$entitieName()->name;
+            $resource->cost = $resource->cost();
+            $resource->depreciation = $resource->$entitieName()->depreciation ?? 0;
+            
+
+            $resources[] = $resource; 
+        }
+
+        return $resources;
     }
 
     public function update(Request $request, $id)
     {
-        //
+        $projectId = $id; 
+        
+        Project::where('id', $projectId)->update([
+            'name' => $request->name,
+            'description' => $request->description,
+            'start' => $request->start,
+            'end' => date("Y-m-d"),
+            'finish' => date("Y-m-d"),
+            'companieId' => Auth::user()->companieId,
+            'clientId' => $request->client,
+            'stateId' => $request->status,
+            'userId' => Auth::user()->id,
+        ]);
+
+        $modifiers = [
+            [
+                'name' => 'fcas',
+                'amount' => $request->fcas,
+                'type' => 1,
+            ],
+            [
+                'name' => 'expenses',
+                'amount' => $request->expenses,
+                'type' => 1,
+            ],
+            [
+                'name' => 'utility',
+                'amount' => $request->utility,
+                'type' => 1,
+            ],
+            [
+                'name' => 'unexpected',
+                'amount' => $request->unexpected,
+                'type' => 1,
+            ],
+            [
+                'name' => 'bonus',
+                'amount' => $request->bonus,
+                'type' => 1,
+            ],
+            [
+                'name' => 'salary',
+                'amount' => $request->salary,
+                'type' => 2,
+            ],
+            [
+                'name' => 'salaryBonus',
+                'amount' => $request->salaryBonus,
+                'type' => 2,
+            ],
+        ];
+
+        Modifier::where('projectId', $projectId)->delete();
+
+        foreach ($modifiers as $modifier) {
+            Modifier::create(array_merge($modifier, [
+                'projectId' => $projectId,
+            ]));
+        }
+
+        $order = 0;
+
+        if (count($request->partities)) {
+            $projectPartities = ProjectPartitie::where('projectId', $projectId)->get();
+
+            foreach ($projectPartities as $partitie) {
+                Activity::where('partitieId', $partitie->id)->delete();
+            }
+            
+            ProjectPartitie::where('projectId', $projectId)->delete();
+
+            foreach ($request->partities as $partitie) {
+                $partitieId = ProjectPartitie::create([
+                    'yield' => $partitie['yield'],
+                    'quantity' => $partitie['quantity'],
+                    'projectId' => $projectId,
+                    'partitieId' => $partitie['id'],
+                    'userId' => Auth::user()->id,
+                    'order' => $order++,
+                    'parent' => 0
+                ])->id;
+
+                if (isset($partitie['materials'])) {
+                    $this->deleteAndCreateResources(
+                        ProjectMaterial::class, 
+                        'material', 
+                        $partitie['materials'], 
+                        $partitieId
+                    );
+                }
+                
+                if (isset($partitie['equipments'])) {
+                    $this->deleteAndCreateResources(
+                        ProjectEquipment::class, 
+                        'equipment', 
+                        $partitie['equipments'], 
+                        $partitieId
+                    );
+                }
+                
+                if (isset($partitie['workforces'])) {
+                    $this->deleteAndCreateResources(
+                        ProjectWorkforce::class, 
+                        'workforce', 
+                        $partitie['workforces'], 
+                        $partitieId
+                    );
+                }
+            }
+        }
+
+        session()->flash('success', 'Proyecto Editado.');
+
+        return response()->json(['status' => 'redirect']);
+    }
+
+    private function deleteAndCreateResources($projectResourceRepository, $entityName, $resources, $partitieId)
+    {
+        $projectResourceRepository::where('partitieId', $partitieId)->delete();
+
+        foreach ($resources as $resource) {
+            $projectResourceRepository::create([
+                'partitieId' => $partitieId,
+                $entityName . 'Id' => $resource[$entityName . 'Id'],
+                'costId' => $resource['costId'],
+                'quantity' => $resource['quantity'],
+            ]);
+        }
     }
 
     public function destroy($id)

@@ -31,7 +31,7 @@
 	<div class="box">
 		<div class="box-body">
 			<div class="space-childs">
-				<script type="text/javascript" src="{{asset('js/createPartitie.js')}}"></script>
+				<script type="text/javascript" src="{{asset('js/createProject.js')}}"></script>
 				{{csrf_field()}}
 				
 				<div class="row">
