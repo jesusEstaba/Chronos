@@ -10,6 +10,9 @@ use Repo\ProjectPartitie;
 use Repo\ProjectMaterial;
 use Repo\ProjectEquipment;
 use Repo\ProjectWorkforce;
+use Repo\MaterialCost;
+use Repo\EquipmentCost;
+use Repo\WorkforceCost;
 use Repo\Modifier;
 use Repo\Client;
 use Repo\Activity;
@@ -318,7 +321,108 @@ class ProjectController extends Controller
 
     public function clone($id)
     {
-        //
+        $project = Project::where('companieId', Auth::user()->companieId)
+            ->where(function ($query) {
+                if (Auth::user()->rol == 0) {
+                    $query->where('userId', Auth::user()->id);
+                }
+            })
+            ->find($id);
+
+        if (!$project) {
+            return redirect('/projects');
+        }
+
+        $projectModifiers = Modifier::where('projectId', $id)->get();
+
+        $projectId = Project::create([
+            'name' => '(clon) ' . $project->name,
+            'description' => $project->description,
+            'start' => $project->start,
+            'end' => $project->end,
+            'finish' => $project->finish,
+            'companieId' => Auth::user()->companieId,
+            'clientId' => $project->clientId,
+            'stateId' => 1,
+            'userId' => Auth::user()->id,
+        ])->id;
+
+        foreach ($projectModifiers as $modifier) {
+            Modifier::create([
+                'name' => $modifier->name,
+                'amount' => $modifier->amount,
+                'type' => $modifier->type,
+                'projectId' => $projectId,
+            ]);
+        }
+
+        $order = 0;
+
+        $partities = ProjectPartitie::where('projectId', $id)->get();
+
+        if (count($partities)) {
+            foreach ($partities as $partitie) {
+                $partitieId = ProjectPartitie::create([
+                    'yield' => $partitie->yield,
+                    'quantity' => $partitie->quantity,
+                    'projectId' => $projectId,
+                    'partitieId' => $partitie->partitieId,
+                    'userId' => Auth::user()->id,
+                    'order' => $order++,
+                    'parent' => 0
+                ])->id;
+
+                $materials = ProjectMaterial::where('partitieId', $partitie->id)->get();
+
+                if (isset($materials)) {
+	                foreach ($materials as $material) {
+                        $cost = MaterialCost::where('materialId', $material->materialId)->orderBy('id', 'desc')->take(1)->first();
+                        
+                        ProjectMaterial::create([
+	                        'partitieId' => $partitieId,
+	                        'materialId' => $material->materialId,
+	                        'costId' => $cost->id,
+                            'quantity' => $material->quantity,
+	                    ]);
+	                }
+                }
+                
+                $equipments = ProjectEquipment::where('partitieId', $partitie->id)->get();
+
+                if (isset($equipments)) {
+	                foreach ($equipments as $equipment) {
+                        $cost = EquipmentCost::where('equipmentId', $equipment->equipmentId)->orderBy('id', 'desc')->take(1)->first();
+                        
+                        ProjectEquipment::create([
+	                        'partitieId' => $partitieId,
+	                        'equipmentId' => $equipment->equipmentId,
+	                        'costId' => $cost->id,
+                            'quantity' => $equipment->quantity,
+	                    ]);
+	                }
+                }
+                
+                $workforces = ProjectWorkforce::where('partitieId', $partitie->id)->get();
+
+                if (isset($workforces)) {
+	                foreach ($workforces as $workforce) {
+                        $cost = WorkforceCost::where('workforceId', $workforce->workforceId)->orderBy('id', 'desc')->take(1)->first();
+                        
+                        ProjectWorkforce::create([
+	                        'partitieId' => $partitieId,
+	                        'workforceId' => $workforce->workforceId,
+	                        'costId' => $cost->id,
+                            'quantity' => $workforce->quantity,
+	                    ]);
+	                }
+            	}
+
+            }
+        }
+
+        session()->flash('success', 'Proyecto Duplicado.');
+
+        return redirect('projects/' . $projectId);
     }
 
     private function jsTime($time)

@@ -59,8 +59,8 @@
 			<a target="_blank"  class="btn btn-outline-info" href="/projects/gantt/{{$project->id}}">
 				<i class="fa fa-bar-chart" aria-hidden="true"></i> Cronograma
 			</a>
-			<a href="/projects/clone/{{$project->id}}"   class="btn btn-outline-success">
-				<i class="fa fa-clone" aria-hidden="true"></i> Clonar
+			<a href="/projects/{{$project->id}}/clone"   class="btn btn-outline-success">
+				<i class="fa fa-clone" aria-hidden="true"></i> Duplicar
 			</a>
 		</div>
 		

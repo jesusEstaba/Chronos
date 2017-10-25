@@ -46,11 +46,11 @@ Route::group(['middleware' => 'isAuth'], function() {
 
 	Route::resource('projects', 'ProjectController');
 	Route::get('projects/{id}/destroy', 'ProjectController@destroy');
+	Route::get('projects/{id}/clone', 'ProjectController@clone');
 	Route::get('projects/partities/{id}', 'ProjectController@partitiePDF');
 	Route::get('projects/offer/{id}', 'ProjectController@offerPDF');
 	Route::get('projects/gantt/{id}', 'ProjectController@gantt');
 	Route::post('projects/gantt/{id}', 'ProjectController@saveGantt');
-	Route::get('projects/clone/{id}', 'ProjectController@clone');
 
 	Route::resource('clients', 'ClientController');
 	Route::get('clients/{id}/enabled', 'ClientController@enabled');
