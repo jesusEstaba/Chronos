@@ -88,13 +88,6 @@ $(function() {
 				<td>
 						${$(this).attr('data-material-unit')}
 				</td>
-				<td>
-						<label class="custom-control custom-checkbox">
-							<input type="checkbox" class="custom-control-input"
-								name="uniq" value="off">
-							<span class="custom-control-indicator"></span>
-						</label>
-				</td>
 			</tr>
 		`);
 
@@ -109,7 +102,7 @@ $(function() {
         if (!$('.materials tbody tr')[0]) {
             $('.materials tbody').append(`
             	<tr class="delete-if-not-empty">
-					<td colspan="6">
+					<td colspan="5">
 						<p class="text-center">
 							No se ha agregado ningun recurso de este tipo.
 						</p>

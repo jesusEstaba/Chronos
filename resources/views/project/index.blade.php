@@ -17,12 +17,11 @@
 		@if(count($projects))
 			<table class="table table-striped table-bordered">
 				<thead>
-					<th>Nombre</th>
-					<th>Cliente</th>
-					<th>Responsable</th>
-					<th>Estado</th>
-					<th>Creación</th>
-					<th>Costo</th>
+					<th style="width: 40%;">Nombre</th>
+					<th style="width: 15%;">Responsable</th>
+					<th style="width: 15%;">Estado</th>
+					<th style="width: 15%;">Creación</th>
+					<th style="width: 15%;">Costo</th>
 				</thead>
 				<tbody>
 					@foreach($projects as $project)
@@ -31,10 +30,6 @@
 							<a href="/projects/{{$project->id}}">
 								{{$project->name}}
 							</a>
-						</td>
-						<td>
-							<a href="/clients/{{$project->clientId}}">{{Repo\Client::find($project->clientId)->name}}</a>
-							
 						</td>
 						<td>
 							<a href="/users/{{$project->userId}}">

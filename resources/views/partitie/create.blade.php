@@ -111,12 +111,11 @@
 									<th>Precio</th>
 									<th>Cantidad</th>
 									<th>Unidad</th>
-									<th>Magnitud</th>
 								</tr>
 							</thead>
 							<tbody>
 								<tr class="delete-if-not-empty">
-									<td colspan="6">
+									<td colspan="5">
 										<p class="text-center">
 											No se ha agregado ningun recurso de este tipo.
 										</p>

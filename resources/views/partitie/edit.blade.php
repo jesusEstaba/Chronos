@@ -109,7 +109,6 @@
 									<th>Precio</th>
 									<th>Cantidad</th>
 									<th>Unidad</th>
-									<th>Magnitud</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -141,27 +140,11 @@
 											<td>
 												{{$materialPartitie->material->unit->abbreviature}}
 											</td>
-											<td>
-												<label class="custom-control custom-checkbox">
-													<input 
-														type="checkbox" 
-														class="custom-control-input" 
-														name="uniq"
-														@if($materialPartitie->magnitude)
-															value="on"
-															checked 
-														@else
-															value="off"
-														@endif
-													>
-													<span class="custom-control-indicator"></span>
-												</label>
-											</td>
 										</tr>
 									@endforeach
 								@else
 									<tr class="delete-if-not-empty">
-										<td colspan="6">
+										<td colspan="5">
 											<p class="text-center">
 												No se ha agregado ningun recurso de este tipo.
 											</p>

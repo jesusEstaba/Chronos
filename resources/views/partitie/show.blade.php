@@ -64,27 +64,18 @@
 								<th>Precio</th>
 								<th>Cantidad</th>
 								<th>Unidad</th>
-								<th>Unico</th>
 							</tr>
 						</thead>
 						<tbody>
 							@if(count($materials))
 							@foreach($materials as $material)
 							<tr>
-								<td>{{$material->material->name}}</td>
+								<td>
+									<a href="/materials/{{$material->material->id}}">{{$material->material->name}}</a>
+								</td>
 								<td>{{number_format($material->material->lastCost(), 2)}}</td>
 								<td>{{number_format($material->quantity, 2)}}</td>
 								<td>{{$material->material->unit->abbreviature}}</td>
-								<td>
-									<label class="custom-control custom-checkbox">
-										<input type="checkbox" class="custom-control-input"
-										@if($material->magnitude)
-										checked
-										@endif
-										>
-										<span class="custom-control-indicator"></span>
-									</label>
-								</td>
 							</tr>
 							@endforeach
 							@else
@@ -115,7 +106,9 @@
 							@if(count($equipments))
 							@foreach($equipments as $equipment)
 							<tr>
-								<td>{{$equipment->equipment->name}}</td>
+								<td>
+									<a href="/equipments/{{$equipment->equipment->id}}">{{$equipment->equipment->name}}</a>
+								</td>
 								<td>{{number_format($equipment->equipment->lastCost(), 2)}}</td>
 								<td>{{number_format($equipment->quantity, 2)}}</td>
 								<td>
@@ -155,7 +148,9 @@
 							@if(count($workforces))
 							@foreach($workforces as $workforce)
 							<tr>
-								<td>{{$workforce->workforce->name}}</td>
+								<td>
+									<a href="/workforces/{{$workforce->workforce->id}}">{{$workforce->workforce->name}}</a>
+								</td>
 								<td>{{$workforce->workforce->lastCost()}}%</td>
 								<td>{{number_format($workforce->quantity, 2)}}</td>
 							</tr>
