@@ -311,11 +311,12 @@
 		</tr>
 		<tr style="text-align: right;">
 			<td></td>
+			<?php $ivaAmount = Repo\ConfigurationNumeric::getByKey('iva'); ?>
 			<td>
-				<h2 style="margin:0;">I.V.A. 12%:</h2>
+				<h2 style="margin:0;">I.V.A. {{$ivaAmount}}%:</h2>
 			</td>
 			<td>
-				<?php $iva = $totalInPartities * 0.12; ?>
+				<?php $iva = $totalInPartities * $ivaAmount / 100; ?>
 				<h2 style="margin:0;">{{number_format($iva, 2)}}</h2>
 			</td>
 		</tr>
@@ -345,13 +346,11 @@
 					<tr>
 						<td>
 							<h2>NOTA:</h2>
-							<h3>70% ORDEN DE COMPRA, 30% AL FINALIZAR LA INSTALACIÓN. PRECIOS SUJETOS A CAMBIO.</h3>
+							<h3>{{Repo\ConfigurationNote::getByKey('purchase')}}</h3>
 						</td>
 					</tr>
 					<tr>
-						<td>
-							Arpía Soluciones Tecnológicas, C.A, RIF.: J-31727106-8. Dir. Av. Libertador Edificio El Toscal Piso PB Local 5 y 6, Maturín Monagas Venezuela 6201. Telf. /Fax.: 58 291 
-						</td>
+						<td>{{Repo\ConfigurationNote::getByKey('company_address_and_info')}}</td>
 					</tr>
 				</table>
 			</td>
@@ -386,7 +385,7 @@
 									PERÍODO DE GARANTÍA:
 								</b>
 							</td>
-							<td>1 AÑO PARA LA ELECTRÓNICA </td>
+							<td>{{Repo\ConfigurationString::getByKey('electronic_warranty')}}</td>
 						</tr>
 						<tr class="right">
 							<td>
@@ -402,7 +401,7 @@
 									VALIDEZ DE OFERTA:
 								</b>
 							</td>
-							<td>4 DÍAS HÁBILES</td>
+							<td>{{Repo\ConfigurationString::getByKey('validity_offer_days')}}</td>
 						</tr>
 					</tbody>
 				</table>
