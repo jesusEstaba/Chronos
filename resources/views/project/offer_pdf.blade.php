@@ -315,7 +315,7 @@
 				<h2 style="margin:0;">I.V.A. 12%:</h2>
 			</td>
 			<td>
-				<?php $iva = $totalInPartities / 0.12; ?>
+				<?php $iva = $totalInPartities * 0.12; ?>
 				<h2 style="margin:0;">{{number_format($iva, 2)}}</h2>
 			</td>
 		</tr>
