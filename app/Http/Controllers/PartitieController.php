@@ -74,7 +74,7 @@ class PartitieController
                     'partitieId' => $partitieId,
                     'materialId' => $material['id'],
                     'quantity' => $material['qty'],
-                    'magnitude' => $material['uniq']=="on",
+                    'magnitude' => 0,
                 ]);
             }
         }
