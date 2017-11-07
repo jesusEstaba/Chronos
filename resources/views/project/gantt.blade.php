@@ -18,6 +18,7 @@
 
 
 <script type="text/javascript">
+ga('send', 'event', 'views', 'view', 'gantt');
 
 Date.prototype.addDays = function(days) {
   var dat = new Date(this.valueOf());
