@@ -73,4 +73,6 @@ Route::group(['middleware' => 'isAuth'], function() {
 	Route::resource('users', 'UserController');
 	Route::get('users/{id}/enabled', 'UserController@enabled');
 	Route::get('users/{id}/disabled', 'UserController@disabled');
+	
+	Route::resource('configuration', 'ConfigurationController');
 });

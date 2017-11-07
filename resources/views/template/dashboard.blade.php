@@ -169,6 +169,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                                 <i class="fa fa-users disabled"></i>
                                 Usuarios
                             </a>
+                        </li><li class="nav-item">
+                            <a id="configuration" class="nav-link " href="/configuration">
+                                <i class="fa fa-cog"></i>
+                                Configuración
+                            </a>
                         </li>
                         @endif
                     </ul>
