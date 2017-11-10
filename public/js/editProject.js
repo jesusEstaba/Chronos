@@ -7,7 +7,8 @@ var Partitie = {
     salary: 0,
     salaryBonus: 0,
     days: 30,
-    partities : [],
+    partities: [],
+    removed: [],
     calcMaterials(materials) {
         return materials.reduce((a, material) => 
             a + agregarProcentaje(material.cost, this.unexpected) * material.quantity, 0
@@ -109,6 +110,12 @@ var Partitie = {
         return 0;  
     },
     removePartitie(position) {
+        let projectPartitieId = this.partities[position].projectPartitie;
+
+        if (projectPartitieId) {
+            this.removed.push(projectPartitieId);
+        }
+
         this.partities.splice(position, 1)
         let index = 0
 
@@ -473,7 +480,7 @@ $(() => {
                 data: {
                     "_token": $('[name="_token"]').val(),
                     partities:  Partitie.partities,
-
+                    removed: Partitie.removed,
                     name: $('[name=name]').val(),
                     description: $('textarea[name=description]').val(),
                     client: $('[name=client]').val(),

@@ -239,6 +239,7 @@ class ProjectController extends Controller
 
         foreach ($projectPartities as $partitie) {
             $builPartitie = $partitie->partitie();
+            $builPartitie->projectPartitie = $partitie->id;
             $builPartitie->yield = $partitie->yield;
             $builPartitie->quantity = $partitie->quantity;
 
@@ -296,7 +297,6 @@ class ProjectController extends Controller
             'companieId' => Auth::user()->companieId,
             'clientId' => $request->client,
             'stateId' => $request->status,
-            'userId' => Auth::user()->id,
         ]);
 
         $modifiers = [
@@ -347,28 +347,53 @@ class ProjectController extends Controller
 
         $order = 0;
 
-        if (count($request->partities)) {
-            $projectPartities = ProjectPartitie::where('projectId', $projectId)->get();
+        if (isset($request->removed)) {
+            foreach ($request->removed as $partitieId) {
+                Activity::where('partitieId', $partitieId)->delete();
+                
+                ProjectPartitie::where('projectId', $projectId)
+                    ->where('parent', $partitieId)
+                    ->update(['parent' => 0]);
+                
+                ProjectMaterial::where('partitieId', $partitieId)->delete();
+                ProjectEquipment::where('partitieId', $partitieId)->delete();
+                ProjectWorkforce::where('partitieId', $partitieId)->delete();
 
-            foreach ($projectPartities as $partitie) {
-                Activity::where('partitieId', $partitie->id)->delete();
+                ProjectPartitie::where('projectId', $projectId)
+                    ->where('id', $partitieId)
+                    ->delete();
             }
-            
-            ProjectPartitie::where('projectId', $projectId)->delete();
+        }
 
+        if (count($request->partities)) {
             foreach ($request->partities as $partitie) {
-                $partitieId = ProjectPartitie::create([
-                    'yield' => $partitie['yield'],
-                    'quantity' => $partitie['quantity'],
-                    'projectId' => $projectId,
-                    'partitieId' => $partitie['id'],
-                    'userId' => Auth::user()->id,
-                    'order' => $order++,
-                    'parent' => 0
-                ])->id;
+                if (isset($partitie['projectPartitie'])) {
+                    $partitieId = $partitie['projectPartitie'];
+
+                    ProjectPartitie::where('id', $partitieId)
+                        ->update([
+                            'yield' => $partitie['yield'],
+                            'quantity' => $partitie['quantity'],
+                            'order' => $order++,
+                        ]);
+                } else {
+                    $partitieId = ProjectPartitie::create([
+                        'yield' => $partitie['yield'],
+                        'quantity' => $partitie['quantity'],
+                        'projectId' => $projectId,
+                        'partitieId' => $partitie['id'],
+                        'userId' => Auth::user()->id,
+                        'order' => $order++,
+                        'parent' => 0
+                    ])->id;
+                }
+                
+                ProjectMaterial::where('partitieId', $partitieId)->delete();
+                ProjectEquipment::where('partitieId', $partitieId)->delete();
+                ProjectWorkforce::where('partitieId', $partitieId)->delete();
 
                 if (isset($partitie['materials'])) {
-                    $this->deleteAndCreateResources(
+                    $this->createResources(
                         ProjectMaterial::class, 
                         'material', 
                         $partitie['materials'], 
@@ -377,7 +402,7 @@ class ProjectController extends Controller
                 }
                 
                 if (isset($partitie['equipments'])) {
-                    $this->deleteAndCreateResources(
+                    $this->createResources(
                         ProjectEquipment::class, 
                         'equipment', 
                         $partitie['equipments'], 
@@ -386,7 +411,7 @@ class ProjectController extends Controller
                 }
                 
                 if (isset($partitie['workforces'])) {
-                    $this->deleteAndCreateResources(
+                    $this->createResources(
                         ProjectWorkforce::class, 
                         'workforce', 
                         $partitie['workforces'], 
@@ -401,9 +426,14 @@ class ProjectController extends Controller
         return response()->json(['status' => 'redirect']);
     }
 
-    private function deleteAndCreateResources($projectResourceRepository, $entityName, $resources, $partitieId)
+    private function createResources(
+        $projectResourceRepository, 
+        $entityName, 
+        $resources, 
+        $partitieId
+    )
     {
-        $projectResourceRepository::where('partitieId', $partitieId)->delete();
+        //$projectResourceRepository::where('partitieId', $partitieId)->delete();
 
         foreach ($resources as $resource) {
             $projectResourceRepository::create([
