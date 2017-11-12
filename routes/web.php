@@ -73,6 +73,8 @@ Route::group(['middleware' => 'isAuth'], function() {
 	Route::resource('users', 'UserController');
 	Route::get('users/{id}/enabled', 'UserController@enabled');
 	Route::get('users/{id}/disabled', 'UserController@disabled');
-	
+	Route::get('users/password/change', 'UserController@formPassChange');
+	Route::post('users/password/change', 'UserController@passChanger');
+
 	Route::resource('configuration', 'ConfigurationController');
 });

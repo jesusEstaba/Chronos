@@ -10,6 +10,8 @@
 		<a href="/users/{{$user->id}}/edit" class="btn btn-outline-warning">
 			<i class="fa fa-pencil" aria-hidden="true"></i> Editar
 		</a>
+
+		
 		
 		@if($user->id != Auth::user()->id)
 			@if(!$user->state)
@@ -22,9 +24,9 @@
 				</a>
 			@endif
 		@else
-			<span class="pull-right badge badge-success" style="padding: 6px 32px" title="!Eres tú!">
-				<i class="fa fa-eye fa-2x" aria-hidden="true"></i>
-			</span>
+			<a href="/users/password/change" class="btn btn-outline-info pull-right">
+				<i class="fa fa-key" aria-hidden="true"></i> Cambiar Contraseña
+			</a>
 		@endif
 	</div>
 </div>

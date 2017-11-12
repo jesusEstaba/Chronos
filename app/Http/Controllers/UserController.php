@@ -125,4 +125,41 @@ class UserController extends Controller
 
         return redirect('/users/' . $id);
     }
+
+
+    public function formPassChange()
+    {
+        return view('user.password_change');
+    }
+
+
+    public function passChanger(Request $request)
+    {
+        $validator = \Validator::make($request->all(), [
+            'oldpassword' => 'required',
+            'password' => 'required|min:4',
+            'password_confirmation' => 'required|same:password'
+        ]);
+        
+        
+        $validator->after(function ($validator) use ($request) {
+            if (!\Hash::check($request->oldpassword, Auth::user()->password)) {
+                $validator->errors()->add('passnotequal', 'No coincide con la Contraseña actual');
+            }
+        });
+
+        if ($validator->fails()) {
+            return redirect('users/password/change')->withErrors($validator);
+        }
+
+        $userId = Auth::user()->id;
+        
+        User::where('id', $userId)->update([
+            'password' => bcrypt($request->password)
+        ]);
+            
+        session()->flash('success', 'Constraseña Cambiada.');
+            
+        return redirect('users/' . $userId);
+    }
 }
