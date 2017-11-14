@@ -162,4 +162,16 @@ class UserController extends Controller
             
         return redirect('users/' . $userId);
     }
+
+    public function passReset($id) {
+        $newPassword = substr(md5(time()), -4);
+        
+        User::where('id', $id)->update([
+            'password' => bcrypt($newPassword)
+        ]);
+
+        session()->flash('success', 'Constraseña Cambiada a "'. $newPassword .'".');
+        
+        return redirect('users/' . $id);
+    }
 }

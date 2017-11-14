@@ -14,6 +14,9 @@
 		
 		
 		@if($user->id != Auth::user()->id)
+			<a href="#" data-toggle="modal" data-target="#myModal" class="btn btn-outline-danger">
+				<i class="fa fa-key" aria-hidden="true"></i> Restablecer Contraseña
+			</a>
 			@if(!$user->state)
 				<a href="/users/{{$user->id}}/enabled" class="btn btn-outline-info pull-right">
 					<i class="fa fa-eye" aria-hidden="true"></i> Activar
@@ -24,7 +27,7 @@
 				</a>
 			@endif
 		@else
-			<a href="/users/password/change" class="btn btn-outline-info pull-right">
+			<a href="/users/password/change" class="btn btn-outline-info">
 				<i class="fa fa-key" aria-hidden="true"></i> Cambiar Contraseña
 			</a>
 		@endif
@@ -87,4 +90,27 @@
 	</div>
 
 </div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Restablecer Contraseña</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<p>
+							¿Realmente desea restablecer la contraseña de {{$user->name}}?<br>
+							<small>Ahora el usuario solo tendria acceso con la nueva clave a generar.</small>
+						</p>
+					</div>
+					<div class="modal-footer">
+						<a href="/users/{{$user->id}}/password/reset" class="btn btn-outline-danger">Restablecer</a>
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+					</div>
+				</div>
+			</div>
+		</div>
 @stop
