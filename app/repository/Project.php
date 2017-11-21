@@ -33,4 +33,8 @@ class Project extends Model
     public function partities() {
         return $this->hasMany('Repo\ProjectPartitie', 'projectId')->get();
     }
+
+    public function assignments() {
+        return $this->hasMany('Repo\ProjectAssignment', 'projectId')->get();
+    }
 }

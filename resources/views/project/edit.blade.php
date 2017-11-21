@@ -38,7 +38,17 @@
 				<script type="text/javascript">
                     
                     Partitie.partities = {!! $projectPartities !!};
-                    $(function() {
+                    <?php
+						$assignmentIds = [];
+					?>
+					Partitie.assignments = [
+						@foreach($project->assignments() as $assign)
+							{{$assign->userId}},
+							<?php $assignmentIds[] = $assign->userId; ?>
+						@endforeach
+					]
+
+					$(function() {
                         getInputsAndUpdate(); 
                     }); 
                     
@@ -144,10 +154,42 @@
 						<div class="form-group">
 							<label class="small">Gasto diario en viáticos</label>
 							<input name="bonus" value="{{$modifiers['bonus']}}" id="bonus" type="number" class="form-control project-modifier" placeholder="Gasto diario en viáticos" autocomplete="off" />
+						</div>
+
+						<p><b>Asiganaciones</b></p>
+						<div class="form-group">
+							<label class="small">Usuarios</label>
+							<div class="row">
+								<div class="col-md-8">
+									<select name="users" id="" class="form-control">
+										<option value="">Usuario</option>
+										@foreach($users as $user)
+											
+											@if($user->id != Auth::user()->id &&  !in_array($user->id, $assignmentIds))
+												<option value="{{$user->id}}">
+													{{$user->name}}
+												</option>
+											@endif
+											
+										@endforeach
+									</select>
+								</div>
+								<div class="col-md-4">
+									<button id="assign" class=" btn btn-outline-primary">Asginar</button>
+								</div>
+								<div class="col-md-12 assignments">
+									@foreach($project->assignments() as $assign)
+										<p>
+											<a class="remove-item" data-user="{{$assign->userId}}" href="javascript:;"><i class="fa fa-times" aria-hidden="true"></i></a>
+											<em>{{$assign->user()->name}}</em>
+										</p>
+									@endforeach
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
+			</div>
 
 
 				

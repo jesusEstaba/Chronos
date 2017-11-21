@@ -15,6 +15,7 @@ class UserController extends Controller
 {
 	function __construct() {
        $this->middleware('operatorRestrictedAccess');
+       //->except('store');
     }
 
     public function index(Request $request)

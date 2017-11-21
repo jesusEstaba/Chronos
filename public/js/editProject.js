@@ -9,6 +9,7 @@ var Partitie = {
     days: 30,
     partities: [],
     removed: [],
+    assignments: [],
     calcMaterials(materials) {
         return materials.reduce((a, material) => 
             a + agregarProcentaje(material.cost, this.unexpected) * material.quantity, 0
@@ -481,6 +482,7 @@ $(() => {
                     "_token": $('[name="_token"]').val(),
                     partities:  Partitie.partities,
                     removed: Partitie.removed,
+                    assignments: Partitie.assignments,
                     name: $('[name=name]').val(),
                     description: $('textarea[name=description]').val(),
                     client: $('[name=client]').val(),
@@ -543,5 +545,30 @@ $(() => {
             alert("campos vacios")
         }
     });
+
+    $('#assign').on('click', function() {
+        let userId = $('[name="users"]').val();
+
+        if (userId) {
+            Partitie.assignments.push(+userId);
+            let name = $('[name="users"]').find(`option[value="${userId}"]`).html();
+            $('.assignments').append(`<p>
+                <a class="remove-item" data-user="${userId}" href="javascript:;"><i class="fa fa-times" aria-hidden="true"></i></a>
+                <em>${name}</em>
+            </p>`);
+            $('[name="users"]').find(`option[value="${userId}"]`).remove();
+        }
+    });
+
+    $('.assignments').on('click', '.remove-item', function() {
+        let userId = $(this).attr('data-user');
+        let name = $(this).siblings('em').html();
+        $(this).parent().remove();
+
+        $('[name="users"]').append(`<option value="${userId}">${name}</option>`);
+
+        let withoutUser = Partitie.assignments.filter((n) => n != userId);
+        Partitie.assignments = withoutUser;
+    })
 })
 

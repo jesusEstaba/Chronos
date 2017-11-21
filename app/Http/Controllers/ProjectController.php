@@ -10,13 +10,16 @@ use Repo\ProjectPartitie;
 use Repo\ProjectMaterial;
 use Repo\ProjectEquipment;
 use Repo\ProjectWorkforce;
+use Repo\ProjectAssignment;
 use Repo\MaterialCost;
 use Repo\EquipmentCost;
 use Repo\WorkforceCost;
 use Repo\Modifier;
 use Repo\Client;
+use Repo\User;
 use Repo\Activity;
 use Repo\State;
+
 use Auth;
 
 use Cronos\model\Cost;
@@ -28,19 +31,43 @@ class ProjectController extends Controller
     {
         $search = $request->search;
 
-        $projects = Project::where('companieId', Auth::user()->companieId)
-            ->where(function ($query) use ($search) {
-                if ($search) {
-                    $query->where('name', 'like', '%' . $search . '%');
-                }
+        if (Auth::user()->rol <= 0) {
+            
+            $projects1 = ProjectAssignment::where('userId', Auth::user()->id)    
+                ->get();
 
-                if (Auth::user()->rol == 0) {
-                    $query->where('userId', Auth::user()->id);
-                }
-            })
-            ->orderBy('id', 'desc')
-            ->paginate(10);
+            $projects2 = Project::where('userId', Auth::user()->id)
+                ->get();
 
+            $projectsIds = [];
+            
+            foreach ($projects1 as $project) {
+                $projectsIds[] = $project->projectId;
+            }
+
+            foreach ($projects2 as $project) {
+                $projectsIds[] = $project->id;
+            }
+
+            $projects = Project::where(function ($query) use ($search) {
+                    if ($search) {
+                        $query->where('name', 'like', '%' . $search . '%');
+                    }
+                })
+                ->whereIn('id', $projectsIds)
+                ->orderBy('id', 'desc')
+                ->paginate(10);
+        } else {
+            $projects = Project::where('companieId', Auth::user()->companieId)
+                ->where(function ($query) use ($search) {
+                    if ($search) {
+                        $query->where('name', 'like', '%' . $search . '%');
+                    }
+                })
+                ->orderBy('id', 'desc')
+                ->paginate(10);
+        }
+       
         return view('project.index', compact('projects', 'search'));
     }
 
@@ -226,9 +253,15 @@ class ProjectController extends Controller
             ->where('disabled', 0)
             ->get();
 
+        
+        $users = User::where('companieId', Auth::user()->companieId)
+            ->where('status', 1)
+            ->where('rol', 0)
+            ->get();
+
         $projectPartities = json_encode($this->getPartitiesWithResourcesFromProject($project->id));
 
-        return view('project.edit', compact('project', 'projectPartities', 'modifiers','clients'));
+        return view('project.edit', compact('project', 'projectPartities', 'modifiers','clients', 'users'));
     }
 
     private function getPartitiesWithResourcesFromProject($projectId)
@@ -345,6 +378,17 @@ class ProjectController extends Controller
             ]));
         }
 
+        ProjectAssignment::where('projectId', $projectId)->delete();
+
+        if (isset($request->assignments)) {
+            foreach($request->assignments as $userId) {
+                ProjectAssignment::create([
+                    'projectId' => $projectId,
+                    'userId' => $userId
+                ]);
+            }
+        }
+
         $order = 0;
 
         if (isset($request->removed)) {
@@ -449,6 +493,7 @@ class ProjectController extends Controller
     {
 
         Modifier::where('projectId', $id)->delete();
+        ProjectAssignment::where('projectId', $id)->delete();
         $projectPartities = ProjectPartitie::where('projectId', $id)->get();
         
         if ($projectPartities) {
